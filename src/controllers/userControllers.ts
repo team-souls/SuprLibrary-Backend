@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
+
+// Optionally extend Request type for user property if using authentication middleware
+interface AuthRequest extends Request {
+  user?: { id: string };
+}
 import { prisma } from "../config/db.js";
-  
+import { uploadToCloudinary, deleteFromCloudinary } from "../upload/cloudinary";
+
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany();
@@ -9,6 +15,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to fetch users" });
   }
 };
+
 export const userProfile = async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany();
@@ -18,7 +25,6 @@ export const userProfile = async (req: Request, res: Response) => {
   }
 };
 
-
 export const searchUserByEmail = async (req: Request, res: Response) => {
   try {
     const { email } = req.query;
@@ -26,14 +32,65 @@ export const searchUserByEmail = async (req: Request, res: Response) => {
     const user = await prisma.user.findUnique({
       where: { email: email as string },
     });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
+export const editUserProfile = async (req: Request, res: Response) => {
+  const typedReq = req as AuthRequest;
+  try {
+    const userId = typedReq.user?.id || req.body.id;
+    const { email, name, avatar } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    // Fetch current user to get old avatar
+    const user = await prisma.user.findUnique({ where: { id: userId } });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    // Only update provided fields
+    const updateData: any = {};
+    if (email) updateData.email = email;
+    if (name) updateData.name = name;
+
+    // Handle avatar upload and deletion
+    if (avatar) {
+      // Upload new avatar
+      const uploadRes = await uploadToCloudinary(avatar, "avatars");
+      updateData.avatar = uploadRes.secure_url;
+
+      // Remove old avatar from Cloudinary if exists
+      if (user.avatar) {
+        // Extract public_id from old avatar URL
+        const match = user.avatar.match(/\/avatars\/([^\.\/]+)\./);
+        const publicId = match ? `avatars/${match[1]}` : undefined;
+        if (publicId) {
+          await deleteFromCloudinary(publicId);
+        }
+      }
+    }
+
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({ message: "No fields to update" });
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: updateData,
+    });
+
+    res.json({ message: "Profile updated successfully", user: updatedUser });
+  } catch (error: any) {
+    if (error.code === "P2002") {
+      // Prisma unique constraint failed
+      return res.status(409).json({ message: "Email already in use" });
+    }
+    res.status(500).json({ message: "Failed to update profile" });
   }
 };
 
@@ -72,7 +129,7 @@ export const promoteToOwner = async (req: Request, res: Response) => {
 export const createLibrary = async (req: Request, res: Response) => {
   try {
     const { email, name, location } = req.body;
-    console.log(req.body)
+    console.log(req.body);
     // const owner = await prisma.user.findUnique({
     //   where: { email },
     //   include: { library: true },

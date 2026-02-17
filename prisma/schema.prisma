@@ -1,3 +1,4 @@
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -13,82 +14,105 @@ datasource db {
   provider = "postgresql"
 }
 
-
-
-
 enum Role {
   USER
   ADMIN
   DEVELOPER
 }
 
-
 model User {
-  id        String   @id @default(cuid())
-  googleId  String   @unique
-  email     String   @unique
-  name      String?
-  avatar    String?
-  role      Role     @default(USER)
+  id       String  @id @default(cuid())
+  googleId String  @unique
+  email    String  @unique
+  name     String?
+  avatar   String?
+  role     Role    @default(USER)
 
-  library   Library?
+  library Library?
 
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  bookings  Booking[]
+  reviews   Review[]
 }
 
-
-
-
 model Library {
-  id            String    @id @default(cuid())
-  name          String
-  ownerId       String    @unique
-  owner         User      @relation(fields: [ownerId], references: [id])
+  id      String @id @default(cuid())
+  name    String
+  ownerId String @unique
+  owner   User   @relation(fields: [ownerId], references: [id])
 
-  rating        Float     @default(0)
+  rating        Float  @default(0)
   totalSeats    Int
   basePrice     Float
   location      String
   contactNumber String
 
-  facilities    String[]  // Simple version (upgrade later)
-  images        String[]  // Store image URLs
+  facilities String[] // Simple version (upgrade later)
+  images     String[] // Store image URLs
 
-  slotTypes     SlotType[]
+  slotTypes SlotType[]
 
-  createdAt     DateTime  @default(now())
+  createdAt DateTime  @default(now())
+  bookings  Booking[]
+  reviews   Review[]
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  rating      Int // out of 5
+  description String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  libraryId   String
+  library     Library  @relation(fields: [libraryId], references: [id])
+  createdAt   DateTime @default(now())
 }
 
 
+model Booking {
+  id           String     @id @default(cuid()) // booking_id
+  libraryId    String
+  library      Library    @relation(fields: [libraryId], references: [id])
+  slotTimingId String
+  slotTiming   SlotTiming @relation(fields: [slotTimingId], references: [id])
+  slotTypeId   String
+  slotType     SlotType   @relation(fields: [slotTypeId], references: [id])
+  timing       DateTime
+  libraryName  String
+  amount       Float
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  status       String // e.g. 'SUCCESS', 'FAILED', 'TRIAL'
+  paymentId    String? // Razorpay payment id
+  createdAt    DateTime   @default(now())
+}
 
 model SlotType {
-  id         String      @id @default(cuid())
-  typeName   String      
-  duration   Int        
-  price      Float
+  id       String @id @default(cuid())
+  typeName String
+  duration Int
+  price    Float
 
-  libraryId  String
-  library    Library     @relation(fields: [libraryId], references: [id])
+  libraryId String
+  library   Library @relation(fields: [libraryId], references: [id])
 
   slotTimings SlotTiming[]
 
-  createdAt  DateTime    @default(now())
+  createdAt DateTime  @default(now())
+  bookings  Booking[]
 }
 
-
-
 model SlotTiming {
-  id            String     @id @default(cuid())
+  id String @id @default(cuid())
 
-  slotTypeId    String
-  slotType      SlotType   @relation(fields: [slotTypeId], references: [id])
+  slotTypeId String
+  slotType   SlotType @relation(fields: [slotTypeId], references: [id])
 
-  startTime     DateTime
-  endTime       DateTime
+  startTime DateTime
+  endTime   DateTime
 
-  activeStudents Int       @default(0)
+  activeStudents Int @default(0)
 
-  
-
-  createdAt     DateTime   @default(now())
+  createdAt DateTime  @default(now())
+  bookings  Booking[]
 }
