@@ -51,8 +51,10 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Review: 'Review',
   User: 'User',
   Library: 'Library',
+  Booking: 'Booking',
   SlotType: 'SlotType',
   SlotTiming: 'SlotTiming'
 } as const
@@ -71,6 +73,19 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  description: 'description',
+  userId: 'userId',
+  libraryId: 'libraryId',
+  ownerId: 'ownerId',
+  createdAt: 'createdAt'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -101,6 +116,23 @@ export const LibraryScalarFieldEnum = {
 } as const
 
 export type LibraryScalarFieldEnum = (typeof LibraryScalarFieldEnum)[keyof typeof LibraryScalarFieldEnum]
+
+
+export const BookingScalarFieldEnum = {
+  id: 'id',
+  libraryId: 'libraryId',
+  slotTimingId: 'slotTimingId',
+  slotTypeId: 'slotTypeId',
+  timing: 'timing',
+  libraryName: 'libraryName',
+  amount: 'amount',
+  userId: 'userId',
+  status: 'status',
+  paymentId: 'paymentId',
+  createdAt: 'createdAt'
+} as const
+
+export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
 
 
 export const SlotTypeScalarFieldEnum = {

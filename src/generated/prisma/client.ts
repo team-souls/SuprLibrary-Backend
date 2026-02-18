@@ -29,8 +29,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Reviews
+ * const reviews = await prisma.review.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -39,6 +39,11 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
 /**
  * Model User
  * 
@@ -49,6 +54,11 @@ export type User = Prisma.UserModel
  * 
  */
 export type Library = Prisma.LibraryModel
+/**
+ * Model Booking
+ * 
+ */
+export type Booking = Prisma.BookingModel
 /**
  * Model SlotType
  * 

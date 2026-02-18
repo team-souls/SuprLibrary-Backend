@@ -8,7 +8,12 @@ import libraryRouter from "./routes/libraryRoutes.js";
 import imageUploadRoutes from "./upload/imageuploadRoutes.js"
 
 
-;
+
+
+import libraryRouter from './routes/libraryRoutes.js';
+import bodyParser from 'body-parser';
+import imageUploadRoutes from './upload/imageuploadRoutes.js';
+import bookingsRouter from './routes/bookingsRoutes.js';
 const app = express();
 
 const PORT = process.env.PORT;
@@ -28,8 +33,13 @@ app.get("/health", (req, res) => {
 });
 app.use("/api/user", userRouter);
 
-app.use("/api/auth", authRouter);
-app.use("/api/libraries", libraryRouter);
+app.use("/api/user",userRouter)
+
+app.use("/api/auth",authRouter)
+app.use("/api/bookings", bookingsRouter)
+app.use("/api/libraries", libraryRouter)
+
+app.use("/api/upload",imageUploadRoutes)
 
 app.use("/api/upload", imageUploadRoutes);
 
