@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Logger } from "../utils/logger.js";
+
 import { prisma } from "../config/db.js";
 
 export const createLibraryWithSlots = async (req: Request, res: Response) => {
