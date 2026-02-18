@@ -26,6 +26,7 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
       where: { email },
     });
 
+
     if (!owner) {
       return res.status(404).json({ message: "User not found" });
     }

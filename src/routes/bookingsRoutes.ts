@@ -1,5 +1,5 @@
 import express from "express";
-import { bookController, trialController } from "../controllers/bookController";
+import {  createOrderController, trialController, verifyPaymentAndBookController } from "../controllers/bookController";
 import {
   submitReview,
   getReviewsByLibrary,
@@ -8,7 +8,9 @@ import {
 
 const bookingsRouter = express.Router();
 
-bookingsRouter.post("/book", bookController);
+bookingsRouter.post("/create-order", createOrderController);
+
+bookingsRouter.post("/verify-payment", verifyPaymentAndBookController);
 bookingsRouter.post("/trial", trialController);
 
 bookingsRouter.post("/review", submitReview);

@@ -290,11 +290,11 @@ export type LibraryOrderByWithRelationInput = {
 
 export type LibraryWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  ownerId?: string
   AND?: Prisma.LibraryWhereInput | Prisma.LibraryWhereInput[]
   OR?: Prisma.LibraryWhereInput[]
   NOT?: Prisma.LibraryWhereInput | Prisma.LibraryWhereInput[]
   name?: Prisma.StringFilter<"Library"> | string
+  ownerId?: Prisma.StringFilter<"Library"> | string
   rating?: Prisma.FloatFilter<"Library"> | number
   totalSeats?: Prisma.IntFilter<"Library"> | number
   basePrice?: Prisma.FloatFilter<"Library"> | number
@@ -307,7 +307,7 @@ export type LibraryWhereUniqueInput = Prisma.AtLeast<{
   slotTypes?: Prisma.SlotTypeListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
-}, "id" | "ownerId">
+}, "id">
 
 export type LibraryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -454,14 +454,14 @@ export type LibraryUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type LibraryScalarRelationFilter = {
-  is?: Prisma.LibraryWhereInput
-  isNot?: Prisma.LibraryWhereInput
+export type LibraryListRelationFilter = {
+  every?: Prisma.LibraryWhereInput
+  some?: Prisma.LibraryWhereInput
+  none?: Prisma.LibraryWhereInput
 }
 
-export type LibraryNullableScalarRelationFilter = {
-  is?: Prisma.LibraryWhereInput | null
-  isNot?: Prisma.LibraryWhereInput | null
+export type LibraryOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type StringNullableListFilter<$PrismaModel = never> = {
@@ -522,50 +522,51 @@ export type LibrarySumOrderByAggregateInput = {
   basePrice?: Prisma.SortOrder
 }
 
-export type LibraryCreateNestedOneWithoutReviewsInput = {
-  create?: Prisma.XOR<Prisma.LibraryCreateWithoutReviewsInput, Prisma.LibraryUncheckedCreateWithoutReviewsInput>
-  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutReviewsInput
-  connect?: Prisma.LibraryWhereUniqueInput
+export type LibraryScalarRelationFilter = {
+  is?: Prisma.LibraryWhereInput
+  isNot?: Prisma.LibraryWhereInput
 }
 
-export type LibraryUpdateOneRequiredWithoutReviewsNestedInput = {
-  create?: Prisma.XOR<Prisma.LibraryCreateWithoutReviewsInput, Prisma.LibraryUncheckedCreateWithoutReviewsInput>
-  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutReviewsInput
-  upsert?: Prisma.LibraryUpsertWithoutReviewsInput
-  connect?: Prisma.LibraryWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.LibraryUpdateToOneWithWhereWithoutReviewsInput, Prisma.LibraryUpdateWithoutReviewsInput>, Prisma.LibraryUncheckedUpdateWithoutReviewsInput>
+export type LibraryCreateNestedManyWithoutOwnerInput = {
+  create?: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput> | Prisma.LibraryCreateWithoutOwnerInput[] | Prisma.LibraryUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutOwnerInput | Prisma.LibraryCreateOrConnectWithoutOwnerInput[]
+  createMany?: Prisma.LibraryCreateManyOwnerInputEnvelope
+  connect?: Prisma.LibraryWhereUniqueInput | Prisma.LibraryWhereUniqueInput[]
 }
 
-export type LibraryCreateNestedOneWithoutOwnerInput = {
-  create?: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput>
-  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutOwnerInput
-  connect?: Prisma.LibraryWhereUniqueInput
+export type LibraryUncheckedCreateNestedManyWithoutOwnerInput = {
+  create?: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput> | Prisma.LibraryCreateWithoutOwnerInput[] | Prisma.LibraryUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutOwnerInput | Prisma.LibraryCreateOrConnectWithoutOwnerInput[]
+  createMany?: Prisma.LibraryCreateManyOwnerInputEnvelope
+  connect?: Prisma.LibraryWhereUniqueInput | Prisma.LibraryWhereUniqueInput[]
 }
 
-export type LibraryUncheckedCreateNestedOneWithoutOwnerInput = {
-  create?: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput>
-  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutOwnerInput
-  connect?: Prisma.LibraryWhereUniqueInput
+export type LibraryUpdateManyWithoutOwnerNestedInput = {
+  create?: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput> | Prisma.LibraryCreateWithoutOwnerInput[] | Prisma.LibraryUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutOwnerInput | Prisma.LibraryCreateOrConnectWithoutOwnerInput[]
+  upsert?: Prisma.LibraryUpsertWithWhereUniqueWithoutOwnerInput | Prisma.LibraryUpsertWithWhereUniqueWithoutOwnerInput[]
+  createMany?: Prisma.LibraryCreateManyOwnerInputEnvelope
+  set?: Prisma.LibraryWhereUniqueInput | Prisma.LibraryWhereUniqueInput[]
+  disconnect?: Prisma.LibraryWhereUniqueInput | Prisma.LibraryWhereUniqueInput[]
+  delete?: Prisma.LibraryWhereUniqueInput | Prisma.LibraryWhereUniqueInput[]
+  connect?: Prisma.LibraryWhereUniqueInput | Prisma.LibraryWhereUniqueInput[]
+  update?: Prisma.LibraryUpdateWithWhereUniqueWithoutOwnerInput | Prisma.LibraryUpdateWithWhereUniqueWithoutOwnerInput[]
+  updateMany?: Prisma.LibraryUpdateManyWithWhereWithoutOwnerInput | Prisma.LibraryUpdateManyWithWhereWithoutOwnerInput[]
+  deleteMany?: Prisma.LibraryScalarWhereInput | Prisma.LibraryScalarWhereInput[]
 }
 
-export type LibraryUpdateOneWithoutOwnerNestedInput = {
-  create?: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput>
-  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutOwnerInput
-  upsert?: Prisma.LibraryUpsertWithoutOwnerInput
-  disconnect?: Prisma.LibraryWhereInput | boolean
-  delete?: Prisma.LibraryWhereInput | boolean
-  connect?: Prisma.LibraryWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.LibraryUpdateToOneWithWhereWithoutOwnerInput, Prisma.LibraryUpdateWithoutOwnerInput>, Prisma.LibraryUncheckedUpdateWithoutOwnerInput>
-}
-
-export type LibraryUncheckedUpdateOneWithoutOwnerNestedInput = {
-  create?: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput>
-  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutOwnerInput
-  upsert?: Prisma.LibraryUpsertWithoutOwnerInput
-  disconnect?: Prisma.LibraryWhereInput | boolean
-  delete?: Prisma.LibraryWhereInput | boolean
-  connect?: Prisma.LibraryWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.LibraryUpdateToOneWithWhereWithoutOwnerInput, Prisma.LibraryUpdateWithoutOwnerInput>, Prisma.LibraryUncheckedUpdateWithoutOwnerInput>
+export type LibraryUncheckedUpdateManyWithoutOwnerNestedInput = {
+  create?: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput> | Prisma.LibraryCreateWithoutOwnerInput[] | Prisma.LibraryUncheckedCreateWithoutOwnerInput[]
+  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutOwnerInput | Prisma.LibraryCreateOrConnectWithoutOwnerInput[]
+  upsert?: Prisma.LibraryUpsertWithWhereUniqueWithoutOwnerInput | Prisma.LibraryUpsertWithWhereUniqueWithoutOwnerInput[]
+  createMany?: Prisma.LibraryCreateManyOwnerInputEnvelope
+  set?: Prisma.LibraryWhereUniqueInput | Prisma.LibraryWhereUniqueInput[]
+  disconnect?: Prisma.LibraryWhereUniqueInput | Prisma.LibraryWhereUniqueInput[]
+  delete?: Prisma.LibraryWhereUniqueInput | Prisma.LibraryWhereUniqueInput[]
+  connect?: Prisma.LibraryWhereUniqueInput | Prisma.LibraryWhereUniqueInput[]
+  update?: Prisma.LibraryUpdateWithWhereUniqueWithoutOwnerInput | Prisma.LibraryUpdateWithWhereUniqueWithoutOwnerInput[]
+  updateMany?: Prisma.LibraryUpdateManyWithWhereWithoutOwnerInput | Prisma.LibraryUpdateManyWithWhereWithoutOwnerInput[]
+  deleteMany?: Prisma.LibraryScalarWhereInput | Prisma.LibraryScalarWhereInput[]
 }
 
 export type LibraryCreatefacilitiesInput = {
@@ -584,6 +585,14 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type LibraryUpdatefacilitiesInput = {
   set?: string[]
   push?: string | string[]
@@ -592,6 +601,20 @@ export type LibraryUpdatefacilitiesInput = {
 export type LibraryUpdateimagesInput = {
   set?: string[]
   push?: string | string[]
+}
+
+export type LibraryCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.LibraryCreateWithoutReviewsInput, Prisma.LibraryUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.LibraryWhereUniqueInput
+}
+
+export type LibraryUpdateOneRequiredWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.LibraryCreateWithoutReviewsInput, Prisma.LibraryUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.LibraryUpsertWithoutReviewsInput
+  connect?: Prisma.LibraryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LibraryUpdateToOneWithWhereWithoutReviewsInput, Prisma.LibraryUpdateWithoutReviewsInput>, Prisma.LibraryUncheckedUpdateWithoutReviewsInput>
 }
 
 export type LibraryCreateNestedOneWithoutBookingsInput = {
@@ -620,6 +643,81 @@ export type LibraryUpdateOneRequiredWithoutSlotTypesNestedInput = {
   upsert?: Prisma.LibraryUpsertWithoutSlotTypesInput
   connect?: Prisma.LibraryWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.LibraryUpdateToOneWithWhereWithoutSlotTypesInput, Prisma.LibraryUpdateWithoutSlotTypesInput>, Prisma.LibraryUncheckedUpdateWithoutSlotTypesInput>
+}
+
+export type LibraryCreateWithoutOwnerInput = {
+  id?: string
+  name: string
+  rating?: number
+  totalSeats: number
+  basePrice: number
+  location: string
+  contactNumber: string
+  facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
+  images?: Prisma.LibraryCreateimagesInput | string[]
+  createdAt?: Date | string
+  slotTypes?: Prisma.SlotTypeCreateNestedManyWithoutLibraryInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
+}
+
+export type LibraryUncheckedCreateWithoutOwnerInput = {
+  id?: string
+  name: string
+  rating?: number
+  totalSeats: number
+  basePrice: number
+  location: string
+  contactNumber: string
+  facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
+  images?: Prisma.LibraryCreateimagesInput | string[]
+  createdAt?: Date | string
+  slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
+}
+
+export type LibraryCreateOrConnectWithoutOwnerInput = {
+  where: Prisma.LibraryWhereUniqueInput
+  create: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput>
+}
+
+export type LibraryCreateManyOwnerInputEnvelope = {
+  data: Prisma.LibraryCreateManyOwnerInput | Prisma.LibraryCreateManyOwnerInput[]
+  skipDuplicates?: boolean
+}
+
+export type LibraryUpsertWithWhereUniqueWithoutOwnerInput = {
+  where: Prisma.LibraryWhereUniqueInput
+  update: Prisma.XOR<Prisma.LibraryUpdateWithoutOwnerInput, Prisma.LibraryUncheckedUpdateWithoutOwnerInput>
+  create: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput>
+}
+
+export type LibraryUpdateWithWhereUniqueWithoutOwnerInput = {
+  where: Prisma.LibraryWhereUniqueInput
+  data: Prisma.XOR<Prisma.LibraryUpdateWithoutOwnerInput, Prisma.LibraryUncheckedUpdateWithoutOwnerInput>
+}
+
+export type LibraryUpdateManyWithWhereWithoutOwnerInput = {
+  where: Prisma.LibraryScalarWhereInput
+  data: Prisma.XOR<Prisma.LibraryUpdateManyMutationInput, Prisma.LibraryUncheckedUpdateManyWithoutOwnerInput>
+}
+
+export type LibraryScalarWhereInput = {
+  AND?: Prisma.LibraryScalarWhereInput | Prisma.LibraryScalarWhereInput[]
+  OR?: Prisma.LibraryScalarWhereInput[]
+  NOT?: Prisma.LibraryScalarWhereInput | Prisma.LibraryScalarWhereInput[]
+  id?: Prisma.StringFilter<"Library"> | string
+  name?: Prisma.StringFilter<"Library"> | string
+  ownerId?: Prisma.StringFilter<"Library"> | string
+  rating?: Prisma.FloatFilter<"Library"> | number
+  totalSeats?: Prisma.IntFilter<"Library"> | number
+  basePrice?: Prisma.FloatFilter<"Library"> | number
+  location?: Prisma.StringFilter<"Library"> | string
+  contactNumber?: Prisma.StringFilter<"Library"> | string
+  facilities?: Prisma.StringNullableListFilter<"Library">
+  images?: Prisma.StringNullableListFilter<"Library">
+  createdAt?: Prisma.DateTimeFilter<"Library"> | Date | string
 }
 
 export type LibraryCreateWithoutReviewsInput = {
@@ -700,86 +798,6 @@ export type LibraryUncheckedUpdateWithoutReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
-}
-
-export type LibraryCreateWithoutOwnerInput = {
-  id?: string
-  name: string
-  rating?: number
-  totalSeats: number
-  basePrice: number
-  location: string
-  contactNumber: string
-  facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
-  images?: Prisma.LibraryCreateimagesInput | string[]
-  createdAt?: Date | string
-  slotTypes?: Prisma.SlotTypeCreateNestedManyWithoutLibraryInput
-  bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
-  reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
-}
-
-export type LibraryUncheckedCreateWithoutOwnerInput = {
-  id?: string
-  name: string
-  rating?: number
-  totalSeats: number
-  basePrice: number
-  location: string
-  contactNumber: string
-  facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
-  images?: Prisma.LibraryCreateimagesInput | string[]
-  createdAt?: Date | string
-  slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
-  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
-  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
-}
-
-export type LibraryCreateOrConnectWithoutOwnerInput = {
-  where: Prisma.LibraryWhereUniqueInput
-  create: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput>
-}
-
-export type LibraryUpsertWithoutOwnerInput = {
-  update: Prisma.XOR<Prisma.LibraryUpdateWithoutOwnerInput, Prisma.LibraryUncheckedUpdateWithoutOwnerInput>
-  create: Prisma.XOR<Prisma.LibraryCreateWithoutOwnerInput, Prisma.LibraryUncheckedCreateWithoutOwnerInput>
-  where?: Prisma.LibraryWhereInput
-}
-
-export type LibraryUpdateToOneWithWhereWithoutOwnerInput = {
-  where?: Prisma.LibraryWhereInput
-  data: Prisma.XOR<Prisma.LibraryUpdateWithoutOwnerInput, Prisma.LibraryUncheckedUpdateWithoutOwnerInput>
-}
-
-export type LibraryUpdateWithoutOwnerInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
-  basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
-  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
-  images?: Prisma.LibraryUpdateimagesInput | string[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  slotTypes?: Prisma.SlotTypeUpdateManyWithoutLibraryNestedInput
-  bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
-  reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
-}
-
-export type LibraryUncheckedUpdateWithoutOwnerInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
-  basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
-  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
-  images?: Prisma.LibraryUpdateimagesInput | string[]
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
-  bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
-  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryCreateWithoutBookingsInput = {
@@ -940,6 +958,64 @@ export type LibraryUncheckedUpdateWithoutSlotTypesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
+}
+
+export type LibraryCreateManyOwnerInput = {
+  id?: string
+  name: string
+  rating?: number
+  totalSeats: number
+  basePrice: number
+  location: string
+  contactNumber: string
+  facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
+  images?: Prisma.LibraryCreateimagesInput | string[]
+  createdAt?: Date | string
+}
+
+export type LibraryUpdateWithoutOwnerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
+  images?: Prisma.LibraryUpdateimagesInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slotTypes?: Prisma.SlotTypeUpdateManyWithoutLibraryNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
+}
+
+export type LibraryUncheckedUpdateWithoutOwnerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
+  images?: Prisma.LibraryUpdateimagesInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
+}
+
+export type LibraryUncheckedUpdateManyWithoutOwnerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
+  images?: Prisma.LibraryUpdateimagesInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 

@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import crypto from "crypto";
 import { prisma } from "../config/db.js";
+import { razorpay } from "../utils/razorpay.js";
 
 // Razorpay simulation (replace with real integration)
 const simulateRazorpayPayment = async (amount: number) => {
@@ -12,9 +14,44 @@ const simulateRazorpayPayment = async (amount: number) => {
   };
 };
 
-export const bookController = async (req: Request, res: Response) => {
+export const createOrderController = async (req: Request, res: Response) => {
+  try {
+    const { amount } = req.body;
+
+    if (!amount) {
+      return res.status(400).json({ message: "Amount is required" });
+    }
+
+    const order = await razorpay.orders.create({
+      amount: Number(amount) * 100, // convert to paise
+      currency: "INR",
+      receipt: `receipt_${Date.now()}`,
+    });
+
+    res.status(200).json({
+      success: true,
+      orderId: order.id,
+      amount: order.amount,
+      currency: order.currency,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Order creation failed",
+      error,
+    });
+  }
+};
+
+export const verifyPaymentAndBookController = async (
+  req: Request,
+  res: Response,
+) => {
   try {
     const {
+      razorpay_order_id,
+      razorpay_payment_id,
+      razorpay_signature,
       libraryId,
       slotTimingId,
       slotTypeId,
@@ -23,8 +60,20 @@ export const bookController = async (req: Request, res: Response) => {
       amount,
       userId,
     } = req.body;
-    // Simulate payment
-    const paymentResult = await simulateRazorpayPayment(amount);
+
+    // 🔐 Verify Signature
+    const generatedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
+      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+      .digest("hex");
+
+    if (generatedSignature !== razorpay_signature) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid payment signature",
+      });
+    }
+
     const booking = await prisma.booking.create({
       data: {
         libraryId,
@@ -32,19 +81,24 @@ export const bookController = async (req: Request, res: Response) => {
         slotTypeId,
         timing: new Date(timing),
         libraryName,
-        amount,
+        amount: Number(amount),
         userId,
-        status: paymentResult.status,
-        paymentId: paymentResult.paymentId,
+        status: "SUCCESS",
+        paymentId: razorpay_payment_id,
       },
     });
-    if (paymentResult.status === "SUCCESS") {
-      return res.json({ message: "Booking successful", booking });
-    } else {
-      return res.status(402).json({ message: "Payment failed", booking });
-    }
+
+    res.status(200).json({
+      success: true,
+      message: "Booking successful",
+      booking,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Booking failed", error });
+    res.status(500).json({
+      success: false,
+      message: "Payment verification failed",
+      error,
+    });
   }
 };
 

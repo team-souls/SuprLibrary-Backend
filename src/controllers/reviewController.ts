@@ -3,8 +3,8 @@ import { prisma } from "../config/db.js";
 
 export const submitReview = async (req: Request, res: Response) => {
   try {
-    const { rating, description, userId, libraryId, ownerId } = req.body;
-    if (!rating || !description || !userId || !libraryId || !ownerId) {
+    const { rating, description, userId, libraryId } = req.body;
+    if (!rating || !description || !userId || !libraryId ) {
       return res.status(400).json({ message: "Missing required fields" });
     }
     const review = await prisma.review.create({
@@ -13,7 +13,6 @@ export const submitReview = async (req: Request, res: Response) => {
         description,
         userId,
         libraryId,
-        ownerId,
       },
     });
     res.json({ message: "Review submitted", review });
