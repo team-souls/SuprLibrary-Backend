@@ -118,7 +118,6 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
   }
 };
 
-
 export const getAllLibraries = async (req: Request, res: Response) => {
   try {
     const libraries = await prisma.library.findMany({
