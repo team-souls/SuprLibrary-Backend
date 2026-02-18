@@ -230,6 +230,7 @@ export type SlotTypeWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"SlotType"> | Date | string
   library?: Prisma.XOR<Prisma.LibraryScalarRelationFilter, Prisma.LibraryWhereInput>
   slotTimings?: Prisma.SlotTimingListRelationFilter
+  bookings?: Prisma.BookingListRelationFilter
 }
 
 export type SlotTypeOrderByWithRelationInput = {
@@ -241,6 +242,7 @@ export type SlotTypeOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   library?: Prisma.LibraryOrderByWithRelationInput
   slotTimings?: Prisma.SlotTimingOrderByRelationAggregateInput
+  bookings?: Prisma.BookingOrderByRelationAggregateInput
 }
 
 export type SlotTypeWhereUniqueInput = Prisma.AtLeast<{
@@ -255,6 +257,7 @@ export type SlotTypeWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"SlotType"> | Date | string
   library?: Prisma.XOR<Prisma.LibraryScalarRelationFilter, Prisma.LibraryWhereInput>
   slotTimings?: Prisma.SlotTimingListRelationFilter
+  bookings?: Prisma.BookingListRelationFilter
 }, "id">
 
 export type SlotTypeOrderByWithAggregationInput = {
@@ -291,6 +294,7 @@ export type SlotTypeCreateInput = {
   createdAt?: Date | string
   library: Prisma.LibraryCreateNestedOneWithoutSlotTypesInput
   slotTimings?: Prisma.SlotTimingCreateNestedManyWithoutSlotTypeInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutSlotTypeInput
 }
 
 export type SlotTypeUncheckedCreateInput = {
@@ -301,6 +305,7 @@ export type SlotTypeUncheckedCreateInput = {
   libraryId: string
   createdAt?: Date | string
   slotTimings?: Prisma.SlotTimingUncheckedCreateNestedManyWithoutSlotTypeInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutSlotTypeInput
 }
 
 export type SlotTypeUpdateInput = {
@@ -311,6 +316,7 @@ export type SlotTypeUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateOneRequiredWithoutSlotTypesNestedInput
   slotTimings?: Prisma.SlotTimingUpdateManyWithoutSlotTypeNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutSlotTypeNestedInput
 }
 
 export type SlotTypeUncheckedUpdateInput = {
@@ -321,6 +327,7 @@ export type SlotTypeUncheckedUpdateInput = {
   libraryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTimings?: Prisma.SlotTimingUncheckedUpdateManyWithoutSlotTypeNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutSlotTypeNestedInput
 }
 
 export type SlotTypeCreateManyInput = {
@@ -359,6 +366,11 @@ export type SlotTypeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type SlotTypeScalarRelationFilter = {
+  is?: Prisma.SlotTypeWhereInput
+  isNot?: Prisma.SlotTypeWhereInput
+}
+
 export type SlotTypeCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   typeName?: Prisma.SortOrder
@@ -394,11 +406,6 @@ export type SlotTypeMinOrderByAggregateInput = {
 export type SlotTypeSumOrderByAggregateInput = {
   duration?: Prisma.SortOrder
   price?: Prisma.SortOrder
-}
-
-export type SlotTypeScalarRelationFilter = {
-  is?: Prisma.SlotTypeWhereInput
-  isNot?: Prisma.SlotTypeWhereInput
 }
 
 export type SlotTypeCreateNestedManyWithoutLibraryInput = {
@@ -443,6 +450,20 @@ export type SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput = {
   deleteMany?: Prisma.SlotTypeScalarWhereInput | Prisma.SlotTypeScalarWhereInput[]
 }
 
+export type SlotTypeCreateNestedOneWithoutBookingsInput = {
+  create?: Prisma.XOR<Prisma.SlotTypeCreateWithoutBookingsInput, Prisma.SlotTypeUncheckedCreateWithoutBookingsInput>
+  connectOrCreate?: Prisma.SlotTypeCreateOrConnectWithoutBookingsInput
+  connect?: Prisma.SlotTypeWhereUniqueInput
+}
+
+export type SlotTypeUpdateOneRequiredWithoutBookingsNestedInput = {
+  create?: Prisma.XOR<Prisma.SlotTypeCreateWithoutBookingsInput, Prisma.SlotTypeUncheckedCreateWithoutBookingsInput>
+  connectOrCreate?: Prisma.SlotTypeCreateOrConnectWithoutBookingsInput
+  upsert?: Prisma.SlotTypeUpsertWithoutBookingsInput
+  connect?: Prisma.SlotTypeWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SlotTypeUpdateToOneWithWhereWithoutBookingsInput, Prisma.SlotTypeUpdateWithoutBookingsInput>, Prisma.SlotTypeUncheckedUpdateWithoutBookingsInput>
+}
+
 export type SlotTypeCreateNestedOneWithoutSlotTimingsInput = {
   create?: Prisma.XOR<Prisma.SlotTypeCreateWithoutSlotTimingsInput, Prisma.SlotTypeUncheckedCreateWithoutSlotTimingsInput>
   connectOrCreate?: Prisma.SlotTypeCreateOrConnectWithoutSlotTimingsInput
@@ -464,6 +485,7 @@ export type SlotTypeCreateWithoutLibraryInput = {
   price: number
   createdAt?: Date | string
   slotTimings?: Prisma.SlotTimingCreateNestedManyWithoutSlotTypeInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutSlotTypeInput
 }
 
 export type SlotTypeUncheckedCreateWithoutLibraryInput = {
@@ -473,6 +495,7 @@ export type SlotTypeUncheckedCreateWithoutLibraryInput = {
   price: number
   createdAt?: Date | string
   slotTimings?: Prisma.SlotTimingUncheckedCreateNestedManyWithoutSlotTypeInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutSlotTypeInput
 }
 
 export type SlotTypeCreateOrConnectWithoutLibraryInput = {
@@ -513,6 +536,62 @@ export type SlotTypeScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"SlotType"> | Date | string
 }
 
+export type SlotTypeCreateWithoutBookingsInput = {
+  id?: string
+  typeName: string
+  duration: number
+  price: number
+  createdAt?: Date | string
+  library: Prisma.LibraryCreateNestedOneWithoutSlotTypesInput
+  slotTimings?: Prisma.SlotTimingCreateNestedManyWithoutSlotTypeInput
+}
+
+export type SlotTypeUncheckedCreateWithoutBookingsInput = {
+  id?: string
+  typeName: string
+  duration: number
+  price: number
+  libraryId: string
+  createdAt?: Date | string
+  slotTimings?: Prisma.SlotTimingUncheckedCreateNestedManyWithoutSlotTypeInput
+}
+
+export type SlotTypeCreateOrConnectWithoutBookingsInput = {
+  where: Prisma.SlotTypeWhereUniqueInput
+  create: Prisma.XOR<Prisma.SlotTypeCreateWithoutBookingsInput, Prisma.SlotTypeUncheckedCreateWithoutBookingsInput>
+}
+
+export type SlotTypeUpsertWithoutBookingsInput = {
+  update: Prisma.XOR<Prisma.SlotTypeUpdateWithoutBookingsInput, Prisma.SlotTypeUncheckedUpdateWithoutBookingsInput>
+  create: Prisma.XOR<Prisma.SlotTypeCreateWithoutBookingsInput, Prisma.SlotTypeUncheckedCreateWithoutBookingsInput>
+  where?: Prisma.SlotTypeWhereInput
+}
+
+export type SlotTypeUpdateToOneWithWhereWithoutBookingsInput = {
+  where?: Prisma.SlotTypeWhereInput
+  data: Prisma.XOR<Prisma.SlotTypeUpdateWithoutBookingsInput, Prisma.SlotTypeUncheckedUpdateWithoutBookingsInput>
+}
+
+export type SlotTypeUpdateWithoutBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  typeName?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  library?: Prisma.LibraryUpdateOneRequiredWithoutSlotTypesNestedInput
+  slotTimings?: Prisma.SlotTimingUpdateManyWithoutSlotTypeNestedInput
+}
+
+export type SlotTypeUncheckedUpdateWithoutBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  typeName?: Prisma.StringFieldUpdateOperationsInput | string
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  price?: Prisma.FloatFieldUpdateOperationsInput | number
+  libraryId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slotTimings?: Prisma.SlotTimingUncheckedUpdateManyWithoutSlotTypeNestedInput
+}
+
 export type SlotTypeCreateWithoutSlotTimingsInput = {
   id?: string
   typeName: string
@@ -520,6 +599,7 @@ export type SlotTypeCreateWithoutSlotTimingsInput = {
   price: number
   createdAt?: Date | string
   library: Prisma.LibraryCreateNestedOneWithoutSlotTypesInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutSlotTypeInput
 }
 
 export type SlotTypeUncheckedCreateWithoutSlotTimingsInput = {
@@ -529,6 +609,7 @@ export type SlotTypeUncheckedCreateWithoutSlotTimingsInput = {
   price: number
   libraryId: string
   createdAt?: Date | string
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutSlotTypeInput
 }
 
 export type SlotTypeCreateOrConnectWithoutSlotTimingsInput = {
@@ -554,6 +635,7 @@ export type SlotTypeUpdateWithoutSlotTimingsInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateOneRequiredWithoutSlotTypesNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutSlotTypeNestedInput
 }
 
 export type SlotTypeUncheckedUpdateWithoutSlotTimingsInput = {
@@ -563,6 +645,7 @@ export type SlotTypeUncheckedUpdateWithoutSlotTimingsInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   libraryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutSlotTypeNestedInput
 }
 
 export type SlotTypeCreateManyLibraryInput = {
@@ -580,6 +663,7 @@ export type SlotTypeUpdateWithoutLibraryInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTimings?: Prisma.SlotTimingUpdateManyWithoutSlotTypeNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutSlotTypeNestedInput
 }
 
 export type SlotTypeUncheckedUpdateWithoutLibraryInput = {
@@ -589,6 +673,7 @@ export type SlotTypeUncheckedUpdateWithoutLibraryInput = {
   price?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTimings?: Prisma.SlotTimingUncheckedUpdateManyWithoutSlotTypeNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutSlotTypeNestedInput
 }
 
 export type SlotTypeUncheckedUpdateManyWithoutLibraryInput = {
@@ -606,10 +691,12 @@ export type SlotTypeUncheckedUpdateManyWithoutLibraryInput = {
 
 export type SlotTypeCountOutputType = {
   slotTimings: number
+  bookings: number
 }
 
 export type SlotTypeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   slotTimings?: boolean | SlotTypeCountOutputTypeCountSlotTimingsArgs
+  bookings?: boolean | SlotTypeCountOutputTypeCountBookingsArgs
 }
 
 /**
@@ -629,6 +716,13 @@ export type SlotTypeCountOutputTypeCountSlotTimingsArgs<ExtArgs extends runtime.
   where?: Prisma.SlotTimingWhereInput
 }
 
+/**
+ * SlotTypeCountOutputType without action
+ */
+export type SlotTypeCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookingWhereInput
+}
+
 
 export type SlotTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -639,6 +733,7 @@ export type SlotTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   createdAt?: boolean
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
   slotTimings?: boolean | Prisma.SlotType$slotTimingsArgs<ExtArgs>
+  bookings?: boolean | Prisma.SlotType$bookingsArgs<ExtArgs>
   _count?: boolean | Prisma.SlotTypeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["slotType"]>
 
@@ -675,6 +770,7 @@ export type SlotTypeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type SlotTypeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
   slotTimings?: boolean | Prisma.SlotType$slotTimingsArgs<ExtArgs>
+  bookings?: boolean | Prisma.SlotType$bookingsArgs<ExtArgs>
   _count?: boolean | Prisma.SlotTypeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SlotTypeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -689,6 +785,7 @@ export type $SlotTypePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     library: Prisma.$LibraryPayload<ExtArgs>
     slotTimings: Prisma.$SlotTimingPayload<ExtArgs>[]
+    bookings: Prisma.$BookingPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1093,6 +1190,7 @@ export interface Prisma__SlotTypeClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   library<T extends Prisma.LibraryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LibraryDefaultArgs<ExtArgs>>): Prisma.Prisma__LibraryClient<runtime.Types.Result.GetResult<Prisma.$LibraryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   slotTimings<T extends Prisma.SlotType$slotTimingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SlotType$slotTimingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SlotTimingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bookings<T extends Prisma.SlotType$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SlotType$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1545,6 +1643,30 @@ export type SlotType$slotTimingsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.SlotTimingScalarFieldEnum | Prisma.SlotTimingScalarFieldEnum[]
+}
+
+/**
+ * SlotType.bookings
+ */
+export type SlotType$bookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Booking
+   */
+  select?: Prisma.BookingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Booking
+   */
+  omit?: Prisma.BookingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookingInclude<ExtArgs> | null
+  where?: Prisma.BookingWhereInput
+  orderBy?: Prisma.BookingOrderByWithRelationInput | Prisma.BookingOrderByWithRelationInput[]
+  cursor?: Prisma.BookingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BookingScalarFieldEnum | Prisma.BookingScalarFieldEnum[]
 }
 
 /**
