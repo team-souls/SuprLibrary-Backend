@@ -3,7 +3,6 @@ import {  createOrderController, trialController, verifyPaymentAndBookController
 import {
   submitReview,
   getReviewsByLibrary,
-  getReviewsByOwner,
 } from "../controllers/reviewController";
 
 const bookingsRouter = express.Router();
@@ -15,6 +14,6 @@ bookingsRouter.post("/trial", trialController);
 
 bookingsRouter.post("/review", submitReview);
 bookingsRouter.get("/reviews/library/:libraryId", getReviewsByLibrary);
-bookingsRouter.get("/reviews/owner/:ownerId", getReviewsByOwner);
+// bookingsRouter.get("/reviews/owner/:ownerId", getReviewsByOwner);
 
 export default bookingsRouter;

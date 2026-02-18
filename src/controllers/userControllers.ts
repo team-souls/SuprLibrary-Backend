@@ -103,11 +103,7 @@ export const editUserProfile = async (req: Request, res: Response) => {
     }
 
     res.status(500).json({ message: "Failed to update profile" });
-    logger.info("usercontroller.js","user found")
-    res.json(user);
-  } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
+    logger.info("usercontroller.js","Failed to update profile");
 };
 
 
@@ -144,44 +140,44 @@ export const promoteToOwner = async (req: Request, res: Response) => {
   }
 };
 
-export const createLibrary = async (req: Request, res: Response) => {
-  try {
-    const { email, name, location } = req.body;
-    console.log(req.body);
-    // const owner = await prisma.user.findUnique({
-    //   where: { email },
-    //   include: { library: true },
-    // });
+// export const createLibrary = async (req: Request, res: Response) => {
+//   try {
+//     const { email, name, location } = req.body;
+//     console.log(req.body);
+//     // const owner = await prisma.user.findUnique({
+//     //   where: { email },
+//     //   include: { library: true },
+//     // });
 
-    // if (!owner) {
-    //   return res.status(404).json({ message: "User not found" });
-    // }
+//     // if (!owner) {
+//     //   return res.status(404).json({ message: "User not found" });
+//     // }
 
-    // if (owner.role !== "ADMIN") {
-    //   return res.status(400).json({
-    //     message: "User is not an ADMIN",
-    //   });
-    // }
+//     // if (owner.role !== "ADMIN") {
+//     //   return res.status(400).json({
+//     //     message: "User is not an ADMIN",
+//     //   });
+//     // }
 
-    // if (owner.library) {
-    //   return res.status(400).json({
-    //     message: "Owner already has a library",
-    //   });
-    // }
+//     // if (owner.library) {
+//     //   return res.status(400).json({
+//     //     message: "Owner already has a library",
+//     //   });
+//     // }
 
-    // const library = await prisma.library.create({
-    //   data: {
-    //     name: name as string,
-    //     location: location as string,
-    //     ownerId: owner.id,
-    //   },
-    // });
+//     // const library = await prisma.library.create({
+//     //   data: {
+//     //     name: name as string,
+//     //     location: location as string,
+//     //     ownerId: owner.id,
+//     //   },
+//     // });
 
-    // res.json({
-    //   message: "Library created successfully",
-    //   library,
-    // });
-  } catch (error) {
-    res.status(500).json({ message: "Library creation failed" });
-  }
-};
+//     // res.json({
+//     //   message: "Library created successfully",
+//     //   library,
+//     // });
+//   } catch (error) {
+//     res.status(500).json({ message: "Library creation failed" });
+//   }
+// }

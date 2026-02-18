@@ -7,12 +7,7 @@ import authRouter from "./routes/authRoutes.js";
 import libraryRouter from "./routes/libraryRoutes.js";
 import imageUploadRoutes from "./upload/imageuploadRoutes.js"
 
-
-
-
-import libraryRouter from './routes/libraryRoutes.js';
 import bodyParser from 'body-parser';
-import imageUploadRoutes from './upload/imageuploadRoutes.js';
 import bookingsRouter from './routes/bookingsRoutes.js';
 const app = express();
 
