@@ -51,8 +51,8 @@ model Library {
   location      String
   contactNumber String
 
-  facilities    String[]  // Simple version (upgrade later)
-  images        String[]  // Store image URLs
+  facilities    String[] 
+  images        String[]  
 
   slotTypes     SlotType[]
 

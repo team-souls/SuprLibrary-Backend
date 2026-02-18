@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 import { prisma } from "../config/db.js";
-  
+import { Logger } from "../utils/logger.js";
+const logger = Logger.getInstance();
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany();
+    logger.info("userController.js","fectched all users")
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch users" });
@@ -11,8 +13,9 @@ export const getAllUsers = async (req: Request, res: Response) => {
 };
 export const userProfile = async (req: Request, res: Response) => {
   try {
-    const users = await prisma.user.findMany();
-    res.json(users);
+    const user = await prisma.user.findMany();
+    logger.info("usercontroller.js","user found")
+    res.json(user);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch users" });
   }
@@ -28,9 +31,10 @@ export const searchUserByEmail = async (req: Request, res: Response) => {
     });
 
     if (!user) {
+      logger.info("usercontroller.js","user not found")
       return res.status(404).json({ message: "User not found" });
     }
-
+    logger.info("usercontroller.js","user found")
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
@@ -40,18 +44,19 @@ export const searchUserByEmail = async (req: Request, res: Response) => {
 export const promoteToOwner = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
-    console.log("Promote request for email:", email);
+ 
     const user = await prisma.user.findUnique({
       where: { email },
     });
-    console.log("User found:", user);
+    logger.info("usercontroller.js","user found by email id")
     if (!user) {
+       logger.info("usercontroller.js","user")
       return res.status(404).json({ message: "User not found" });
     }
 
     if (user.role !== "USER") {
       return res.status(400).json({
-        message: "User already promoted",
+        message: "User already is ADMIN",
       });
     }
 
@@ -59,7 +64,7 @@ export const promoteToOwner = async (req: Request, res: Response) => {
       where: { email },
       data: { role: "ADMIN" },
     });
-    console.log("User promoted:", updatedUser);
+    
     res.json({
       message: "User promoted to ADMIN",
       user: updatedUser,
