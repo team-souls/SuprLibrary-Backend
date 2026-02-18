@@ -39,36 +39,42 @@ export const searchUserByEmail = async (req: Request, res: Response) => {
 
 export const editUserProfile = async (req: Request, res: Response) => {
   const typedReq = req as AuthRequest;
+
   try {
     const userId = typedReq.user?.id || req.body.id;
-    const { email, name, avatar } = req.body;
+    const { email, name } = req.body;
+    const file = req.file; // <-- file from multer
 
     if (!userId) {
       return res.status(400).json({ message: "User ID is required" });
     }
 
-    // Fetch current user to get old avatar
     const user = await prisma.user.findUnique({ where: { id: userId } });
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Only update provided fields
     const updateData: any = {};
+
     if (email) updateData.email = email;
     if (name) updateData.name = name;
 
-    // Handle avatar upload and deletion
-    if (avatar) {
-      // Upload new avatar
-      const uploadRes = await uploadToCloudinary(avatar, "avatars");
+    // ✅ Handle avatar file
+    if (file) {
+      // Convert buffer to base64 for Cloudinary
+      const base64 = `data:${file.mimetype};base64,${file.buffer.toString(
+        "base64"
+      )}`;
+
+      const uploadRes = await uploadToCloudinary(base64, "avatars");
       updateData.avatar = uploadRes.secure_url;
 
-      // Remove old avatar from Cloudinary if exists
+      // Delete old avatar
       if (user.avatar) {
-        // Extract public_id from old avatar URL
         const match = user.avatar.match(/\/avatars\/([^\.\/]+)\./);
         const publicId = match ? `avatars/${match[1]}` : undefined;
+
         if (publicId) {
           await deleteFromCloudinary(publicId);
         }
@@ -85,14 +91,16 @@ export const editUserProfile = async (req: Request, res: Response) => {
     });
 
     res.json({ message: "Profile updated successfully", user: updatedUser });
+
   } catch (error: any) {
     if (error.code === "P2002") {
-      // Prisma unique constraint failed
       return res.status(409).json({ message: "Email already in use" });
     }
+
     res.status(500).json({ message: "Failed to update profile" });
   }
 };
+
 
 export const promoteToOwner = async (req: Request, res: Response) => {
   try {
