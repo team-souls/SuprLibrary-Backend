@@ -3,13 +3,14 @@ import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 import { prisma } from "../config/db.js";
-
+import { Logger } from "../utils/logger.js";
 dotenv.config();
 
+const logger = Logger.getInstance();
 export const googleAuth = async (req: Request, res: Response) => {
   try {
     const { idToken } = req.body;
-
+    console.log("google login starts")
     if (!idToken) {
       return res.status(400).json({
         message: "ID Token is required",
@@ -58,7 +59,7 @@ export const googleAuth = async (req: Request, res: Response) => {
       process.env.JWT_SECRET!,
       { expiresIn: "7d" }
     );
-
+    logger.info("usercontroller.js","google Oauth login success")
     return res.status(200).json({
       token,
       user,
