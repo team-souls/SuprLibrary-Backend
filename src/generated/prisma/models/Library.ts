@@ -30,12 +30,14 @@ export type LibraryAvgAggregateOutputType = {
   rating: number | null
   totalSeats: number | null
   basePrice: number | null
+  trialDuration: number | null
 }
 
 export type LibrarySumAggregateOutputType = {
   rating: number | null
   totalSeats: number | null
   basePrice: number | null
+  trialDuration: number | null
 }
 
 export type LibraryMinAggregateOutputType = {
@@ -45,8 +47,10 @@ export type LibraryMinAggregateOutputType = {
   rating: number | null
   totalSeats: number | null
   basePrice: number | null
-  location: string | null
   contactNumber: string | null
+  trialDuration: number | null
+  location: string | null
+  address: string | null
   createdAt: Date | null
 }
 
@@ -57,8 +61,10 @@ export type LibraryMaxAggregateOutputType = {
   rating: number | null
   totalSeats: number | null
   basePrice: number | null
-  location: string | null
   contactNumber: string | null
+  trialDuration: number | null
+  location: string | null
+  address: string | null
   createdAt: Date | null
 }
 
@@ -69,10 +75,12 @@ export type LibraryCountAggregateOutputType = {
   rating: number
   totalSeats: number
   basePrice: number
-  location: number
   contactNumber: number
+  trialDuration: number
   facilities: number
   images: number
+  location: number
+  address: number
   createdAt: number
   _all: number
 }
@@ -82,12 +90,14 @@ export type LibraryAvgAggregateInputType = {
   rating?: true
   totalSeats?: true
   basePrice?: true
+  trialDuration?: true
 }
 
 export type LibrarySumAggregateInputType = {
   rating?: true
   totalSeats?: true
   basePrice?: true
+  trialDuration?: true
 }
 
 export type LibraryMinAggregateInputType = {
@@ -97,8 +107,10 @@ export type LibraryMinAggregateInputType = {
   rating?: true
   totalSeats?: true
   basePrice?: true
-  location?: true
   contactNumber?: true
+  trialDuration?: true
+  location?: true
+  address?: true
   createdAt?: true
 }
 
@@ -109,8 +121,10 @@ export type LibraryMaxAggregateInputType = {
   rating?: true
   totalSeats?: true
   basePrice?: true
-  location?: true
   contactNumber?: true
+  trialDuration?: true
+  location?: true
+  address?: true
   createdAt?: true
 }
 
@@ -121,10 +135,12 @@ export type LibraryCountAggregateInputType = {
   rating?: true
   totalSeats?: true
   basePrice?: true
-  location?: true
   contactNumber?: true
+  trialDuration?: true
   facilities?: true
   images?: true
+  location?: true
+  address?: true
   createdAt?: true
   _all?: true
 }
@@ -222,10 +238,12 @@ export type LibraryGroupByOutputType = {
   rating: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration: number
   facilities: string[]
   images: string[]
+  location: string
+  address: string
   createdAt: Date
   _count: LibraryCountAggregateOutputType | null
   _avg: LibraryAvgAggregateOutputType | null
@@ -259,10 +277,12 @@ export type LibraryWhereInput = {
   rating?: Prisma.FloatFilter<"Library"> | number
   totalSeats?: Prisma.IntFilter<"Library"> | number
   basePrice?: Prisma.FloatFilter<"Library"> | number
-  location?: Prisma.StringFilter<"Library"> | string
   contactNumber?: Prisma.StringFilter<"Library"> | string
+  trialDuration?: Prisma.IntFilter<"Library"> | number
   facilities?: Prisma.StringNullableListFilter<"Library">
   images?: Prisma.StringNullableListFilter<"Library">
+  location?: Prisma.StringFilter<"Library"> | string
+  address?: Prisma.StringFilter<"Library"> | string
   createdAt?: Prisma.DateTimeFilter<"Library"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   slotTypes?: Prisma.SlotTypeListRelationFilter
@@ -277,10 +297,12 @@ export type LibraryOrderByWithRelationInput = {
   rating?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   basePrice?: Prisma.SortOrder
-  location?: Prisma.SortOrder
   contactNumber?: Prisma.SortOrder
+  trialDuration?: Prisma.SortOrder
   facilities?: Prisma.SortOrder
   images?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   owner?: Prisma.UserOrderByWithRelationInput
   slotTypes?: Prisma.SlotTypeOrderByRelationAggregateInput
@@ -298,10 +320,12 @@ export type LibraryWhereUniqueInput = Prisma.AtLeast<{
   rating?: Prisma.FloatFilter<"Library"> | number
   totalSeats?: Prisma.IntFilter<"Library"> | number
   basePrice?: Prisma.FloatFilter<"Library"> | number
-  location?: Prisma.StringFilter<"Library"> | string
   contactNumber?: Prisma.StringFilter<"Library"> | string
+  trialDuration?: Prisma.IntFilter<"Library"> | number
   facilities?: Prisma.StringNullableListFilter<"Library">
   images?: Prisma.StringNullableListFilter<"Library">
+  location?: Prisma.StringFilter<"Library"> | string
+  address?: Prisma.StringFilter<"Library"> | string
   createdAt?: Prisma.DateTimeFilter<"Library"> | Date | string
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   slotTypes?: Prisma.SlotTypeListRelationFilter
@@ -316,10 +340,12 @@ export type LibraryOrderByWithAggregationInput = {
   rating?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   basePrice?: Prisma.SortOrder
-  location?: Prisma.SortOrder
   contactNumber?: Prisma.SortOrder
+  trialDuration?: Prisma.SortOrder
   facilities?: Prisma.SortOrder
   images?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.LibraryCountOrderByAggregateInput
   _avg?: Prisma.LibraryAvgOrderByAggregateInput
@@ -338,10 +364,12 @@ export type LibraryScalarWhereWithAggregatesInput = {
   rating?: Prisma.FloatWithAggregatesFilter<"Library"> | number
   totalSeats?: Prisma.IntWithAggregatesFilter<"Library"> | number
   basePrice?: Prisma.FloatWithAggregatesFilter<"Library"> | number
-  location?: Prisma.StringWithAggregatesFilter<"Library"> | string
   contactNumber?: Prisma.StringWithAggregatesFilter<"Library"> | string
+  trialDuration?: Prisma.IntWithAggregatesFilter<"Library"> | number
   facilities?: Prisma.StringNullableListFilter<"Library">
   images?: Prisma.StringNullableListFilter<"Library">
+  location?: Prisma.StringWithAggregatesFilter<"Library"> | string
+  address?: Prisma.StringWithAggregatesFilter<"Library"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Library"> | Date | string
 }
 
@@ -351,10 +379,12 @@ export type LibraryCreateInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutLibraryInput
   slotTypes?: Prisma.SlotTypeCreateNestedManyWithoutLibraryInput
@@ -369,10 +399,12 @@ export type LibraryUncheckedCreateInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
   slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
@@ -385,10 +417,12 @@ export type LibraryUpdateInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
   slotTypes?: Prisma.SlotTypeUpdateManyWithoutLibraryNestedInput
@@ -403,10 +437,12 @@ export type LibraryUncheckedUpdateInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
@@ -420,10 +456,12 @@ export type LibraryCreateManyInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
 }
 
@@ -433,10 +471,12 @@ export type LibraryUpdateManyMutationInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -447,10 +487,12 @@ export type LibraryUncheckedUpdateManyInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -479,10 +521,12 @@ export type LibraryCountOrderByAggregateInput = {
   rating?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   basePrice?: Prisma.SortOrder
-  location?: Prisma.SortOrder
   contactNumber?: Prisma.SortOrder
+  trialDuration?: Prisma.SortOrder
   facilities?: Prisma.SortOrder
   images?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -490,6 +534,7 @@ export type LibraryAvgOrderByAggregateInput = {
   rating?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   basePrice?: Prisma.SortOrder
+  trialDuration?: Prisma.SortOrder
 }
 
 export type LibraryMaxOrderByAggregateInput = {
@@ -499,8 +544,10 @@ export type LibraryMaxOrderByAggregateInput = {
   rating?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   basePrice?: Prisma.SortOrder
-  location?: Prisma.SortOrder
   contactNumber?: Prisma.SortOrder
+  trialDuration?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -511,8 +558,10 @@ export type LibraryMinOrderByAggregateInput = {
   rating?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   basePrice?: Prisma.SortOrder
-  location?: Prisma.SortOrder
   contactNumber?: Prisma.SortOrder
+  trialDuration?: Prisma.SortOrder
+  location?: Prisma.SortOrder
+  address?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -520,6 +569,7 @@ export type LibrarySumOrderByAggregateInput = {
   rating?: Prisma.SortOrder
   totalSeats?: Prisma.SortOrder
   basePrice?: Prisma.SortOrder
+  trialDuration?: Prisma.SortOrder
 }
 
 export type LibraryScalarRelationFilter = {
@@ -651,10 +701,12 @@ export type LibraryCreateWithoutOwnerInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
   slotTypes?: Prisma.SlotTypeCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
@@ -667,10 +719,12 @@ export type LibraryUncheckedCreateWithoutOwnerInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
   slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
@@ -713,10 +767,12 @@ export type LibraryScalarWhereInput = {
   rating?: Prisma.FloatFilter<"Library"> | number
   totalSeats?: Prisma.IntFilter<"Library"> | number
   basePrice?: Prisma.FloatFilter<"Library"> | number
-  location?: Prisma.StringFilter<"Library"> | string
   contactNumber?: Prisma.StringFilter<"Library"> | string
+  trialDuration?: Prisma.IntFilter<"Library"> | number
   facilities?: Prisma.StringNullableListFilter<"Library">
   images?: Prisma.StringNullableListFilter<"Library">
+  location?: Prisma.StringFilter<"Library"> | string
+  address?: Prisma.StringFilter<"Library"> | string
   createdAt?: Prisma.DateTimeFilter<"Library"> | Date | string
 }
 
@@ -726,10 +782,12 @@ export type LibraryCreateWithoutReviewsInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutLibraryInput
   slotTypes?: Prisma.SlotTypeCreateNestedManyWithoutLibraryInput
@@ -743,10 +801,12 @@ export type LibraryUncheckedCreateWithoutReviewsInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
   slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
@@ -774,10 +834,12 @@ export type LibraryUpdateWithoutReviewsInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
   slotTypes?: Prisma.SlotTypeUpdateManyWithoutLibraryNestedInput
@@ -791,10 +853,12 @@ export type LibraryUncheckedUpdateWithoutReviewsInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
@@ -806,10 +870,12 @@ export type LibraryCreateWithoutBookingsInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutLibraryInput
   slotTypes?: Prisma.SlotTypeCreateNestedManyWithoutLibraryInput
@@ -823,10 +889,12 @@ export type LibraryUncheckedCreateWithoutBookingsInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
   slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
@@ -854,10 +922,12 @@ export type LibraryUpdateWithoutBookingsInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
   slotTypes?: Prisma.SlotTypeUpdateManyWithoutLibraryNestedInput
@@ -871,10 +941,12 @@ export type LibraryUncheckedUpdateWithoutBookingsInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
@@ -886,10 +958,12 @@ export type LibraryCreateWithoutSlotTypesInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
   owner: Prisma.UserCreateNestedOneWithoutLibraryInput
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
@@ -903,10 +977,12 @@ export type LibraryUncheckedCreateWithoutSlotTypesInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
@@ -934,10 +1010,12 @@ export type LibraryUpdateWithoutSlotTypesInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
@@ -951,10 +1029,12 @@ export type LibraryUncheckedUpdateWithoutSlotTypesInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
@@ -966,10 +1046,12 @@ export type LibraryCreateManyOwnerInput = {
   rating?: number
   totalSeats: number
   basePrice: number
-  location: string
   contactNumber: string
+  trialDuration?: number
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address: string
   createdAt?: Date | string
 }
 
@@ -979,10 +1061,12 @@ export type LibraryUpdateWithoutOwnerInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTypes?: Prisma.SlotTypeUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
@@ -995,10 +1079,12 @@ export type LibraryUncheckedUpdateWithoutOwnerInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
@@ -1011,10 +1097,12 @@ export type LibraryUncheckedUpdateManyWithoutOwnerInput = {
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
-  location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1074,10 +1162,12 @@ export type LibrarySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   rating?: boolean
   totalSeats?: boolean
   basePrice?: boolean
-  location?: boolean
   contactNumber?: boolean
+  trialDuration?: boolean
   facilities?: boolean
   images?: boolean
+  location?: boolean
+  address?: boolean
   createdAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   slotTypes?: boolean | Prisma.Library$slotTypesArgs<ExtArgs>
@@ -1093,10 +1183,12 @@ export type LibrarySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   rating?: boolean
   totalSeats?: boolean
   basePrice?: boolean
-  location?: boolean
   contactNumber?: boolean
+  trialDuration?: boolean
   facilities?: boolean
   images?: boolean
+  location?: boolean
+  address?: boolean
   createdAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["library"]>
@@ -1108,10 +1200,12 @@ export type LibrarySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   rating?: boolean
   totalSeats?: boolean
   basePrice?: boolean
-  location?: boolean
   contactNumber?: boolean
+  trialDuration?: boolean
   facilities?: boolean
   images?: boolean
+  location?: boolean
+  address?: boolean
   createdAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["library"]>
@@ -1123,14 +1217,16 @@ export type LibrarySelectScalar = {
   rating?: boolean
   totalSeats?: boolean
   basePrice?: boolean
-  location?: boolean
   contactNumber?: boolean
+  trialDuration?: boolean
   facilities?: boolean
   images?: boolean
+  location?: boolean
+  address?: boolean
   createdAt?: boolean
 }
 
-export type LibraryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "ownerId" | "rating" | "totalSeats" | "basePrice" | "location" | "contactNumber" | "facilities" | "images" | "createdAt", ExtArgs["result"]["library"]>
+export type LibraryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "ownerId" | "rating" | "totalSeats" | "basePrice" | "contactNumber" | "trialDuration" | "facilities" | "images" | "location" | "address" | "createdAt", ExtArgs["result"]["library"]>
 export type LibraryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   slotTypes?: boolean | Prisma.Library$slotTypesArgs<ExtArgs>
@@ -1160,10 +1256,12 @@ export type $LibraryPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     rating: number
     totalSeats: number
     basePrice: number
-    location: string
     contactNumber: string
+    trialDuration: number
     facilities: string[]
     images: string[]
+    location: string
+    address: string
     createdAt: Date
   }, ExtArgs["result"]["library"]>
   composites: {}
@@ -1598,10 +1696,12 @@ export interface LibraryFieldRefs {
   readonly rating: Prisma.FieldRef<"Library", 'Float'>
   readonly totalSeats: Prisma.FieldRef<"Library", 'Int'>
   readonly basePrice: Prisma.FieldRef<"Library", 'Float'>
-  readonly location: Prisma.FieldRef<"Library", 'String'>
   readonly contactNumber: Prisma.FieldRef<"Library", 'String'>
+  readonly trialDuration: Prisma.FieldRef<"Library", 'Int'>
   readonly facilities: Prisma.FieldRef<"Library", 'String[]'>
   readonly images: Prisma.FieldRef<"Library", 'String[]'>
+  readonly location: Prisma.FieldRef<"Library", 'String'>
+  readonly address: Prisma.FieldRef<"Library", 'String'>
   readonly createdAt: Prisma.FieldRef<"Library", 'DateTime'>
 }
     

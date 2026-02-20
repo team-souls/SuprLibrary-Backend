@@ -19,6 +19,13 @@ enum Role {
   DEVELOPER
 }
 
+enum BookingStatus {
+  TRIAL
+  PENDING
+  SUCCESS
+  CANCELLED
+}
+
 model User {
   id       String  @id @default(cuid())
   googleId String  @unique
@@ -40,14 +47,15 @@ model Library {
   ownerId String
   owner   User   @relation(fields: [ownerId], references: [id])
 
-  rating        Float  @default(0)
+  rating        Float    @default(0)
   totalSeats    Int
   basePrice     Float
-  location      String
   contactNumber String
-
-  facilities String[] 
-  images     String[] 
+  trialDuration Int @default(0)// Duration in days (optional)
+  facilities    String[] // Simple version (upgrade later)
+  images        String[] // Store image URLs
+  location      String 
+  address       String @default(" ")
 
   slotTypes SlotType[]
 
@@ -60,11 +68,12 @@ model Review {
   id          String   @id @default(cuid())
   rating      Int
   description String
-  userId      String
-  user        User     @relation(fields: [userId], references: [id])
-  libraryId   String
-  library     Library  @relation(fields: [libraryId], references: [id])
-  createdAt   DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  libraryId String
+  library   Library  @relation(fields: [libraryId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model Booking {
@@ -80,8 +89,9 @@ model Booking {
   amount       Float
   userId       String
   user         User       @relation(fields: [userId], references: [id])
-  status       String
-  paymentId    String?
+  status       BookingStatus?
+  trialEndDate DateTime? // For trial bookings
+  paymentId    String? // Razorpay payment id
   createdAt    DateTime   @default(now())
 }
 

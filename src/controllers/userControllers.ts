@@ -109,7 +109,6 @@ export const editUserProfile = async (req: Request, res: Response) => {
   } 
 };
 
-
 export const promoteToOwner = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;

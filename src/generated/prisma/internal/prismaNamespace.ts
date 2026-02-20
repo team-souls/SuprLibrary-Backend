@@ -912,10 +912,12 @@ export const LibraryScalarFieldEnum = {
   rating: 'rating',
   totalSeats: 'totalSeats',
   basePrice: 'basePrice',
-  location: 'location',
   contactNumber: 'contactNumber',
+  trialDuration: 'trialDuration',
   facilities: 'facilities',
   images: 'images',
+  location: 'location',
+  address: 'address',
   createdAt: 'createdAt'
 } as const
 
@@ -944,6 +946,7 @@ export const BookingScalarFieldEnum = {
   amount: 'amount',
   userId: 'userId',
   status: 'status',
+  trialEndDate: 'trialEndDate',
   paymentId: 'paymentId',
   createdAt: 'createdAt'
 } as const
@@ -1072,6 +1075,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'BookingStatus'
+ */
+export type EnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'BookingStatus[]'
+ */
+export type ListEnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus[]'>
     
 
 /**
