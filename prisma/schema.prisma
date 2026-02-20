@@ -20,10 +20,14 @@ enum Role {
 }
 
 enum BookingStatus {
-  TRIAL
   PENDING
   SUCCESS
   CANCELLED
+}
+enum TrialBookingStatus {
+  
+  ACTIVE
+  EXPIRED
 }
 
 model User {
@@ -38,6 +42,7 @@ model User {
 
   createdAt DateTime  @default(now())
   bookings  Booking[]
+  trialBookings TrialBooking[]
   reviews   Review[]
 }
 
@@ -61,6 +66,7 @@ model Library {
 
   createdAt DateTime  @default(now())
   bookings  Booking[]
+  trialBookings TrialBooking[]
   reviews   Review[]
 }
 
@@ -84,14 +90,30 @@ model Booking {
   slotTiming   SlotTiming @relation(fields: [slotTimingId], references: [id])
   slotTypeId   String
   slotType     SlotType   @relation(fields: [slotTypeId], references: [id])
-  timing       DateTime
+
   libraryName  String
   amount       Float
   userId       String
   user         User       @relation(fields: [userId], references: [id])
   status       BookingStatus?
-  trialEndDate DateTime? // For trial bookings
   paymentId    String? // Razorpay payment id
+  createdAt    DateTime   @default(now())
+}
+
+model TrialBooking {
+  id           String     @id @default(cuid()) // booking_id
+  libraryId    String
+  library      Library    @relation(fields: [libraryId], references: [id])
+  slotTimingId String
+  slotTiming   SlotTiming @relation(fields: [slotTimingId], references: [id])
+  slotTypeId   String
+  slotType     SlotType   @relation(fields: [slotTypeId], references: [id])
+
+  libraryName  String
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  status       TrialBookingStatus?
+  trialEndDate DateTime? // For trial bookings
   createdAt    DateTime   @default(now())
 }
 
@@ -108,6 +130,7 @@ model SlotType {
 
   createdAt DateTime  @default(now())
   bookings  Booking[]
+  trialBookings TrialBooking[]
 }
 
 model SlotTiming {
@@ -123,4 +146,5 @@ model SlotTiming {
 
   createdAt DateTime  @default(now())
   bookings  Booking[]
+  trialBookings TrialBooking[]
 }

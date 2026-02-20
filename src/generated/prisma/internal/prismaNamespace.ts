@@ -388,6 +388,7 @@ export const ModelName = {
   Library: 'Library',
   Review: 'Review',
   Booking: 'Booking',
+  TrialBooking: 'TrialBooking',
   SlotType: 'SlotType',
   SlotTiming: 'SlotTiming'
 } as const
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "library" | "review" | "booking" | "slotType" | "slotTiming"
+    modelProps: "user" | "library" | "review" | "booking" | "trialBooking" | "slotType" | "slotTiming"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -705,6 +706,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TrialBooking: {
+      payload: Prisma.$TrialBookingPayload<ExtArgs>
+      fields: Prisma.TrialBookingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TrialBookingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TrialBookingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload>
+        }
+        findFirst: {
+          args: Prisma.TrialBookingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TrialBookingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload>
+        }
+        findMany: {
+          args: Prisma.TrialBookingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload>[]
+        }
+        create: {
+          args: Prisma.TrialBookingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload>
+        }
+        createMany: {
+          args: Prisma.TrialBookingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TrialBookingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload>[]
+        }
+        delete: {
+          args: Prisma.TrialBookingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload>
+        }
+        update: {
+          args: Prisma.TrialBookingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload>
+        }
+        deleteMany: {
+          args: Prisma.TrialBookingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TrialBookingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TrialBookingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload>[]
+        }
+        upsert: {
+          args: Prisma.TrialBookingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TrialBookingPayload>
+        }
+        aggregate: {
+          args: Prisma.TrialBookingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTrialBooking>
+        }
+        groupBy: {
+          args: Prisma.TrialBookingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TrialBookingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TrialBookingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TrialBookingCountAggregateOutputType> | number
+        }
+      }
+    }
     SlotType: {
       payload: Prisma.$SlotTypePayload<ExtArgs>
       fields: Prisma.SlotTypeFieldRefs
@@ -941,17 +1016,30 @@ export const BookingScalarFieldEnum = {
   libraryId: 'libraryId',
   slotTimingId: 'slotTimingId',
   slotTypeId: 'slotTypeId',
-  timing: 'timing',
   libraryName: 'libraryName',
   amount: 'amount',
   userId: 'userId',
   status: 'status',
-  trialEndDate: 'trialEndDate',
   paymentId: 'paymentId',
   createdAt: 'createdAt'
 } as const
 
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+export const TrialBookingScalarFieldEnum = {
+  id: 'id',
+  libraryId: 'libraryId',
+  slotTimingId: 'slotTimingId',
+  slotTypeId: 'slotTypeId',
+  libraryName: 'libraryName',
+  userId: 'userId',
+  status: 'status',
+  trialEndDate: 'trialEndDate',
+  createdAt: 'createdAt'
+} as const
+
+export type TrialBookingScalarFieldEnum = (typeof TrialBookingScalarFieldEnum)[keyof typeof TrialBookingScalarFieldEnum]
 
 
 export const SlotTypeScalarFieldEnum = {
@@ -1091,6 +1179,20 @@ export type EnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 export type ListEnumBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BookingStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'TrialBookingStatus'
+ */
+export type EnumTrialBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TrialBookingStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TrialBookingStatus[]'
+ */
+export type ListEnumTrialBookingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TrialBookingStatus[]'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1190,6 +1292,7 @@ export type GlobalOmitConfig = {
   library?: Prisma.LibraryOmit
   review?: Prisma.ReviewOmit
   booking?: Prisma.BookingOmit
+  trialBooking?: Prisma.TrialBookingOmit
   slotType?: Prisma.SlotTypeOmit
   slotTiming?: Prisma.SlotTimingOmit
 }
