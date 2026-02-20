@@ -44,6 +44,7 @@ export type BookingMinAggregateOutputType = {
   amount: number | null
   userId: string | null
   status: string | null
+  trial: boolean | null
   paymentId: string | null
   createdAt: Date | null
 }
@@ -58,6 +59,7 @@ export type BookingMaxAggregateOutputType = {
   amount: number | null
   userId: string | null
   status: string | null
+  trial: boolean | null
   paymentId: string | null
   createdAt: Date | null
 }
@@ -72,6 +74,7 @@ export type BookingCountAggregateOutputType = {
   amount: number
   userId: number
   status: number
+  trial: number
   paymentId: number
   createdAt: number
   _all: number
@@ -96,6 +99,7 @@ export type BookingMinAggregateInputType = {
   amount?: true
   userId?: true
   status?: true
+  trial?: true
   paymentId?: true
   createdAt?: true
 }
@@ -110,6 +114,7 @@ export type BookingMaxAggregateInputType = {
   amount?: true
   userId?: true
   status?: true
+  trial?: true
   paymentId?: true
   createdAt?: true
 }
@@ -124,6 +129,7 @@ export type BookingCountAggregateInputType = {
   amount?: true
   userId?: true
   status?: true
+  trial?: true
   paymentId?: true
   createdAt?: true
   _all?: true
@@ -225,6 +231,7 @@ export type BookingGroupByOutputType = {
   amount: number
   userId: string
   status: string
+  trial: boolean
   paymentId: string | null
   createdAt: Date
   _count: BookingCountAggregateOutputType | null
@@ -262,6 +269,7 @@ export type BookingWhereInput = {
   amount?: Prisma.FloatFilter<"Booking"> | number
   userId?: Prisma.StringFilter<"Booking"> | string
   status?: Prisma.StringFilter<"Booking"> | string
+  trial?: Prisma.BoolFilter<"Booking"> | boolean
   paymentId?: Prisma.StringNullableFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   library?: Prisma.XOR<Prisma.LibraryScalarRelationFilter, Prisma.LibraryWhereInput>
@@ -280,6 +288,7 @@ export type BookingOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  trial?: Prisma.SortOrder
   paymentId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   library?: Prisma.LibraryOrderByWithRelationInput
@@ -301,6 +310,7 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.FloatFilter<"Booking"> | number
   userId?: Prisma.StringFilter<"Booking"> | string
   status?: Prisma.StringFilter<"Booking"> | string
+  trial?: Prisma.BoolFilter<"Booking"> | boolean
   paymentId?: Prisma.StringNullableFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   library?: Prisma.XOR<Prisma.LibraryScalarRelationFilter, Prisma.LibraryWhereInput>
@@ -319,6 +329,7 @@ export type BookingOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  trial?: Prisma.SortOrder
   paymentId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.BookingCountOrderByAggregateInput
@@ -341,6 +352,7 @@ export type BookingScalarWhereWithAggregatesInput = {
   amount?: Prisma.FloatWithAggregatesFilter<"Booking"> | number
   userId?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   status?: Prisma.StringWithAggregatesFilter<"Booking"> | string
+  trial?: Prisma.BoolWithAggregatesFilter<"Booking"> | boolean
   paymentId?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
 }
@@ -351,6 +363,7 @@ export type BookingCreateInput = {
   libraryName: string
   amount: number
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
   library: Prisma.LibraryCreateNestedOneWithoutBookingsInput
@@ -369,6 +382,7 @@ export type BookingUncheckedCreateInput = {
   amount: number
   userId: string
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -379,6 +393,7 @@ export type BookingUpdateInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateOneRequiredWithoutBookingsNestedInput
@@ -397,6 +412,7 @@ export type BookingUncheckedUpdateInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -411,6 +427,7 @@ export type BookingCreateManyInput = {
   amount: number
   userId: string
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -421,6 +438,7 @@ export type BookingUpdateManyMutationInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -435,6 +453,7 @@ export type BookingUncheckedUpdateManyInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -459,6 +478,7 @@ export type BookingCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  trial?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -477,6 +497,7 @@ export type BookingMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  trial?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -491,6 +512,7 @@ export type BookingMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  trial?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -583,6 +605,10 @@ export type BookingUncheckedUpdateManyWithoutLibraryNestedInput = {
   deleteMany?: Prisma.BookingScalarWhereInput | Prisma.BookingScalarWhereInput[]
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type BookingCreateNestedManyWithoutSlotTypeInput = {
   create?: Prisma.XOR<Prisma.BookingCreateWithoutSlotTypeInput, Prisma.BookingUncheckedCreateWithoutSlotTypeInput> | Prisma.BookingCreateWithoutSlotTypeInput[] | Prisma.BookingUncheckedCreateWithoutSlotTypeInput[]
   connectOrCreate?: Prisma.BookingCreateOrConnectWithoutSlotTypeInput | Prisma.BookingCreateOrConnectWithoutSlotTypeInput[]
@@ -673,6 +699,7 @@ export type BookingCreateWithoutUserInput = {
   libraryName: string
   amount: number
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
   library: Prisma.LibraryCreateNestedOneWithoutBookingsInput
@@ -689,6 +716,7 @@ export type BookingUncheckedCreateWithoutUserInput = {
   libraryName: string
   amount: number
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -732,6 +760,7 @@ export type BookingScalarWhereInput = {
   amount?: Prisma.FloatFilter<"Booking"> | number
   userId?: Prisma.StringFilter<"Booking"> | string
   status?: Prisma.StringFilter<"Booking"> | string
+  trial?: Prisma.BoolFilter<"Booking"> | boolean
   paymentId?: Prisma.StringNullableFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
 }
@@ -742,6 +771,7 @@ export type BookingCreateWithoutLibraryInput = {
   libraryName: string
   amount: number
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
   slotTiming: Prisma.SlotTimingCreateNestedOneWithoutBookingsInput
@@ -758,6 +788,7 @@ export type BookingUncheckedCreateWithoutLibraryInput = {
   amount: number
   userId: string
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -794,6 +825,7 @@ export type BookingCreateWithoutSlotTypeInput = {
   libraryName: string
   amount: number
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
   library: Prisma.LibraryCreateNestedOneWithoutBookingsInput
@@ -810,6 +842,7 @@ export type BookingUncheckedCreateWithoutSlotTypeInput = {
   amount: number
   userId: string
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -846,6 +879,7 @@ export type BookingCreateWithoutSlotTimingInput = {
   libraryName: string
   amount: number
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
   library: Prisma.LibraryCreateNestedOneWithoutBookingsInput
@@ -862,6 +896,7 @@ export type BookingUncheckedCreateWithoutSlotTimingInput = {
   amount: number
   userId: string
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -901,6 +936,7 @@ export type BookingCreateManyUserInput = {
   libraryName: string
   amount: number
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -911,6 +947,7 @@ export type BookingUpdateWithoutUserInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateOneRequiredWithoutBookingsNestedInput
@@ -927,6 +964,7 @@ export type BookingUncheckedUpdateWithoutUserInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -940,6 +978,7 @@ export type BookingUncheckedUpdateManyWithoutUserInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -953,6 +992,7 @@ export type BookingCreateManyLibraryInput = {
   amount: number
   userId: string
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -963,6 +1003,7 @@ export type BookingUpdateWithoutLibraryInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutBookingsNestedInput
@@ -979,6 +1020,7 @@ export type BookingUncheckedUpdateWithoutLibraryInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -992,6 +1034,7 @@ export type BookingUncheckedUpdateManyWithoutLibraryInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1005,6 +1048,7 @@ export type BookingCreateManySlotTypeInput = {
   amount: number
   userId: string
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -1015,6 +1059,7 @@ export type BookingUpdateWithoutSlotTypeInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateOneRequiredWithoutBookingsNestedInput
@@ -1031,6 +1076,7 @@ export type BookingUncheckedUpdateWithoutSlotTypeInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1044,6 +1090,7 @@ export type BookingUncheckedUpdateManyWithoutSlotTypeInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1057,6 +1104,7 @@ export type BookingCreateManySlotTimingInput = {
   amount: number
   userId: string
   status: string
+  trial?: boolean
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -1067,6 +1115,7 @@ export type BookingUpdateWithoutSlotTimingInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateOneRequiredWithoutBookingsNestedInput
@@ -1083,6 +1132,7 @@ export type BookingUncheckedUpdateWithoutSlotTimingInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1096,6 +1146,7 @@ export type BookingUncheckedUpdateManyWithoutSlotTimingInput = {
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1112,6 +1163,7 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   amount?: boolean
   userId?: boolean
   status?: boolean
+  trial?: boolean
   paymentId?: boolean
   createdAt?: boolean
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
@@ -1130,6 +1182,7 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   amount?: boolean
   userId?: boolean
   status?: boolean
+  trial?: boolean
   paymentId?: boolean
   createdAt?: boolean
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
@@ -1148,6 +1201,7 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   amount?: boolean
   userId?: boolean
   status?: boolean
+  trial?: boolean
   paymentId?: boolean
   createdAt?: boolean
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
@@ -1166,11 +1220,12 @@ export type BookingSelectScalar = {
   amount?: boolean
   userId?: boolean
   status?: boolean
+  trial?: boolean
   paymentId?: boolean
   createdAt?: boolean
 }
 
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "libraryId" | "slotTimingId" | "slotTypeId" | "timing" | "libraryName" | "amount" | "userId" | "status" | "paymentId" | "createdAt", ExtArgs["result"]["booking"]>
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "libraryId" | "slotTimingId" | "slotTypeId" | "timing" | "libraryName" | "amount" | "userId" | "status" | "trial" | "paymentId" | "createdAt", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
   slotTiming?: boolean | Prisma.SlotTimingDefaultArgs<ExtArgs>
@@ -1208,6 +1263,7 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     amount: number
     userId: string
     status: string
+    trial: boolean
     paymentId: string | null
     createdAt: Date
   }, ExtArgs["result"]["booking"]>
@@ -1646,6 +1702,7 @@ export interface BookingFieldRefs {
   readonly amount: Prisma.FieldRef<"Booking", 'Float'>
   readonly userId: Prisma.FieldRef<"Booking", 'String'>
   readonly status: Prisma.FieldRef<"Booking", 'String'>
+  readonly trial: Prisma.FieldRef<"Booking", 'Boolean'>
   readonly paymentId: Prisma.FieldRef<"Booking", 'String'>
   readonly createdAt: Prisma.FieldRef<"Booking", 'DateTime'>
 }

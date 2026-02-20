@@ -97,6 +97,7 @@ export const LibraryScalarFieldEnum = {
   basePrice: 'basePrice',
   location: 'location',
   contactNumber: 'contactNumber',
+  trialDuration: 'trialDuration',
   facilities: 'facilities',
   images: 'images',
   createdAt: 'createdAt'
@@ -127,6 +128,7 @@ export const BookingScalarFieldEnum = {
   amount: 'amount',
   userId: 'userId',
   status: 'status',
+  trial: 'trial',
   paymentId: 'paymentId',
   createdAt: 'createdAt'
 } as const

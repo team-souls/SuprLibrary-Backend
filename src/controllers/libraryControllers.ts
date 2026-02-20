@@ -16,6 +16,7 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
       contactNumber,
       slotTypes,
       facilities,
+      trialDuration,
     } = req.body;
 
     const files = req.files as Express.Multer.File[];
@@ -25,7 +26,6 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
     const owner = await prisma.user.findUnique({
       where: { email },
     });
-
 
     if (!owner) {
       return res.status(404).json({ message: "User not found" });
@@ -43,7 +43,7 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
     if (files && files.length > 0) {
       for (const file of files) {
         const base64 = `data:${file.mimetype};base64,${file.buffer.toString(
-          "base64"
+          "base64",
         )}`;
 
         const uploadRes = await uploadToCloudinary(base64, "libraries");
@@ -61,8 +61,9 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
           location,
           contactNumber,
           ownerId: owner.id,
-          facilities: facilities || [],   // ✅ store array
-          images: uploadedImageUrls,      // ✅ store image URLs
+          facilities: facilities || [], // ✅ store array
+          images: uploadedImageUrls, // ✅ store image URLs
+          trialDuration: trialDuration ? Number(trialDuration) : undefined,
         },
       });
 
@@ -110,7 +111,6 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
       message: "Library created successfully",
       library: result,
     });
-
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -118,7 +118,6 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
     });
   }
 };
-
 
 export const getAllLibraries = async (req: Request, res: Response) => {
   try {
@@ -211,7 +210,6 @@ export const getSingleLibrarySlots = async (req: Request, res: Response) => {
 
     const slots = await prisma.slotType.findMany({
       where: { libraryId: libraryId as string },
-      
     });
     if (!slots || slots.length === 0) {
       return res.status(404).json({
@@ -238,10 +236,11 @@ export const getLibrarySlotsTiming = async (req: Request, res: Response) => {
     }
 
     const slots = await prisma.slotTiming.findMany({
-      where: { slotType:{
-        libraryId: libraryId as string
-      }},
-      
+      where: {
+        slotType: {
+          libraryId: libraryId as string,
+        },
+      },
     });
     if (!slots || slots.length === 0) {
       return res.status(404).json({

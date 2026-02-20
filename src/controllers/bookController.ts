@@ -106,6 +106,8 @@ export const trialController = async (req: Request, res: Response) => {
   try {
     const { libraryId, slotTimingId, slotTypeId, timing, libraryName, userId } =
       req.body;
+
+    const trialDuration 
     const booking = await prisma.booking.create({
       data: {
         libraryId,
@@ -113,6 +115,7 @@ export const trialController = async (req: Request, res: Response) => {
         slotTypeId,
         timing: new Date(timing),
         libraryName,
+        expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days trial
         amount: 0,
         userId,
         status: "TRIAL",
