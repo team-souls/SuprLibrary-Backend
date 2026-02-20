@@ -188,6 +188,23 @@ export type EnumBookingStatusNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumBookingStatusNullableFilter<$PrismaModel> | $Enums.BookingStatus | null
 }
 
+export type EnumBookingStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BookingStatus | Prisma.EnumBookingStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBookingStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.BookingStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBookingStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBookingStatusNullableFilter<$PrismaModel>
+}
+
+export type EnumTrialBookingStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.TrialBookingStatus | Prisma.EnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.TrialBookingStatus[] | Prisma.ListEnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.TrialBookingStatus[] | Prisma.ListEnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumTrialBookingStatusNullableFilter<$PrismaModel> | $Enums.TrialBookingStatus | null
+}
+
 export type DateTimeNullableFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -199,14 +216,14 @@ export type DateTimeNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
 }
 
-export type EnumBookingStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.BookingStatus | Prisma.EnumBookingStatusFieldRefInput<$PrismaModel> | null
-  in?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumBookingStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.BookingStatus | null
+export type EnumTrialBookingStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TrialBookingStatus | Prisma.EnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.TrialBookingStatus[] | Prisma.ListEnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.TrialBookingStatus[] | Prisma.ListEnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumTrialBookingStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.TrialBookingStatus | null
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumBookingStatusNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumBookingStatusNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTrialBookingStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTrialBookingStatusNullableFilter<$PrismaModel>
 }
 
 export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -399,6 +416,23 @@ export type NestedEnumBookingStatusNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumBookingStatusNullableFilter<$PrismaModel> | $Enums.BookingStatus | null
 }
 
+export type NestedEnumBookingStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BookingStatus | Prisma.EnumBookingStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumBookingStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.BookingStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBookingStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBookingStatusNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumTrialBookingStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.TrialBookingStatus | Prisma.EnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.TrialBookingStatus[] | Prisma.ListEnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.TrialBookingStatus[] | Prisma.ListEnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumTrialBookingStatusNullableFilter<$PrismaModel> | $Enums.TrialBookingStatus | null
+}
+
 export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -410,14 +444,14 @@ export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
 }
 
-export type NestedEnumBookingStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.BookingStatus | Prisma.EnumBookingStatusFieldRefInput<$PrismaModel> | null
-  in?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.BookingStatus[] | Prisma.ListEnumBookingStatusFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumBookingStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.BookingStatus | null
+export type NestedEnumTrialBookingStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TrialBookingStatus | Prisma.EnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.TrialBookingStatus[] | Prisma.ListEnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.TrialBookingStatus[] | Prisma.ListEnumTrialBookingStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumTrialBookingStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.TrialBookingStatus | null
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumBookingStatusNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumBookingStatusNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTrialBookingStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTrialBookingStatusNullableFilter<$PrismaModel>
 }
 
 export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {

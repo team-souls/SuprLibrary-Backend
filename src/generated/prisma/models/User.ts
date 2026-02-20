@@ -200,6 +200,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   library?: Prisma.LibraryListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
+  trialBookings?: Prisma.TrialBookingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
 }
 
@@ -213,6 +214,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   library?: Prisma.LibraryOrderByRelationAggregateInput
   bookings?: Prisma.BookingOrderByRelationAggregateInput
+  trialBookings?: Prisma.TrialBookingOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
@@ -229,6 +231,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   library?: Prisma.LibraryListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
+  trialBookings?: Prisma.TrialBookingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
 }, "id" | "googleId" | "email">
 
@@ -268,6 +271,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   library?: Prisma.LibraryCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
+  trialBookings?: Prisma.TrialBookingCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
@@ -281,6 +285,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   library?: Prisma.LibraryUncheckedCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  trialBookings?: Prisma.TrialBookingUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -294,6 +299,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  trialBookings?: Prisma.TrialBookingUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
@@ -307,6 +313,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUncheckedUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
+  trialBookings?: Prisma.TrialBookingUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -433,6 +440,20 @@ export type UserUpdateOneRequiredWithoutBookingsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBookingsInput, Prisma.UserUpdateWithoutBookingsInput>, Prisma.UserUncheckedUpdateWithoutBookingsInput>
 }
 
+export type UserCreateNestedOneWithoutTrialBookingsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTrialBookingsInput, Prisma.UserUncheckedCreateWithoutTrialBookingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTrialBookingsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTrialBookingsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTrialBookingsInput, Prisma.UserUncheckedCreateWithoutTrialBookingsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTrialBookingsInput
+  upsert?: Prisma.UserUpsertWithoutTrialBookingsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTrialBookingsInput, Prisma.UserUpdateWithoutTrialBookingsInput>, Prisma.UserUncheckedUpdateWithoutTrialBookingsInput>
+}
+
 export type UserCreateWithoutLibraryInput = {
   id?: string
   googleId: string
@@ -442,6 +463,7 @@ export type UserCreateWithoutLibraryInput = {
   role?: $Enums.Role
   createdAt?: Date | string
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
+  trialBookings?: Prisma.TrialBookingCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
@@ -454,6 +476,7 @@ export type UserUncheckedCreateWithoutLibraryInput = {
   role?: $Enums.Role
   createdAt?: Date | string
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  trialBookings?: Prisma.TrialBookingUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -482,6 +505,7 @@ export type UserUpdateWithoutLibraryInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  trialBookings?: Prisma.TrialBookingUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
@@ -494,6 +518,7 @@ export type UserUncheckedUpdateWithoutLibraryInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
+  trialBookings?: Prisma.TrialBookingUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -507,6 +532,7 @@ export type UserCreateWithoutReviewsInput = {
   createdAt?: Date | string
   library?: Prisma.LibraryCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
+  trialBookings?: Prisma.TrialBookingCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReviewsInput = {
@@ -519,6 +545,7 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   createdAt?: Date | string
   library?: Prisma.LibraryUncheckedCreateNestedManyWithoutOwnerInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  trialBookings?: Prisma.TrialBookingUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReviewsInput = {
@@ -547,6 +574,7 @@ export type UserUpdateWithoutReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  trialBookings?: Prisma.TrialBookingUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsInput = {
@@ -559,6 +587,7 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUncheckedUpdateManyWithoutOwnerNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
+  trialBookings?: Prisma.TrialBookingUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBookingsInput = {
@@ -570,6 +599,7 @@ export type UserCreateWithoutBookingsInput = {
   role?: $Enums.Role
   createdAt?: Date | string
   library?: Prisma.LibraryCreateNestedManyWithoutOwnerInput
+  trialBookings?: Prisma.TrialBookingCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
@@ -582,6 +612,7 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   role?: $Enums.Role
   createdAt?: Date | string
   library?: Prisma.LibraryUncheckedCreateNestedManyWithoutOwnerInput
+  trialBookings?: Prisma.TrialBookingUncheckedCreateNestedManyWithoutUserInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -610,6 +641,7 @@ export type UserUpdateWithoutBookingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateManyWithoutOwnerNestedInput
+  trialBookings?: Prisma.TrialBookingUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
@@ -622,6 +654,75 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUncheckedUpdateManyWithoutOwnerNestedInput
+  trialBookings?: Prisma.TrialBookingUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutTrialBookingsInput = {
+  id?: string
+  googleId: string
+  email: string
+  name?: string | null
+  avatar?: string | null
+  role?: $Enums.Role
+  createdAt?: Date | string
+  library?: Prisma.LibraryCreateNestedManyWithoutOwnerInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutTrialBookingsInput = {
+  id?: string
+  googleId: string
+  email: string
+  name?: string | null
+  avatar?: string | null
+  role?: $Enums.Role
+  createdAt?: Date | string
+  library?: Prisma.LibraryUncheckedCreateNestedManyWithoutOwnerInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutTrialBookingsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTrialBookingsInput, Prisma.UserUncheckedCreateWithoutTrialBookingsInput>
+}
+
+export type UserUpsertWithoutTrialBookingsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTrialBookingsInput, Prisma.UserUncheckedUpdateWithoutTrialBookingsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTrialBookingsInput, Prisma.UserUncheckedCreateWithoutTrialBookingsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTrialBookingsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTrialBookingsInput, Prisma.UserUncheckedUpdateWithoutTrialBookingsInput>
+}
+
+export type UserUpdateWithoutTrialBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  library?: Prisma.LibraryUpdateManyWithoutOwnerNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTrialBookingsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  googleId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  library?: Prisma.LibraryUncheckedUpdateManyWithoutOwnerNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutUserNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -633,12 +734,14 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
 export type UserCountOutputType = {
   library: number
   bookings: number
+  trialBookings: number
   reviews: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   library?: boolean | UserCountOutputTypeCountLibraryArgs
   bookings?: boolean | UserCountOutputTypeCountBookingsArgs
+  trialBookings?: boolean | UserCountOutputTypeCountTrialBookingsArgs
   reviews?: boolean | UserCountOutputTypeCountReviewsArgs
 }
 
@@ -669,6 +772,13 @@ export type UserCountOutputTypeCountBookingsArgs<ExtArgs extends runtime.Types.E
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountTrialBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TrialBookingWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ReviewWhereInput
 }
@@ -684,6 +794,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   library?: boolean | Prisma.User$libraryArgs<ExtArgs>
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
+  trialBookings?: boolean | Prisma.User$trialBookingsArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -722,6 +833,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   library?: boolean | Prisma.User$libraryArgs<ExtArgs>
   bookings?: boolean | Prisma.User$bookingsArgs<ExtArgs>
+  trialBookings?: boolean | Prisma.User$trialBookingsArgs<ExtArgs>
   reviews?: boolean | Prisma.User$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -733,6 +845,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     library: Prisma.$LibraryPayload<ExtArgs>[]
     bookings: Prisma.$BookingPayload<ExtArgs>[]
+    trialBookings: Prisma.$TrialBookingPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1139,6 +1252,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   library<T extends Prisma.User$libraryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$libraryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LibraryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookings<T extends Prisma.User$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  trialBookings<T extends Prisma.User$trialBookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$trialBookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrialBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.User$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1609,6 +1723,30 @@ export type User$bookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.BookingScalarFieldEnum | Prisma.BookingScalarFieldEnum[]
+}
+
+/**
+ * User.trialBookings
+ */
+export type User$trialBookingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TrialBooking
+   */
+  select?: Prisma.TrialBookingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TrialBooking
+   */
+  omit?: Prisma.TrialBookingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrialBookingInclude<ExtArgs> | null
+  where?: Prisma.TrialBookingWhereInput
+  orderBy?: Prisma.TrialBookingOrderByWithRelationInput | Prisma.TrialBookingOrderByWithRelationInput[]
+  cursor?: Prisma.TrialBookingWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TrialBookingScalarFieldEnum | Prisma.TrialBookingScalarFieldEnum[]
 }
 
 /**
