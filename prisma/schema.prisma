@@ -59,7 +59,7 @@ model Library {
 
 model Review {
   id          String   @id @default(cuid())
-  rating      Int // out of 5
+  rating      Int 
   description String
   userId      String
   user        User     @relation(fields: [userId], references: [id])

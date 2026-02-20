@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-// Optionally extend Request type for user property if using authentication middleware
+
 interface AuthRequest extends Request {
   user?: { id: string };
 }
@@ -36,6 +36,8 @@ export const searchUserByEmail = async (req: Request, res: Response) => {
     const user = await prisma.user.findUnique({
       where: { email: email as string },
     });
+   
+    res.status(200).json({ message: "Success",data:user });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
