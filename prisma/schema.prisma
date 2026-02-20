@@ -64,8 +64,8 @@ model Library {
 }
 
 model Review {
-  id          String @id @default(cuid())
-  rating      Int // out of 5
+  id          String   @id @default(cuid())
+  rating      Int 
   description String
 
   userId    String

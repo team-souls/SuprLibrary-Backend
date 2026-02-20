@@ -1,14 +1,12 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import userRouter from "./routes/userRoutes.js";
-dotenv.config();
 import cors from "cors";
 import authRouter from "./routes/authRoutes.js";
 import libraryRouter from "./routes/libraryRoutes.js";
 import imageUploadRoutes from "./upload/imageuploadRoutes.js"
-
-import bodyParser from 'body-parser';
 import bookingsRouter from './routes/bookingsRoutes.js';
+dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT;
@@ -28,7 +26,7 @@ app.get("/health", (req, res) => {
 });
 app.use("/api/user", userRouter);
 
-app.use("/api/user",userRouter)
+
 
 app.use("/api/auth",authRouter)
 app.use("/api/bookings", bookingsRouter)
@@ -36,7 +34,7 @@ app.use("/api/libraries", libraryRouter)
 
 app.use("/api/upload",imageUploadRoutes)
 
-app.use("/api/upload", imageUploadRoutes);
+
 
 // Error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

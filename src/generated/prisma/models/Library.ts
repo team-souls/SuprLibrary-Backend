@@ -621,14 +621,6 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type LibraryUpdatefacilitiesInput = {
   set?: string[]
   push?: string | string[]
@@ -689,7 +681,6 @@ export type LibraryCreateWithoutOwnerInput = {
   basePrice: number
   location: string
   contactNumber: string
-  trialDuration?: number | null
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
   createdAt?: Date | string
@@ -706,7 +697,6 @@ export type LibraryUncheckedCreateWithoutOwnerInput = {
   basePrice: number
   location: string
   contactNumber: string
-  trialDuration?: number | null
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
   createdAt?: Date | string
@@ -753,7 +743,6 @@ export type LibraryScalarWhereInput = {
   basePrice?: Prisma.FloatFilter<"Library"> | number
   location?: Prisma.StringFilter<"Library"> | string
   contactNumber?: Prisma.StringFilter<"Library"> | string
-  trialDuration?: Prisma.IntNullableFilter<"Library"> | number | null
   facilities?: Prisma.StringNullableListFilter<"Library">
   images?: Prisma.StringNullableListFilter<"Library">
   createdAt?: Prisma.DateTimeFilter<"Library"> | Date | string
@@ -1019,7 +1008,6 @@ export type LibraryCreateManyOwnerInput = {
   basePrice: number
   location: string
   contactNumber: string
-  trialDuration?: number | null
   facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
   images?: Prisma.LibraryCreateimagesInput | string[]
   createdAt?: Date | string
@@ -1033,7 +1021,6 @@ export type LibraryUpdateWithoutOwnerInput = {
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  trialDuration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1050,7 +1037,6 @@ export type LibraryUncheckedUpdateWithoutOwnerInput = {
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  trialDuration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1067,7 +1053,6 @@ export type LibraryUncheckedUpdateManyWithoutOwnerInput = {
   basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
   location?: Prisma.StringFieldUpdateOperationsInput | string
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  trialDuration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
   images?: Prisma.LibraryUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string

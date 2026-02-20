@@ -5,7 +5,7 @@ import { razorpay } from "../utils/razorpay.js";
 
 // Razorpay simulation (replace with real integration)
 const simulateRazorpayPayment = async (amount: number) => {
-  // Simulate payment success/failure
+  
   const success = Math.random() > 0.2; // 80% success
   return {
     status: success ? "SUCCESS" : "FAILED",
