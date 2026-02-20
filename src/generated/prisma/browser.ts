@@ -52,3 +52,8 @@ export type SlotType = Prisma.SlotTypeModel
  * 
  */
 export type SlotTiming = Prisma.SlotTimingModel
+/**
+ * Model Attendance
+ * 
+ */
+export type Attendance = Prisma.AttendanceModel

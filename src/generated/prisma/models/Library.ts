@@ -289,6 +289,7 @@ export type LibraryWhereInput = {
   bookings?: Prisma.BookingListRelationFilter
   trialBookings?: Prisma.TrialBookingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
+  attendances?: Prisma.AttendanceListRelationFilter
 }
 
 export type LibraryOrderByWithRelationInput = {
@@ -310,6 +311,7 @@ export type LibraryOrderByWithRelationInput = {
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   trialBookings?: Prisma.TrialBookingOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
+  attendances?: Prisma.AttendanceOrderByRelationAggregateInput
 }
 
 export type LibraryWhereUniqueInput = Prisma.AtLeast<{
@@ -334,6 +336,7 @@ export type LibraryWhereUniqueInput = Prisma.AtLeast<{
   bookings?: Prisma.BookingListRelationFilter
   trialBookings?: Prisma.TrialBookingListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
+  attendances?: Prisma.AttendanceListRelationFilter
 }, "id">
 
 export type LibraryOrderByWithAggregationInput = {
@@ -394,6 +397,7 @@ export type LibraryCreateInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   trialBookings?: Prisma.TrialBookingCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryUncheckedCreateInput = {
@@ -414,6 +418,7 @@ export type LibraryUncheckedCreateInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   trialBookings?: Prisma.TrialBookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryUpdateInput = {
@@ -434,6 +439,7 @@ export type LibraryUpdateInput = {
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   trialBookings?: Prisma.TrialBookingUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryUncheckedUpdateInput = {
@@ -454,6 +460,7 @@ export type LibraryUncheckedUpdateInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   trialBookings?: Prisma.TrialBookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryCreateManyInput = {
@@ -716,6 +723,20 @@ export type LibraryUpdateOneRequiredWithoutSlotTypesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.LibraryUpdateToOneWithWhereWithoutSlotTypesInput, Prisma.LibraryUpdateWithoutSlotTypesInput>, Prisma.LibraryUncheckedUpdateWithoutSlotTypesInput>
 }
 
+export type LibraryCreateNestedOneWithoutAttendancesInput = {
+  create?: Prisma.XOR<Prisma.LibraryCreateWithoutAttendancesInput, Prisma.LibraryUncheckedCreateWithoutAttendancesInput>
+  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutAttendancesInput
+  connect?: Prisma.LibraryWhereUniqueInput
+}
+
+export type LibraryUpdateOneRequiredWithoutAttendancesNestedInput = {
+  create?: Prisma.XOR<Prisma.LibraryCreateWithoutAttendancesInput, Prisma.LibraryUncheckedCreateWithoutAttendancesInput>
+  connectOrCreate?: Prisma.LibraryCreateOrConnectWithoutAttendancesInput
+  upsert?: Prisma.LibraryUpsertWithoutAttendancesInput
+  connect?: Prisma.LibraryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.LibraryUpdateToOneWithWhereWithoutAttendancesInput, Prisma.LibraryUpdateWithoutAttendancesInput>, Prisma.LibraryUncheckedUpdateWithoutAttendancesInput>
+}
+
 export type LibraryCreateWithoutOwnerInput = {
   id?: string
   name: string
@@ -733,6 +754,7 @@ export type LibraryCreateWithoutOwnerInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   trialBookings?: Prisma.TrialBookingCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryUncheckedCreateWithoutOwnerInput = {
@@ -752,6 +774,7 @@ export type LibraryUncheckedCreateWithoutOwnerInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   trialBookings?: Prisma.TrialBookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryCreateOrConnectWithoutOwnerInput = {
@@ -816,6 +839,7 @@ export type LibraryCreateWithoutReviewsInput = {
   slotTypes?: Prisma.SlotTypeCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   trialBookings?: Prisma.TrialBookingCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryUncheckedCreateWithoutReviewsInput = {
@@ -835,6 +859,7 @@ export type LibraryUncheckedCreateWithoutReviewsInput = {
   slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   trialBookings?: Prisma.TrialBookingUncheckedCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryCreateOrConnectWithoutReviewsInput = {
@@ -870,6 +895,7 @@ export type LibraryUpdateWithoutReviewsInput = {
   slotTypes?: Prisma.SlotTypeUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   trialBookings?: Prisma.TrialBookingUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryUncheckedUpdateWithoutReviewsInput = {
@@ -889,6 +915,7 @@ export type LibraryUncheckedUpdateWithoutReviewsInput = {
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   trialBookings?: Prisma.TrialBookingUncheckedUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryCreateWithoutBookingsInput = {
@@ -908,6 +935,7 @@ export type LibraryCreateWithoutBookingsInput = {
   slotTypes?: Prisma.SlotTypeCreateNestedManyWithoutLibraryInput
   trialBookings?: Prisma.TrialBookingCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryUncheckedCreateWithoutBookingsInput = {
@@ -927,6 +955,7 @@ export type LibraryUncheckedCreateWithoutBookingsInput = {
   slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
   trialBookings?: Prisma.TrialBookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryCreateOrConnectWithoutBookingsInput = {
@@ -962,6 +991,7 @@ export type LibraryUpdateWithoutBookingsInput = {
   slotTypes?: Prisma.SlotTypeUpdateManyWithoutLibraryNestedInput
   trialBookings?: Prisma.TrialBookingUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryUncheckedUpdateWithoutBookingsInput = {
@@ -981,6 +1011,7 @@ export type LibraryUncheckedUpdateWithoutBookingsInput = {
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
   trialBookings?: Prisma.TrialBookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryCreateWithoutTrialBookingsInput = {
@@ -1000,6 +1031,7 @@ export type LibraryCreateWithoutTrialBookingsInput = {
   slotTypes?: Prisma.SlotTypeCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryUncheckedCreateWithoutTrialBookingsInput = {
@@ -1019,6 +1051,7 @@ export type LibraryUncheckedCreateWithoutTrialBookingsInput = {
   slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryCreateOrConnectWithoutTrialBookingsInput = {
@@ -1054,6 +1087,7 @@ export type LibraryUpdateWithoutTrialBookingsInput = {
   slotTypes?: Prisma.SlotTypeUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryUncheckedUpdateWithoutTrialBookingsInput = {
@@ -1073,6 +1107,7 @@ export type LibraryUncheckedUpdateWithoutTrialBookingsInput = {
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryCreateWithoutSlotTypesInput = {
@@ -1092,6 +1127,7 @@ export type LibraryCreateWithoutSlotTypesInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   trialBookings?: Prisma.TrialBookingCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryUncheckedCreateWithoutSlotTypesInput = {
@@ -1111,6 +1147,7 @@ export type LibraryUncheckedCreateWithoutSlotTypesInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   trialBookings?: Prisma.TrialBookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
+  attendances?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
 }
 
 export type LibraryCreateOrConnectWithoutSlotTypesInput = {
@@ -1146,6 +1183,7 @@ export type LibraryUpdateWithoutSlotTypesInput = {
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   trialBookings?: Prisma.TrialBookingUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryUncheckedUpdateWithoutSlotTypesInput = {
@@ -1162,6 +1200,103 @@ export type LibraryUncheckedUpdateWithoutSlotTypesInput = {
   location?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
+  trialBookings?: Prisma.TrialBookingUncheckedUpdateManyWithoutLibraryNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
+}
+
+export type LibraryCreateWithoutAttendancesInput = {
+  id?: string
+  name: string
+  rating?: number
+  totalSeats: number
+  basePrice: number
+  contactNumber: string
+  trialDuration?: number
+  facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
+  images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address?: string
+  createdAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutLibraryInput
+  slotTypes?: Prisma.SlotTypeCreateNestedManyWithoutLibraryInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
+  trialBookings?: Prisma.TrialBookingCreateNestedManyWithoutLibraryInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
+}
+
+export type LibraryUncheckedCreateWithoutAttendancesInput = {
+  id?: string
+  name: string
+  ownerId: string
+  rating?: number
+  totalSeats: number
+  basePrice: number
+  contactNumber: string
+  trialDuration?: number
+  facilities?: Prisma.LibraryCreatefacilitiesInput | string[]
+  images?: Prisma.LibraryCreateimagesInput | string[]
+  location: string
+  address?: string
+  createdAt?: Date | string
+  slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
+  trialBookings?: Prisma.TrialBookingUncheckedCreateNestedManyWithoutLibraryInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
+}
+
+export type LibraryCreateOrConnectWithoutAttendancesInput = {
+  where: Prisma.LibraryWhereUniqueInput
+  create: Prisma.XOR<Prisma.LibraryCreateWithoutAttendancesInput, Prisma.LibraryUncheckedCreateWithoutAttendancesInput>
+}
+
+export type LibraryUpsertWithoutAttendancesInput = {
+  update: Prisma.XOR<Prisma.LibraryUpdateWithoutAttendancesInput, Prisma.LibraryUncheckedUpdateWithoutAttendancesInput>
+  create: Prisma.XOR<Prisma.LibraryCreateWithoutAttendancesInput, Prisma.LibraryUncheckedCreateWithoutAttendancesInput>
+  where?: Prisma.LibraryWhereInput
+}
+
+export type LibraryUpdateToOneWithWhereWithoutAttendancesInput = {
+  where?: Prisma.LibraryWhereInput
+  data: Prisma.XOR<Prisma.LibraryUpdateWithoutAttendancesInput, Prisma.LibraryUncheckedUpdateWithoutAttendancesInput>
+}
+
+export type LibraryUpdateWithoutAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
+  images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
+  slotTypes?: Prisma.SlotTypeUpdateManyWithoutLibraryNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
+  trialBookings?: Prisma.TrialBookingUpdateManyWithoutLibraryNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
+}
+
+export type LibraryUncheckedUpdateWithoutAttendancesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  rating?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  basePrice?: Prisma.FloatFieldUpdateOperationsInput | number
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  facilities?: Prisma.LibraryUpdatefacilitiesInput | string[]
+  images?: Prisma.LibraryUpdateimagesInput | string[]
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   trialBookings?: Prisma.TrialBookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
@@ -1199,6 +1334,7 @@ export type LibraryUpdateWithoutOwnerInput = {
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   trialBookings?: Prisma.TrialBookingUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryUncheckedUpdateWithoutOwnerInput = {
@@ -1218,6 +1354,7 @@ export type LibraryUncheckedUpdateWithoutOwnerInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   trialBookings?: Prisma.TrialBookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
+  attendances?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
 }
 
 export type LibraryUncheckedUpdateManyWithoutOwnerInput = {
@@ -1245,6 +1382,7 @@ export type LibraryCountOutputType = {
   bookings: number
   trialBookings: number
   reviews: number
+  attendances: number
 }
 
 export type LibraryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1252,6 +1390,7 @@ export type LibraryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   bookings?: boolean | LibraryCountOutputTypeCountBookingsArgs
   trialBookings?: boolean | LibraryCountOutputTypeCountTrialBookingsArgs
   reviews?: boolean | LibraryCountOutputTypeCountReviewsArgs
+  attendances?: boolean | LibraryCountOutputTypeCountAttendancesArgs
 }
 
 /**
@@ -1292,6 +1431,13 @@ export type LibraryCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types
   where?: Prisma.ReviewWhereInput
 }
 
+/**
+ * LibraryCountOutputType without action
+ */
+export type LibraryCountOutputTypeCountAttendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttendanceWhereInput
+}
+
 
 export type LibrarySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1312,6 +1458,7 @@ export type LibrarySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   bookings?: boolean | Prisma.Library$bookingsArgs<ExtArgs>
   trialBookings?: boolean | Prisma.Library$trialBookingsArgs<ExtArgs>
   reviews?: boolean | Prisma.Library$reviewsArgs<ExtArgs>
+  attendances?: boolean | Prisma.Library$attendancesArgs<ExtArgs>
   _count?: boolean | Prisma.LibraryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["library"]>
 
@@ -1372,6 +1519,7 @@ export type LibraryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   bookings?: boolean | Prisma.Library$bookingsArgs<ExtArgs>
   trialBookings?: boolean | Prisma.Library$trialBookingsArgs<ExtArgs>
   reviews?: boolean | Prisma.Library$reviewsArgs<ExtArgs>
+  attendances?: boolean | Prisma.Library$attendancesArgs<ExtArgs>
   _count?: boolean | Prisma.LibraryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type LibraryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1389,6 +1537,7 @@ export type $LibraryPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     bookings: Prisma.$BookingPayload<ExtArgs>[]
     trialBookings: Prisma.$TrialBookingPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
+    attendances: Prisma.$AttendancePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1803,6 +1952,7 @@ export interface Prisma__LibraryClient<T, Null = never, ExtArgs extends runtime.
   bookings<T extends Prisma.Library$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Library$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trialBookings<T extends Prisma.Library$trialBookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Library$trialBookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrialBookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.Library$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Library$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  attendances<T extends Prisma.Library$attendancesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Library$attendancesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2334,6 +2484,30 @@ export type Library$reviewsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
+}
+
+/**
+ * Library.attendances
+ */
+export type Library$attendancesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Attendance
+   */
+  select?: Prisma.AttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Attendance
+   */
+  omit?: Prisma.AttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttendanceInclude<ExtArgs> | null
+  where?: Prisma.AttendanceWhereInput
+  orderBy?: Prisma.AttendanceOrderByWithRelationInput | Prisma.AttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.AttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
 }
 
 /**

@@ -44,6 +44,7 @@ model User {
   bookings  Booking[]
   trialBookings TrialBooking[]
   reviews   Review[]
+  attendances Attendance[]
 }
 
 model Library {
@@ -68,6 +69,7 @@ model Library {
   bookings  Booking[]
   trialBookings TrialBooking[]
   reviews   Review[]
+  attendances Attendance[]
 }
 
 model Review {
@@ -97,6 +99,11 @@ model Booking {
   user         User       @relation(fields: [userId], references: [id])
   status       BookingStatus?
   paymentId    String? // Razorpay payment id
+
+  startDate DateTime? 
+  endDate DateTime? 
+
+  attendances Attendance[]
   createdAt    DateTime   @default(now())
 }
 
@@ -114,6 +121,8 @@ model TrialBooking {
   user         User       @relation(fields: [userId], references: [id])
   status       TrialBookingStatus?
   trialEndDate DateTime? // For trial bookings
+
+  attendances Attendance[]
   createdAt    DateTime   @default(now())
 }
 
@@ -147,4 +156,31 @@ model SlotTiming {
   createdAt DateTime  @default(now())
   bookings  Booking[]
   trialBookings TrialBooking[]
+  attendances Attendance[]
+}
+
+model Attendance {
+  id            String   @id @default(cuid())
+
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+
+  libraryId     String
+  library       Library  @relation(fields: [libraryId], references: [id])
+
+  slotTimingId  String
+  slotTiming    SlotTiming @relation(fields: [slotTimingId], references: [id])
+
+  bookingId     String?
+  booking       Booking?  @relation(fields: [bookingId], references: [id])
+
+  trialBookingId String?
+  trialBooking   TrialBooking? @relation(fields: [trialBookingId], references: [id])
+
+  checkInTime   DateTime?
+  checkOutTime  DateTime?
+
+  durationMinutes Int?
+
+  createdAt     DateTime @default(now())
 }

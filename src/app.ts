@@ -6,6 +6,8 @@ import authRouter from "./routes/authRoutes.js";
 import libraryRouter from "./routes/libraryRoutes.js";
 import imageUploadRoutes from "./upload/imageuploadRoutes.js"
 import bookingsRouter from './routes/bookingsRoutes.js';
+import attendanceRouter from "./routes/attendanceRoutes.js";
+
 dotenv.config();
 const app = express();
 
@@ -31,6 +33,8 @@ app.use("/api/user", userRouter);
 app.use("/api/auth",authRouter)
 app.use("/api/bookings", bookingsRouter)
 app.use("/api/libraries", libraryRouter)
+app.use("/api/attendance", attendanceRouter)
+
 
 app.use("/api/upload",imageUploadRoutes)
 
