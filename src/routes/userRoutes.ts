@@ -3,7 +3,7 @@ import {
   getAllUsers,
   searchUserByEmail,
   promoteToOwner,
-  createLibrary,
+
   userProfile,
   editUserProfile,
 } from "../controllers/userControllers.js";
@@ -15,6 +15,6 @@ userRouter.get("/", getAllUsers);
 userRouter.get("/profile", userProfile);
 userRouter.get("/search", searchUserByEmail);
 userRouter.post("/promote", promoteToOwner);
-userRouter.post("/library", createLibrary);
+
 userRouter.put( "/edit-profile", upload.single("avatar"), editUserProfile);
 export default userRouter;

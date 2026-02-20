@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { prisma } from "../config/db.js";
 
-// Razorpay simulation (replace with real integration)
+
 const simulateRazorpayPayment = async (amount: number) => {
-  // Simulate payment success/failure
+  
   const success = Math.random() > 0.2; // 80% success
   return {
     status: success ? "SUCCESS" : "FAILED",
@@ -23,7 +23,7 @@ export const bookController = async (req: Request, res: Response) => {
       amount,
       userId,
     } = req.body;
-    // Simulate payment
+    
     const paymentResult = await simulateRazorpayPayment(amount);
     const booking = await prisma.booking.create({
       data: {
