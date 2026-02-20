@@ -3,7 +3,6 @@ import {
   getAllUsers,
   searchUserByEmail,
   promoteToOwner,
-
   userProfile,
   editUserProfile,
 } from "../controllers/userControllers.js";

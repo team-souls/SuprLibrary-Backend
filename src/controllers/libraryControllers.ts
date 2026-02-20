@@ -3,7 +3,9 @@ import { Request, Response } from "express";
 import { prisma } from "../config/db.js";
 import { uploadToCloudinary } from "../upload/cloudinary.js";
 import { Logger } from "../utils/logger.js";
+
 const logger = Logger.getInstance();
+
 export const createLibraryWithSlots = async (req: Request, res: Response) => {
   console.log("create library function called by user");
 
@@ -17,6 +19,7 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
       contactNumber,
       slotTypes,
       facilities,
+      trialDuration,
     } = req.body;
 
     const files = req.files as Express.Multer.File[];
@@ -283,7 +286,7 @@ export const updateLibraryWithSlots = async (req: Request, res: Response) => {
     // ================= CHECK LIBRARY =================
 
     const existingLibrary = await prisma.library.findUnique({
-      where: { id },
+      where: { id: id as string },
       include: { slotTypes: true },
     });
 
@@ -316,7 +319,7 @@ export const updateLibraryWithSlots = async (req: Request, res: Response) => {
     const result = await prisma.$transaction(async (tx) => {
       // 1️⃣ Update Library Main Fields
       const updatedLibrary = await tx.library.update({
-        where: { id },
+        where: { id: id as string },
         data: {
           name,
           totalSeats: Number(totalSeats),
@@ -332,14 +335,14 @@ export const updateLibraryWithSlots = async (req: Request, res: Response) => {
       await tx.slotTiming.deleteMany({
         where: {
           slotType: {
-            libraryId: id,
+            libraryId: id as string,
           },
         },
       });
 
       // 3️⃣ Delete old slotTypes
       await tx.slotType.deleteMany({
-        where: { libraryId: id },
+        where: { libraryId: id as string },
       });
 
       // 4️⃣ Recreate slotTypes + timings
@@ -349,7 +352,7 @@ export const updateLibraryWithSlots = async (req: Request, res: Response) => {
             typeName: slot.typeName,
             duration: Number(slot.duration),
             price: Number(slot.price),
-            libraryId: id,
+            libraryId: id as string,
           },
         });
 
@@ -407,7 +410,7 @@ export const getLibraryIdByOwnerId = async (req: Request, res: Response) => {
 
     const library = await prisma.library.findFirst({
       where: {
-        ownerId: ownerId,
+        ownerId: ownerId as string,
       },
       select: {
         id: true,
@@ -422,9 +425,8 @@ export const getLibraryIdByOwnerId = async (req: Request, res: Response) => {
 
     return res.status(200).json({
       message: "success",
-   
-       id: library.id,
-      
+
+      id: library.id,
     });
   } catch (error) {
     console.error(error);
