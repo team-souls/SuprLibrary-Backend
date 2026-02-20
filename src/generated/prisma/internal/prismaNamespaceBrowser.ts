@@ -55,6 +55,7 @@ export const ModelName = {
   Library: 'Library',
   Review: 'Review',
   Booking: 'Booking',
+  TrialBooking: 'TrialBooking',
   SlotType: 'SlotType',
   SlotTiming: 'SlotTiming'
 } as const
@@ -124,17 +125,30 @@ export const BookingScalarFieldEnum = {
   libraryId: 'libraryId',
   slotTimingId: 'slotTimingId',
   slotTypeId: 'slotTypeId',
-  timing: 'timing',
   libraryName: 'libraryName',
   amount: 'amount',
   userId: 'userId',
   status: 'status',
-  trialEndDate: 'trialEndDate',
   paymentId: 'paymentId',
   createdAt: 'createdAt'
 } as const
 
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+export const TrialBookingScalarFieldEnum = {
+  id: 'id',
+  libraryId: 'libraryId',
+  slotTimingId: 'slotTimingId',
+  slotTypeId: 'slotTypeId',
+  libraryName: 'libraryName',
+  userId: 'userId',
+  status: 'status',
+  trialEndDate: 'trialEndDate',
+  createdAt: 'createdAt'
+} as const
+
+export type TrialBookingScalarFieldEnum = (typeof TrialBookingScalarFieldEnum)[keyof typeof TrialBookingScalarFieldEnum]
 
 
 export const SlotTypeScalarFieldEnum = {

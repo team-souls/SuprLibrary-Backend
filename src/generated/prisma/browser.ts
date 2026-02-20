@@ -38,6 +38,11 @@ export type Review = Prisma.ReviewModel
  */
 export type Booking = Prisma.BookingModel
 /**
+ * Model TrialBooking
+ * 
+ */
+export type TrialBooking = Prisma.TrialBookingModel
+/**
  * Model SlotType
  * 
  */

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 
-
 interface AuthRequest extends Request {
   user?: { id: string };
 }
@@ -12,7 +11,7 @@ const logger = Logger.getInstance();
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await prisma.user.findMany();
-    logger.info("userController.js","fectched all users")
+    logger.info("userController.js", "fectched all users");
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch users" });
@@ -22,7 +21,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const userProfile = async (req: Request, res: Response) => {
   try {
     const user = await prisma.user.findMany();
-    logger.info("usercontroller.js","user found")
+    logger.info("usercontroller.js", "user found");
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch users" });
@@ -36,8 +35,8 @@ export const searchUserByEmail = async (req: Request, res: Response) => {
     const user = await prisma.user.findUnique({
       where: { email: email as string },
     });
-   
-    res.status(200).json({ message: "Success",data:user });
+
+    res.status(200).json({ message: "Success", data: user });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
@@ -58,7 +57,7 @@ export const editUserProfile = async (req: Request, res: Response) => {
     const user = await prisma.user.findUnique({ where: { id: userId } });
 
     if (!user) {
-      logger.info("usercontroller.js","user not found")
+      logger.info("usercontroller.js", "user not found");
       return res.status(404).json({ message: "User not found" });
     }
 
@@ -71,7 +70,7 @@ export const editUserProfile = async (req: Request, res: Response) => {
     if (file) {
       // Convert buffer to base64 for Cloudinary
       const base64 = `data:${file.mimetype};base64,${file.buffer.toString(
-        "base64"
+        "base64",
       )}`;
 
       const uploadRes = await uploadToCloudinary(base64, "avatars");
@@ -98,27 +97,25 @@ export const editUserProfile = async (req: Request, res: Response) => {
     });
 
     res.json({ message: "Profile updated successfully", user: updatedUser });
-
   } catch (error: any) {
     if (error.code === "P2002") {
       return res.status(409).json({ message: "Email already in use" });
     }
 
     res.status(500).json({ message: "Failed to update profile" });
-  
-  } 
+  }
 };
 
 export const promoteToOwner = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
- 
+
     const user = await prisma.user.findUnique({
       where: { email },
     });
-    logger.info("usercontroller.js","user found by email id")
+    logger.info("usercontroller.js", "user found by email id");
     if (!user) {
-       logger.info("usercontroller.js","user")
+      logger.info("usercontroller.js", "user");
       return res.status(404).json({ message: "User not found" });
     }
 
@@ -132,7 +129,7 @@ export const promoteToOwner = async (req: Request, res: Response) => {
       where: { email },
       data: { role: "ADMIN" },
     });
-    
+
     res.json({
       message: "User promoted to ADMIN",
       user: updatedUser,

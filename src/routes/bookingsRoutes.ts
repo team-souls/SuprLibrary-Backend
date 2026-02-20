@@ -1,5 +1,5 @@
 import express from "express";
-import {  createOrderController, trialController, verifyPaymentAndBookController } from "../controllers/bookController";
+import {  createOrderController, getLibraryTrialBookingsController, getTrialBookingDetailsController, getUserTrialBookingsController, trialController, verifyPaymentAndBookController } from "../controllers/bookController";
 import {
   submitReview,
   getReviewsByLibrary,
@@ -11,6 +11,9 @@ bookingsRouter.post("/create-order", createOrderController);
 
 bookingsRouter.post("/verify-payment", verifyPaymentAndBookController);
 bookingsRouter.post("/trial", trialController);
+bookingsRouter.get("/trial/user/:userId", getUserTrialBookingsController);
+bookingsRouter.get("/trial/library/:libraryId", getLibraryTrialBookingsController);
+bookingsRouter.get("/trial/details/:trialBookingId", getTrialBookingDetailsController);
 
 bookingsRouter.post("/review", submitReview);
 bookingsRouter.get("/reviews/library/:libraryId", getReviewsByLibrary);
