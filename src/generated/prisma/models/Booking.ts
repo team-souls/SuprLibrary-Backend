@@ -43,8 +43,8 @@ export type BookingMinAggregateOutputType = {
   libraryName: string | null
   amount: number | null
   userId: string | null
-  status: string | null
-  trial: boolean | null
+  status: $Enums.BookingStatus | null
+  trialEndDate: Date | null
   paymentId: string | null
   createdAt: Date | null
 }
@@ -58,8 +58,8 @@ export type BookingMaxAggregateOutputType = {
   libraryName: string | null
   amount: number | null
   userId: string | null
-  status: string | null
-  trial: boolean | null
+  status: $Enums.BookingStatus | null
+  trialEndDate: Date | null
   paymentId: string | null
   createdAt: Date | null
 }
@@ -74,7 +74,7 @@ export type BookingCountAggregateOutputType = {
   amount: number
   userId: number
   status: number
-  trial: number
+  trialEndDate: number
   paymentId: number
   createdAt: number
   _all: number
@@ -99,7 +99,7 @@ export type BookingMinAggregateInputType = {
   amount?: true
   userId?: true
   status?: true
-  trial?: true
+  trialEndDate?: true
   paymentId?: true
   createdAt?: true
 }
@@ -114,7 +114,7 @@ export type BookingMaxAggregateInputType = {
   amount?: true
   userId?: true
   status?: true
-  trial?: true
+  trialEndDate?: true
   paymentId?: true
   createdAt?: true
 }
@@ -129,7 +129,7 @@ export type BookingCountAggregateInputType = {
   amount?: true
   userId?: true
   status?: true
-  trial?: true
+  trialEndDate?: true
   paymentId?: true
   createdAt?: true
   _all?: true
@@ -230,8 +230,8 @@ export type BookingGroupByOutputType = {
   libraryName: string
   amount: number
   userId: string
-  status: string
-  trial: boolean
+  status: $Enums.BookingStatus | null
+  trialEndDate: Date | null
   paymentId: string | null
   createdAt: Date
   _count: BookingCountAggregateOutputType | null
@@ -268,8 +268,8 @@ export type BookingWhereInput = {
   libraryName?: Prisma.StringFilter<"Booking"> | string
   amount?: Prisma.FloatFilter<"Booking"> | number
   userId?: Prisma.StringFilter<"Booking"> | string
-  status?: Prisma.StringFilter<"Booking"> | string
-  trial?: Prisma.BoolFilter<"Booking"> | boolean
+  status?: Prisma.EnumBookingStatusNullableFilter<"Booking"> | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   paymentId?: Prisma.StringNullableFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   library?: Prisma.XOR<Prisma.LibraryScalarRelationFilter, Prisma.LibraryWhereInput>
@@ -287,8 +287,8 @@ export type BookingOrderByWithRelationInput = {
   libraryName?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  trial?: Prisma.SortOrder
+  status?: Prisma.SortOrderInput | Prisma.SortOrder
+  trialEndDate?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   library?: Prisma.LibraryOrderByWithRelationInput
@@ -309,8 +309,8 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
   libraryName?: Prisma.StringFilter<"Booking"> | string
   amount?: Prisma.FloatFilter<"Booking"> | number
   userId?: Prisma.StringFilter<"Booking"> | string
-  status?: Prisma.StringFilter<"Booking"> | string
-  trial?: Prisma.BoolFilter<"Booking"> | boolean
+  status?: Prisma.EnumBookingStatusNullableFilter<"Booking"> | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   paymentId?: Prisma.StringNullableFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
   library?: Prisma.XOR<Prisma.LibraryScalarRelationFilter, Prisma.LibraryWhereInput>
@@ -328,8 +328,8 @@ export type BookingOrderByWithAggregationInput = {
   libraryName?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
-  trial?: Prisma.SortOrder
+  status?: Prisma.SortOrderInput | Prisma.SortOrder
+  trialEndDate?: Prisma.SortOrderInput | Prisma.SortOrder
   paymentId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.BookingCountOrderByAggregateInput
@@ -351,8 +351,8 @@ export type BookingScalarWhereWithAggregatesInput = {
   libraryName?: Prisma.StringWithAggregatesFilter<"Booking"> | string
   amount?: Prisma.FloatWithAggregatesFilter<"Booking"> | number
   userId?: Prisma.StringWithAggregatesFilter<"Booking"> | string
-  status?: Prisma.StringWithAggregatesFilter<"Booking"> | string
-  trial?: Prisma.BoolWithAggregatesFilter<"Booking"> | boolean
+  status?: Prisma.EnumBookingStatusNullableWithAggregatesFilter<"Booking"> | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Booking"> | Date | string | null
   paymentId?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string
 }
@@ -362,8 +362,8 @@ export type BookingCreateInput = {
   timing: Date | string
   libraryName: string
   amount: number
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
   library: Prisma.LibraryCreateNestedOneWithoutBookingsInput
@@ -381,8 +381,8 @@ export type BookingUncheckedCreateInput = {
   libraryName: string
   amount: number
   userId: string
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -392,8 +392,8 @@ export type BookingUpdateInput = {
   timing?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateOneRequiredWithoutBookingsNestedInput
@@ -411,8 +411,8 @@ export type BookingUncheckedUpdateInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -426,8 +426,8 @@ export type BookingCreateManyInput = {
   libraryName: string
   amount: number
   userId: string
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -437,8 +437,8 @@ export type BookingUpdateManyMutationInput = {
   timing?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -452,8 +452,8 @@ export type BookingUncheckedUpdateManyInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -478,7 +478,7 @@ export type BookingCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  trial?: Prisma.SortOrder
+  trialEndDate?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -497,7 +497,7 @@ export type BookingMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  trial?: Prisma.SortOrder
+  trialEndDate?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -512,7 +512,7 @@ export type BookingMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  trial?: Prisma.SortOrder
+  trialEndDate?: Prisma.SortOrder
   paymentId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -605,8 +605,12 @@ export type BookingUncheckedUpdateManyWithoutLibraryNestedInput = {
   deleteMany?: Prisma.BookingScalarWhereInput | Prisma.BookingScalarWhereInput[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
+export type NullableEnumBookingStatusFieldUpdateOperationsInput = {
+  set?: $Enums.BookingStatus | null
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 export type BookingCreateNestedManyWithoutSlotTypeInput = {
@@ -698,8 +702,8 @@ export type BookingCreateWithoutUserInput = {
   timing: Date | string
   libraryName: string
   amount: number
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
   library: Prisma.LibraryCreateNestedOneWithoutBookingsInput
@@ -715,8 +719,8 @@ export type BookingUncheckedCreateWithoutUserInput = {
   timing: Date | string
   libraryName: string
   amount: number
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -759,8 +763,8 @@ export type BookingScalarWhereInput = {
   libraryName?: Prisma.StringFilter<"Booking"> | string
   amount?: Prisma.FloatFilter<"Booking"> | number
   userId?: Prisma.StringFilter<"Booking"> | string
-  status?: Prisma.StringFilter<"Booking"> | string
-  trial?: Prisma.BoolFilter<"Booking"> | boolean
+  status?: Prisma.EnumBookingStatusNullableFilter<"Booking"> | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null
   paymentId?: Prisma.StringNullableFilter<"Booking"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string
 }
@@ -770,8 +774,8 @@ export type BookingCreateWithoutLibraryInput = {
   timing: Date | string
   libraryName: string
   amount: number
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
   slotTiming: Prisma.SlotTimingCreateNestedOneWithoutBookingsInput
@@ -787,8 +791,8 @@ export type BookingUncheckedCreateWithoutLibraryInput = {
   libraryName: string
   amount: number
   userId: string
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -824,8 +828,8 @@ export type BookingCreateWithoutSlotTypeInput = {
   timing: Date | string
   libraryName: string
   amount: number
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
   library: Prisma.LibraryCreateNestedOneWithoutBookingsInput
@@ -841,8 +845,8 @@ export type BookingUncheckedCreateWithoutSlotTypeInput = {
   libraryName: string
   amount: number
   userId: string
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -878,8 +882,8 @@ export type BookingCreateWithoutSlotTimingInput = {
   timing: Date | string
   libraryName: string
   amount: number
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
   library: Prisma.LibraryCreateNestedOneWithoutBookingsInput
@@ -895,8 +899,8 @@ export type BookingUncheckedCreateWithoutSlotTimingInput = {
   libraryName: string
   amount: number
   userId: string
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -935,8 +939,8 @@ export type BookingCreateManyUserInput = {
   timing: Date | string
   libraryName: string
   amount: number
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -946,8 +950,8 @@ export type BookingUpdateWithoutUserInput = {
   timing?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateOneRequiredWithoutBookingsNestedInput
@@ -963,8 +967,8 @@ export type BookingUncheckedUpdateWithoutUserInput = {
   timing?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -977,8 +981,8 @@ export type BookingUncheckedUpdateManyWithoutUserInput = {
   timing?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -991,8 +995,8 @@ export type BookingCreateManyLibraryInput = {
   libraryName: string
   amount: number
   userId: string
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -1002,8 +1006,8 @@ export type BookingUpdateWithoutLibraryInput = {
   timing?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   slotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutBookingsNestedInput
@@ -1019,8 +1023,8 @@ export type BookingUncheckedUpdateWithoutLibraryInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1033,8 +1037,8 @@ export type BookingUncheckedUpdateManyWithoutLibraryInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1047,8 +1051,8 @@ export type BookingCreateManySlotTypeInput = {
   libraryName: string
   amount: number
   userId: string
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -1058,8 +1062,8 @@ export type BookingUpdateWithoutSlotTypeInput = {
   timing?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateOneRequiredWithoutBookingsNestedInput
@@ -1075,8 +1079,8 @@ export type BookingUncheckedUpdateWithoutSlotTypeInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1089,8 +1093,8 @@ export type BookingUncheckedUpdateManyWithoutSlotTypeInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1103,8 +1107,8 @@ export type BookingCreateManySlotTimingInput = {
   libraryName: string
   amount: number
   userId: string
-  status: string
-  trial?: boolean
+  status?: $Enums.BookingStatus | null
+  trialEndDate?: Date | string | null
   paymentId?: string | null
   createdAt?: Date | string
 }
@@ -1114,8 +1118,8 @@ export type BookingUpdateWithoutSlotTimingInput = {
   timing?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   library?: Prisma.LibraryUpdateOneRequiredWithoutBookingsNestedInput
@@ -1131,8 +1135,8 @@ export type BookingUncheckedUpdateWithoutSlotTimingInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1145,8 +1149,8 @@ export type BookingUncheckedUpdateManyWithoutSlotTimingInput = {
   libraryName?: Prisma.StringFieldUpdateOperationsInput | string
   amount?: Prisma.FloatFieldUpdateOperationsInput | number
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.StringFieldUpdateOperationsInput | string
-  trial?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.NullableEnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   paymentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1163,7 +1167,7 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   amount?: boolean
   userId?: boolean
   status?: boolean
-  trial?: boolean
+  trialEndDate?: boolean
   paymentId?: boolean
   createdAt?: boolean
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
@@ -1182,7 +1186,7 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   amount?: boolean
   userId?: boolean
   status?: boolean
-  trial?: boolean
+  trialEndDate?: boolean
   paymentId?: boolean
   createdAt?: boolean
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
@@ -1201,7 +1205,7 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   amount?: boolean
   userId?: boolean
   status?: boolean
-  trial?: boolean
+  trialEndDate?: boolean
   paymentId?: boolean
   createdAt?: boolean
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
@@ -1220,12 +1224,12 @@ export type BookingSelectScalar = {
   amount?: boolean
   userId?: boolean
   status?: boolean
-  trial?: boolean
+  trialEndDate?: boolean
   paymentId?: boolean
   createdAt?: boolean
 }
 
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "libraryId" | "slotTimingId" | "slotTypeId" | "timing" | "libraryName" | "amount" | "userId" | "status" | "trial" | "paymentId" | "createdAt", ExtArgs["result"]["booking"]>
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "libraryId" | "slotTimingId" | "slotTypeId" | "timing" | "libraryName" | "amount" | "userId" | "status" | "trialEndDate" | "paymentId" | "createdAt", ExtArgs["result"]["booking"]>
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
   slotTiming?: boolean | Prisma.SlotTimingDefaultArgs<ExtArgs>
@@ -1262,8 +1266,8 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     libraryName: string
     amount: number
     userId: string
-    status: string
-    trial: boolean
+    status: $Enums.BookingStatus | null
+    trialEndDate: Date | null
     paymentId: string | null
     createdAt: Date
   }, ExtArgs["result"]["booking"]>
@@ -1701,8 +1705,8 @@ export interface BookingFieldRefs {
   readonly libraryName: Prisma.FieldRef<"Booking", 'String'>
   readonly amount: Prisma.FieldRef<"Booking", 'Float'>
   readonly userId: Prisma.FieldRef<"Booking", 'String'>
-  readonly status: Prisma.FieldRef<"Booking", 'String'>
-  readonly trial: Prisma.FieldRef<"Booking", 'Boolean'>
+  readonly status: Prisma.FieldRef<"Booking", 'BookingStatus'>
+  readonly trialEndDate: Prisma.FieldRef<"Booking", 'DateTime'>
   readonly paymentId: Prisma.FieldRef<"Booking", 'String'>
   readonly createdAt: Prisma.FieldRef<"Booking", 'DateTime'>
 }

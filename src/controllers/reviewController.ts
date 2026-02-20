@@ -35,12 +35,11 @@ export const getReviewsByLibrary = async (req: Request, res: Response) => {
     }
 
     const reviews = await prisma.review.findMany({
-      where: { libraryId },
+      where: { libraryId: libraryId as string },
       orderBy: { createdAt: "desc" },
       include: {
         user: {
           select: {
-           
             name: true,
             avatar: true,
           },
@@ -60,15 +59,15 @@ export const getReviewsByLibrary = async (req: Request, res: Response) => {
   }
 };
 
-export const getReviewsByOwner = async (req: Request, res: Response) => {
-  try {
-    const { ownerId } = req.params as any;
-    const reviews = await prisma.review.findMany({
-      where: { ownerId },
-      orderBy: { createdAt: "desc" },
-    });
-    res.json({ reviews });
-  } catch (error) {
-    res.status(500).json({ message: "Failed to fetch reviews", error });
-  }
-};
+// export const getReviewsByOwner = async (req: Request, res: Response) => {
+//   try {
+//     const { user } = req.params as any;
+//     const reviews = await prisma.review.findMany({
+//       where: { ownerId: ownerId as string },
+//       orderBy: { createdAt: "desc" },
+//     });
+//     res.json({ reviews });
+//   } catch (error) {
+//     res.status(500).json({ message: "Failed to fetch reviews", error });
+//   }
+// };

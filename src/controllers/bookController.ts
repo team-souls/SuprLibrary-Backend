@@ -3,27 +3,22 @@ import crypto from "crypto";
 import { prisma } from "../config/db.js";
 import { razorpay } from "../utils/razorpay.js";
 
-// Razorpay simulation (replace with real integration)
-const simulateRazorpayPayment = async (amount: number) => {
-  
-  const success = Math.random() > 0.2; // 80% success
-  return {
-    status: success ? "SUCCESS" : "FAILED",
-    paymentId:
-      success ? `pay_${Math.floor(Math.random() * 1000000)}` : undefined,
-  };
-};
-
 export const createOrderController = async (req: Request, res: Response) => {
   try {
-    const { amount } = req.body;
+    const liabraryId = req.body.libraryId as string;
+    const slotId = await prisma.library.findUnique({
+      where: { id: liabraryId },
+      select: { slotTypes: { select: { id: true } } },
+    });
 
-    if (!amount) {
-      return res.status(400).json({ message: "Amount is required" });
+    if (!slotId) {
+      return res.status(404).json({ message: "Library not found" });
     }
 
+    
+
     const order = await razorpay.orders.create({
-      amount: Number(amount) * 100, // convert to paise
+      amount: Number() * 100, // convert to paise
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
     });
@@ -107,7 +102,10 @@ export const trialController = async (req: Request, res: Response) => {
     const { libraryId, slotTimingId, slotTypeId, timing, libraryName, userId } =
       req.body;
 
-    const trialDuration 
+    const liabrary = await prisma.library.findUnique({
+      where: { id: libraryId },
+      select: { trialDuration: true },
+    });
     const booking = await prisma.booking.create({
       data: {
         libraryId,
@@ -115,7 +113,7 @@ export const trialController = async (req: Request, res: Response) => {
         slotTypeId,
         timing: new Date(timing),
         libraryName,
-        expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days trial
+        trialEndDate: new Date(Date.now() + (liabrary!.trialDuration as number) * 24 * 60 * 60 * 1000),
         amount: 0,
         userId,
         status: "TRIAL",
@@ -126,3 +124,68 @@ export const trialController = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Trial booking failed", error });
   }
 };
+
+
+// fetch user trial bookings (user dashboard)
+export const getUserTrialBookingsController = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params as any; 
+    const bookings = await prisma.booking.findMany({
+      where: { userId: userId as string, status: "TRIAL" },
+      orderBy: { createdAt: "desc" },
+    });
+    res.json({ bookings });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch trial bookings", error });
+  }};
+
+// fetch library trial bookings (library owner dashboard)
+export const getLibraryTrialBookingsController = async (req: Request, res: Response) => {
+  try {
+    const { libraryId } = req.params as any;
+    const bookings = await prisma.booking.findMany({
+      where: { libraryId: libraryId as string, status: "TRIAL" },
+      orderBy: { createdAt: "desc" },
+    });
+    res.json({ bookings });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch library trial bookings", error });
+  }
+};
+
+// fetch user bookings (user dashboard)
+export const getUserBookingsController = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params as any; 
+    const bookings = await prisma.booking.findMany({
+      where: { userId: userId as string },
+      orderBy: { createdAt: "desc" },
+    });
+    res.json({ bookings });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch bookings", error });
+  }};
+
+// fetch library bookings (library owner dashboard)
+export const getLibraryBookingsController = async (req: Request, res: Response) => {
+  try {    
+    const { libraryId } = req.params as any;
+    const bookings = await prisma.booking.findMany({
+      where: { libraryId: libraryId as string },  
+    });
+    res.json({ bookings });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch bookings", error });
+  }};
+
+// fetch booking details (for booking details page)
+export const getBookingDetailsController = async (req: Request, res: Response) => {
+  try {
+    const { bookingId } = req.params as any;
+    const booking = await prisma.booking.findUnique({
+      where: { id: bookingId as string },
+    });
+    res.json({ booking });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch booking details", error });
+  }};

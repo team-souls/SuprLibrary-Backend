@@ -20,9 +20,9 @@ enum Role {
 }
 
 enum BookingStatus {
-  
+  TRIAL
   PENDING
-  CONFIRMED
+  SUCCESS
   CANCELLED
 }
 
@@ -50,11 +50,12 @@ model Library {
   rating        Float    @default(0)
   totalSeats    Int
   basePrice     Float
-  location      String
   contactNumber String
-  trialDuration Int? // Duration in days (optional)
+  trialDuration Int @default(0)// Duration in days (optional)
   facilities    String[] // Simple version (upgrade later)
   images        String[] // Store image URLs
+  location      String 
+  address       String @default(" ")
 
   slotTypes SlotType[]
 
@@ -88,8 +89,8 @@ model Booking {
   amount       Float
   userId       String
   user         User       @relation(fields: [userId], references: [id])
-  status       String
-  trial        Boolean    @default(false)
+  status       BookingStatus?
+  trialEndDate DateTime? // For trial bookings
   paymentId    String? // Razorpay payment id
   createdAt    DateTime   @default(now())
 }
