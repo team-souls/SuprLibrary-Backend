@@ -123,7 +123,7 @@ export const getAllLibraries = async (req: Request, res: Response) => {
     const libraries = await prisma.library.findMany({
       include: {},
     });
-    console.log(libraries);
+    console.log(libraries); 
     return res.status(200).json(libraries);
   } catch (error) {
     console.error(error);

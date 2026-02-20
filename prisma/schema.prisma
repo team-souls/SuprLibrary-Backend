@@ -1,4 +1,3 @@
-
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -38,17 +37,17 @@ model User {
 model Library {
   id      String @id @default(cuid())
   name    String
-  ownerId String 
+  ownerId String
   owner   User   @relation(fields: [ownerId], references: [id])
-  
+
   rating        Float  @default(0)
   totalSeats    Int
   basePrice     Float
   location      String
   contactNumber String
 
-  facilities String[] // Simple version (upgrade later)
-  images     String[] // Store image URLs
+  facilities String[] 
+  images     String[] 
 
   slotTypes SlotType[]
 
@@ -59,7 +58,7 @@ model Library {
 
 model Review {
   id          String   @id @default(cuid())
-  rating      Int 
+  rating      Int
   description String
   userId      String
   user        User     @relation(fields: [userId], references: [id])
@@ -67,7 +66,6 @@ model Review {
   library     Library  @relation(fields: [libraryId], references: [id])
   createdAt   DateTime @default(now())
 }
-
 
 model Booking {
   id           String     @id @default(cuid()) // booking_id
@@ -82,8 +80,8 @@ model Booking {
   amount       Float
   userId       String
   user         User       @relation(fields: [userId], references: [id])
-  status       String   
-  paymentId    String? // Razorpay payment id
+  status       String
+  paymentId    String?
   createdAt    DateTime   @default(now())
 }
 
