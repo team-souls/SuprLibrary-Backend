@@ -104,7 +104,8 @@ export const LibraryScalarFieldEnum = {
   rating: 'rating',
   totalSeats: 'totalSeats',
   address: 'address',
-  trialDuration: 'trialDuration'
+  trialDuration: 'trialDuration',
+  token: 'token'
 } as const
 
 export type LibraryScalarFieldEnum = (typeof LibraryScalarFieldEnum)[keyof typeof LibraryScalarFieldEnum]
@@ -189,7 +190,8 @@ export const AttendanceScalarFieldEnum = {
   checkInTime: 'checkInTime',
   checkOutTime: 'checkOutTime',
   durationMinutes: 'durationMinutes',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  date: 'date'
 } as const
 
 export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]

@@ -45,6 +45,7 @@ export type AttendanceMinAggregateOutputType = {
   checkOutTime: Date | null
   durationMinutes: number | null
   createdAt: Date | null
+  date: Date | null
 }
 
 export type AttendanceMaxAggregateOutputType = {
@@ -58,6 +59,7 @@ export type AttendanceMaxAggregateOutputType = {
   checkOutTime: Date | null
   durationMinutes: number | null
   createdAt: Date | null
+  date: Date | null
 }
 
 export type AttendanceCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type AttendanceCountAggregateOutputType = {
   checkOutTime: number
   durationMinutes: number
   createdAt: number
+  date: number
   _all: number
 }
 
@@ -94,6 +97,7 @@ export type AttendanceMinAggregateInputType = {
   checkOutTime?: true
   durationMinutes?: true
   createdAt?: true
+  date?: true
 }
 
 export type AttendanceMaxAggregateInputType = {
@@ -107,6 +111,7 @@ export type AttendanceMaxAggregateInputType = {
   checkOutTime?: true
   durationMinutes?: true
   createdAt?: true
+  date?: true
 }
 
 export type AttendanceCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type AttendanceCountAggregateInputType = {
   checkOutTime?: true
   durationMinutes?: true
   createdAt?: true
+  date?: true
   _all?: true
 }
 
@@ -220,6 +226,7 @@ export type AttendanceGroupByOutputType = {
   checkOutTime: Date | null
   durationMinutes: number | null
   createdAt: Date
+  date: Date
   _count: AttendanceCountAggregateOutputType | null
   _avg: AttendanceAvgAggregateOutputType | null
   _sum: AttendanceSumAggregateOutputType | null
@@ -256,6 +263,7 @@ export type AttendanceWhereInput = {
   checkOutTime?: Prisma.DateTimeNullableFilter<"Attendance"> | Date | string | null
   durationMinutes?: Prisma.IntNullableFilter<"Attendance"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
+  date?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   Booking?: Prisma.XOR<Prisma.BookingNullableScalarRelationFilter, Prisma.BookingWhereInput> | null
   Library?: Prisma.XOR<Prisma.LibraryScalarRelationFilter, Prisma.LibraryWhereInput>
   SlotTiming?: Prisma.XOR<Prisma.SlotTimingScalarRelationFilter, Prisma.SlotTimingWhereInput>
@@ -274,6 +282,7 @@ export type AttendanceOrderByWithRelationInput = {
   checkOutTime?: Prisma.SortOrderInput | Prisma.SortOrder
   durationMinutes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
   Booking?: Prisma.BookingOrderByWithRelationInput
   Library?: Prisma.LibraryOrderByWithRelationInput
   SlotTiming?: Prisma.SlotTimingOrderByWithRelationInput
@@ -295,6 +304,7 @@ export type AttendanceWhereUniqueInput = Prisma.AtLeast<{
   checkOutTime?: Prisma.DateTimeNullableFilter<"Attendance"> | Date | string | null
   durationMinutes?: Prisma.IntNullableFilter<"Attendance"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
+  date?: Prisma.DateTimeFilter<"Attendance"> | Date | string
   Booking?: Prisma.XOR<Prisma.BookingNullableScalarRelationFilter, Prisma.BookingWhereInput> | null
   Library?: Prisma.XOR<Prisma.LibraryScalarRelationFilter, Prisma.LibraryWhereInput>
   SlotTiming?: Prisma.XOR<Prisma.SlotTimingScalarRelationFilter, Prisma.SlotTimingWhereInput>
@@ -313,6 +323,7 @@ export type AttendanceOrderByWithAggregationInput = {
   checkOutTime?: Prisma.SortOrderInput | Prisma.SortOrder
   durationMinutes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
   _count?: Prisma.AttendanceCountOrderByAggregateInput
   _avg?: Prisma.AttendanceAvgOrderByAggregateInput
   _max?: Prisma.AttendanceMaxOrderByAggregateInput
@@ -334,14 +345,16 @@ export type AttendanceScalarWhereWithAggregatesInput = {
   checkOutTime?: Prisma.DateTimeNullableWithAggregatesFilter<"Attendance"> | Date | string | null
   durationMinutes?: Prisma.IntNullableWithAggregatesFilter<"Attendance"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Attendance"> | Date | string
+  date?: Prisma.DateTimeWithAggregatesFilter<"Attendance"> | Date | string
 }
 
 export type AttendanceCreateInput = {
-  id: string
+  id?: string
   checkInTime?: Date | string | null
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
   Booking?: Prisma.BookingCreateNestedOneWithoutAttendanceInput
   Library: Prisma.LibraryCreateNestedOneWithoutAttendanceInput
   SlotTiming: Prisma.SlotTimingCreateNestedOneWithoutAttendanceInput
@@ -350,7 +363,7 @@ export type AttendanceCreateInput = {
 }
 
 export type AttendanceUncheckedCreateInput = {
-  id: string
+  id?: string
   userId: string
   libraryId: string
   slotTimingId: string
@@ -360,6 +373,7 @@ export type AttendanceUncheckedCreateInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceUpdateInput = {
@@ -368,6 +382,7 @@ export type AttendanceUpdateInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Booking?: Prisma.BookingUpdateOneWithoutAttendanceNestedInput
   Library?: Prisma.LibraryUpdateOneRequiredWithoutAttendanceNestedInput
   SlotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutAttendanceNestedInput
@@ -386,10 +401,11 @@ export type AttendanceUncheckedUpdateInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceCreateManyInput = {
-  id: string
+  id?: string
   userId: string
   libraryId: string
   slotTimingId: string
@@ -399,6 +415,7 @@ export type AttendanceCreateManyInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceUpdateManyMutationInput = {
@@ -407,6 +424,7 @@ export type AttendanceUpdateManyMutationInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceUncheckedUpdateManyInput = {
@@ -420,6 +438,7 @@ export type AttendanceUncheckedUpdateManyInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceListRelationFilter = {
@@ -443,6 +462,7 @@ export type AttendanceCountOrderByAggregateInput = {
   checkOutTime?: Prisma.SortOrder
   durationMinutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
 }
 
 export type AttendanceAvgOrderByAggregateInput = {
@@ -460,6 +480,7 @@ export type AttendanceMaxOrderByAggregateInput = {
   checkOutTime?: Prisma.SortOrder
   durationMinutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
 }
 
 export type AttendanceMinOrderByAggregateInput = {
@@ -473,6 +494,7 @@ export type AttendanceMinOrderByAggregateInput = {
   checkOutTime?: Prisma.SortOrder
   durationMinutes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  date?: Prisma.SortOrder
 }
 
 export type AttendanceSumOrderByAggregateInput = {
@@ -698,11 +720,12 @@ export type NullableIntFieldUpdateOperationsInput = {
 }
 
 export type AttendanceCreateWithoutUserInput = {
-  id: string
+  id?: string
   checkInTime?: Date | string | null
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
   Booking?: Prisma.BookingCreateNestedOneWithoutAttendanceInput
   Library: Prisma.LibraryCreateNestedOneWithoutAttendanceInput
   SlotTiming: Prisma.SlotTimingCreateNestedOneWithoutAttendanceInput
@@ -710,7 +733,7 @@ export type AttendanceCreateWithoutUserInput = {
 }
 
 export type AttendanceUncheckedCreateWithoutUserInput = {
-  id: string
+  id?: string
   libraryId: string
   slotTimingId: string
   bookingId?: string | null
@@ -719,6 +742,7 @@ export type AttendanceUncheckedCreateWithoutUserInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceCreateOrConnectWithoutUserInput = {
@@ -761,14 +785,16 @@ export type AttendanceScalarWhereInput = {
   checkOutTime?: Prisma.DateTimeNullableFilter<"Attendance"> | Date | string | null
   durationMinutes?: Prisma.IntNullableFilter<"Attendance"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Attendance"> | Date | string
+  date?: Prisma.DateTimeFilter<"Attendance"> | Date | string
 }
 
 export type AttendanceCreateWithoutLibraryInput = {
-  id: string
+  id?: string
   checkInTime?: Date | string | null
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
   Booking?: Prisma.BookingCreateNestedOneWithoutAttendanceInput
   SlotTiming: Prisma.SlotTimingCreateNestedOneWithoutAttendanceInput
   TrialBooking?: Prisma.TrialBookingCreateNestedOneWithoutAttendanceInput
@@ -776,7 +802,7 @@ export type AttendanceCreateWithoutLibraryInput = {
 }
 
 export type AttendanceUncheckedCreateWithoutLibraryInput = {
-  id: string
+  id?: string
   userId: string
   slotTimingId: string
   bookingId?: string | null
@@ -785,6 +811,7 @@ export type AttendanceUncheckedCreateWithoutLibraryInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceCreateOrConnectWithoutLibraryInput = {
@@ -814,11 +841,12 @@ export type AttendanceUpdateManyWithWhereWithoutLibraryInput = {
 }
 
 export type AttendanceCreateWithoutTrialBookingInput = {
-  id: string
+  id?: string
   checkInTime?: Date | string | null
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
   Booking?: Prisma.BookingCreateNestedOneWithoutAttendanceInput
   Library: Prisma.LibraryCreateNestedOneWithoutAttendanceInput
   SlotTiming: Prisma.SlotTimingCreateNestedOneWithoutAttendanceInput
@@ -826,7 +854,7 @@ export type AttendanceCreateWithoutTrialBookingInput = {
 }
 
 export type AttendanceUncheckedCreateWithoutTrialBookingInput = {
-  id: string
+  id?: string
   userId: string
   libraryId: string
   slotTimingId: string
@@ -835,6 +863,7 @@ export type AttendanceUncheckedCreateWithoutTrialBookingInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceCreateOrConnectWithoutTrialBookingInput = {
@@ -864,11 +893,12 @@ export type AttendanceUpdateManyWithWhereWithoutTrialBookingInput = {
 }
 
 export type AttendanceCreateWithoutSlotTimingInput = {
-  id: string
+  id?: string
   checkInTime?: Date | string | null
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
   Booking?: Prisma.BookingCreateNestedOneWithoutAttendanceInput
   Library: Prisma.LibraryCreateNestedOneWithoutAttendanceInput
   TrialBooking?: Prisma.TrialBookingCreateNestedOneWithoutAttendanceInput
@@ -876,7 +906,7 @@ export type AttendanceCreateWithoutSlotTimingInput = {
 }
 
 export type AttendanceUncheckedCreateWithoutSlotTimingInput = {
-  id: string
+  id?: string
   userId: string
   libraryId: string
   bookingId?: string | null
@@ -885,6 +915,7 @@ export type AttendanceUncheckedCreateWithoutSlotTimingInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceCreateOrConnectWithoutSlotTimingInput = {
@@ -914,11 +945,12 @@ export type AttendanceUpdateManyWithWhereWithoutSlotTimingInput = {
 }
 
 export type AttendanceCreateWithoutBookingInput = {
-  id: string
+  id?: string
   checkInTime?: Date | string | null
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
   Library: Prisma.LibraryCreateNestedOneWithoutAttendanceInput
   SlotTiming: Prisma.SlotTimingCreateNestedOneWithoutAttendanceInput
   TrialBooking?: Prisma.TrialBookingCreateNestedOneWithoutAttendanceInput
@@ -926,7 +958,7 @@ export type AttendanceCreateWithoutBookingInput = {
 }
 
 export type AttendanceUncheckedCreateWithoutBookingInput = {
-  id: string
+  id?: string
   userId: string
   libraryId: string
   slotTimingId: string
@@ -935,6 +967,7 @@ export type AttendanceUncheckedCreateWithoutBookingInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceCreateOrConnectWithoutBookingInput = {
@@ -964,7 +997,7 @@ export type AttendanceUpdateManyWithWhereWithoutBookingInput = {
 }
 
 export type AttendanceCreateManyUserInput = {
-  id: string
+  id?: string
   libraryId: string
   slotTimingId: string
   bookingId?: string | null
@@ -973,6 +1006,7 @@ export type AttendanceCreateManyUserInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceUpdateWithoutUserInput = {
@@ -981,6 +1015,7 @@ export type AttendanceUpdateWithoutUserInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Booking?: Prisma.BookingUpdateOneWithoutAttendanceNestedInput
   Library?: Prisma.LibraryUpdateOneRequiredWithoutAttendanceNestedInput
   SlotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutAttendanceNestedInput
@@ -997,6 +1032,7 @@ export type AttendanceUncheckedUpdateWithoutUserInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceUncheckedUpdateManyWithoutUserInput = {
@@ -1009,10 +1045,11 @@ export type AttendanceUncheckedUpdateManyWithoutUserInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceCreateManyLibraryInput = {
-  id: string
+  id?: string
   userId: string
   slotTimingId: string
   bookingId?: string | null
@@ -1021,6 +1058,7 @@ export type AttendanceCreateManyLibraryInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceUpdateWithoutLibraryInput = {
@@ -1029,6 +1067,7 @@ export type AttendanceUpdateWithoutLibraryInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Booking?: Prisma.BookingUpdateOneWithoutAttendanceNestedInput
   SlotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutAttendanceNestedInput
   TrialBooking?: Prisma.TrialBookingUpdateOneWithoutAttendanceNestedInput
@@ -1045,6 +1084,7 @@ export type AttendanceUncheckedUpdateWithoutLibraryInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceUncheckedUpdateManyWithoutLibraryInput = {
@@ -1057,10 +1097,11 @@ export type AttendanceUncheckedUpdateManyWithoutLibraryInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceCreateManyTrialBookingInput = {
-  id: string
+  id?: string
   userId: string
   libraryId: string
   slotTimingId: string
@@ -1069,6 +1110,7 @@ export type AttendanceCreateManyTrialBookingInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceUpdateWithoutTrialBookingInput = {
@@ -1077,6 +1119,7 @@ export type AttendanceUpdateWithoutTrialBookingInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Booking?: Prisma.BookingUpdateOneWithoutAttendanceNestedInput
   Library?: Prisma.LibraryUpdateOneRequiredWithoutAttendanceNestedInput
   SlotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutAttendanceNestedInput
@@ -1093,6 +1136,7 @@ export type AttendanceUncheckedUpdateWithoutTrialBookingInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceUncheckedUpdateManyWithoutTrialBookingInput = {
@@ -1105,10 +1149,11 @@ export type AttendanceUncheckedUpdateManyWithoutTrialBookingInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceCreateManySlotTimingInput = {
-  id: string
+  id?: string
   userId: string
   libraryId: string
   bookingId?: string | null
@@ -1117,6 +1162,7 @@ export type AttendanceCreateManySlotTimingInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceUpdateWithoutSlotTimingInput = {
@@ -1125,6 +1171,7 @@ export type AttendanceUpdateWithoutSlotTimingInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Booking?: Prisma.BookingUpdateOneWithoutAttendanceNestedInput
   Library?: Prisma.LibraryUpdateOneRequiredWithoutAttendanceNestedInput
   TrialBooking?: Prisma.TrialBookingUpdateOneWithoutAttendanceNestedInput
@@ -1141,6 +1188,7 @@ export type AttendanceUncheckedUpdateWithoutSlotTimingInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceUncheckedUpdateManyWithoutSlotTimingInput = {
@@ -1153,10 +1201,11 @@ export type AttendanceUncheckedUpdateManyWithoutSlotTimingInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceCreateManyBookingInput = {
-  id: string
+  id?: string
   userId: string
   libraryId: string
   slotTimingId: string
@@ -1165,6 +1214,7 @@ export type AttendanceCreateManyBookingInput = {
   checkOutTime?: Date | string | null
   durationMinutes?: number | null
   createdAt?: Date | string
+  date?: Date | string
 }
 
 export type AttendanceUpdateWithoutBookingInput = {
@@ -1173,6 +1223,7 @@ export type AttendanceUpdateWithoutBookingInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   Library?: Prisma.LibraryUpdateOneRequiredWithoutAttendanceNestedInput
   SlotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutAttendanceNestedInput
   TrialBooking?: Prisma.TrialBookingUpdateOneWithoutAttendanceNestedInput
@@ -1189,6 +1240,7 @@ export type AttendanceUncheckedUpdateWithoutBookingInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type AttendanceUncheckedUpdateManyWithoutBookingInput = {
@@ -1201,6 +1253,7 @@ export type AttendanceUncheckedUpdateManyWithoutBookingInput = {
   checkOutTime?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   durationMinutes?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1216,6 +1269,7 @@ export type AttendanceSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   checkOutTime?: boolean
   durationMinutes?: boolean
   createdAt?: boolean
+  date?: boolean
   Booking?: boolean | Prisma.Attendance$BookingArgs<ExtArgs>
   Library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
   SlotTiming?: boolean | Prisma.SlotTimingDefaultArgs<ExtArgs>
@@ -1234,6 +1288,7 @@ export type AttendanceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   checkOutTime?: boolean
   durationMinutes?: boolean
   createdAt?: boolean
+  date?: boolean
   Booking?: boolean | Prisma.Attendance$BookingArgs<ExtArgs>
   Library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
   SlotTiming?: boolean | Prisma.SlotTimingDefaultArgs<ExtArgs>
@@ -1252,6 +1307,7 @@ export type AttendanceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   checkOutTime?: boolean
   durationMinutes?: boolean
   createdAt?: boolean
+  date?: boolean
   Booking?: boolean | Prisma.Attendance$BookingArgs<ExtArgs>
   Library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
   SlotTiming?: boolean | Prisma.SlotTimingDefaultArgs<ExtArgs>
@@ -1270,9 +1326,10 @@ export type AttendanceSelectScalar = {
   checkOutTime?: boolean
   durationMinutes?: boolean
   createdAt?: boolean
+  date?: boolean
 }
 
-export type AttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "libraryId" | "slotTimingId" | "bookingId" | "trialBookingId" | "checkInTime" | "checkOutTime" | "durationMinutes" | "createdAt", ExtArgs["result"]["attendance"]>
+export type AttendanceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "libraryId" | "slotTimingId" | "bookingId" | "trialBookingId" | "checkInTime" | "checkOutTime" | "durationMinutes" | "createdAt" | "date", ExtArgs["result"]["attendance"]>
 export type AttendanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Booking?: boolean | Prisma.Attendance$BookingArgs<ExtArgs>
   Library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
@@ -1315,6 +1372,7 @@ export type $AttendancePayload<ExtArgs extends runtime.Types.Extensions.Internal
     checkOutTime: Date | null
     durationMinutes: number | null
     createdAt: Date
+    date: Date
   }, ExtArgs["result"]["attendance"]>
   composites: {}
 }
@@ -1753,6 +1811,7 @@ export interface AttendanceFieldRefs {
   readonly checkOutTime: Prisma.FieldRef<"Attendance", 'DateTime'>
   readonly durationMinutes: Prisma.FieldRef<"Attendance", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Attendance", 'DateTime'>
+  readonly date: Prisma.FieldRef<"Attendance", 'DateTime'>
 }
     
 
