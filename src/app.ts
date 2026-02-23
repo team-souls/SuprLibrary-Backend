@@ -13,13 +13,18 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  credentials: true
+}));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
   next();
 });
-
+app.get("/", (req, res) => {
+  res.send("Welcome to the Library Management System API");
+});
 app.get("/health", (req, res) => {
   console.log("Health check endpoint hit");
   res.send("Auth server running");
@@ -31,7 +36,6 @@ app.use("/api/user", userRouter);
 app.use("/api/auth",authRouter)
 app.use("/api/bookings", bookingsRouter)
 app.use("/api/libraries", libraryRouter)
-
 app.use("/api/upload",imageUploadRoutes)
 
 
@@ -43,7 +47,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 // Start serverv b
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0",() => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📦 Environment: ${process.env.NODE_ENV || "development"}`);
 });
