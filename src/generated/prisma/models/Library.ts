@@ -52,6 +52,7 @@ export type LibraryMinAggregateOutputType = {
   totalSeats: number | null
   address: string | null
   trialDuration: number | null
+  token: string | null
 }
 
 export type LibraryMaxAggregateOutputType = {
@@ -66,6 +67,7 @@ export type LibraryMaxAggregateOutputType = {
   totalSeats: number | null
   address: string | null
   trialDuration: number | null
+  token: string | null
 }
 
 export type LibraryCountAggregateOutputType = {
@@ -82,6 +84,7 @@ export type LibraryCountAggregateOutputType = {
   totalSeats: number
   address: number
   trialDuration: number
+  token: number
   _all: number
 }
 
@@ -112,6 +115,7 @@ export type LibraryMinAggregateInputType = {
   totalSeats?: true
   address?: true
   trialDuration?: true
+  token?: true
 }
 
 export type LibraryMaxAggregateInputType = {
@@ -126,6 +130,7 @@ export type LibraryMaxAggregateInputType = {
   totalSeats?: true
   address?: true
   trialDuration?: true
+  token?: true
 }
 
 export type LibraryCountAggregateInputType = {
@@ -142,6 +147,7 @@ export type LibraryCountAggregateInputType = {
   totalSeats?: true
   address?: true
   trialDuration?: true
+  token?: true
   _all?: true
 }
 
@@ -245,6 +251,7 @@ export type LibraryGroupByOutputType = {
   totalSeats: number
   address: string
   trialDuration: number
+  token: string | null
   _count: LibraryCountAggregateOutputType | null
   _avg: LibraryAvgAggregateOutputType | null
   _sum: LibrarySumAggregateOutputType | null
@@ -284,6 +291,7 @@ export type LibraryWhereInput = {
   totalSeats?: Prisma.IntFilter<"Library"> | number
   address?: Prisma.StringFilter<"Library"> | string
   trialDuration?: Prisma.IntFilter<"Library"> | number
+  token?: Prisma.StringNullableFilter<"Library"> | string | null
   Attendance?: Prisma.AttendanceListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -306,6 +314,7 @@ export type LibraryOrderByWithRelationInput = {
   totalSeats?: Prisma.SortOrder
   address?: Prisma.SortOrder
   trialDuration?: Prisma.SortOrder
+  token?: Prisma.SortOrderInput | Prisma.SortOrder
   Attendance?: Prisma.AttendanceOrderByRelationAggregateInput
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   owner?: Prisma.UserOrderByWithRelationInput
@@ -331,6 +340,7 @@ export type LibraryWhereUniqueInput = Prisma.AtLeast<{
   totalSeats?: Prisma.IntFilter<"Library"> | number
   address?: Prisma.StringFilter<"Library"> | string
   trialDuration?: Prisma.IntFilter<"Library"> | number
+  token?: Prisma.StringNullableFilter<"Library"> | string | null
   Attendance?: Prisma.AttendanceListRelationFilter
   bookings?: Prisma.BookingListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -353,6 +363,7 @@ export type LibraryOrderByWithAggregationInput = {
   totalSeats?: Prisma.SortOrder
   address?: Prisma.SortOrder
   trialDuration?: Prisma.SortOrder
+  token?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.LibraryCountOrderByAggregateInput
   _avg?: Prisma.LibraryAvgOrderByAggregateInput
   _max?: Prisma.LibraryMaxOrderByAggregateInput
@@ -377,6 +388,7 @@ export type LibraryScalarWhereWithAggregatesInput = {
   totalSeats?: Prisma.IntWithAggregatesFilter<"Library"> | number
   address?: Prisma.StringWithAggregatesFilter<"Library"> | string
   trialDuration?: Prisma.IntWithAggregatesFilter<"Library"> | number
+  token?: Prisma.StringNullableWithAggregatesFilter<"Library"> | string | null
 }
 
 export type LibraryCreateInput = {
@@ -392,6 +404,7 @@ export type LibraryCreateInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   owner: Prisma.UserCreateNestedOneWithoutLibraryInput
@@ -414,6 +427,7 @@ export type LibraryUncheckedCreateInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
@@ -434,6 +448,7 @@ export type LibraryUpdateInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
@@ -456,6 +471,7 @@ export type LibraryUncheckedUpdateInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
@@ -477,6 +493,7 @@ export type LibraryCreateManyInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
 }
 
 export type LibraryUpdateManyMutationInput = {
@@ -492,6 +509,7 @@ export type LibraryUpdateManyMutationInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type LibraryUncheckedUpdateManyInput = {
@@ -508,6 +526,7 @@ export type LibraryUncheckedUpdateManyInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type LibraryListRelationFilter = {
@@ -542,6 +561,7 @@ export type LibraryCountOrderByAggregateInput = {
   totalSeats?: Prisma.SortOrder
   address?: Prisma.SortOrder
   trialDuration?: Prisma.SortOrder
+  token?: Prisma.SortOrder
 }
 
 export type LibraryAvgOrderByAggregateInput = {
@@ -563,6 +583,7 @@ export type LibraryMaxOrderByAggregateInput = {
   totalSeats?: Prisma.SortOrder
   address?: Prisma.SortOrder
   trialDuration?: Prisma.SortOrder
+  token?: Prisma.SortOrder
 }
 
 export type LibraryMinOrderByAggregateInput = {
@@ -577,6 +598,7 @@ export type LibraryMinOrderByAggregateInput = {
   totalSeats?: Prisma.SortOrder
   address?: Prisma.SortOrder
   trialDuration?: Prisma.SortOrder
+  token?: Prisma.SortOrder
 }
 
 export type LibrarySumOrderByAggregateInput = {
@@ -750,6 +772,7 @@ export type LibraryCreateWithoutOwnerInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
@@ -770,6 +793,7 @@ export type LibraryUncheckedCreateWithoutOwnerInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
@@ -820,6 +844,7 @@ export type LibraryScalarWhereInput = {
   totalSeats?: Prisma.IntFilter<"Library"> | number
   address?: Prisma.StringFilter<"Library"> | string
   trialDuration?: Prisma.IntFilter<"Library"> | number
+  token?: Prisma.StringNullableFilter<"Library"> | string | null
 }
 
 export type LibraryCreateWithoutReviewsInput = {
@@ -835,6 +860,7 @@ export type LibraryCreateWithoutReviewsInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   owner: Prisma.UserCreateNestedOneWithoutLibraryInput
@@ -856,6 +882,7 @@ export type LibraryUncheckedCreateWithoutReviewsInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
@@ -891,6 +918,7 @@ export type LibraryUpdateWithoutReviewsInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
@@ -912,6 +940,7 @@ export type LibraryUncheckedUpdateWithoutReviewsInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
@@ -931,6 +960,7 @@ export type LibraryCreateWithoutTrialBookingsInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   owner: Prisma.UserCreateNestedOneWithoutLibraryInput
@@ -952,6 +982,7 @@ export type LibraryUncheckedCreateWithoutTrialBookingsInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
@@ -987,6 +1018,7 @@ export type LibraryUpdateWithoutTrialBookingsInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
@@ -1008,6 +1040,7 @@ export type LibraryUncheckedUpdateWithoutTrialBookingsInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
@@ -1027,6 +1060,7 @@ export type LibraryCreateWithoutSlotTypesInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   owner: Prisma.UserCreateNestedOneWithoutLibraryInput
@@ -1048,6 +1082,7 @@ export type LibraryUncheckedCreateWithoutSlotTypesInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
@@ -1083,6 +1118,7 @@ export type LibraryUpdateWithoutSlotTypesInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
@@ -1104,6 +1140,7 @@ export type LibraryUncheckedUpdateWithoutSlotTypesInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
@@ -1123,6 +1160,7 @@ export type LibraryCreateWithoutBookingsInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceCreateNestedManyWithoutLibraryInput
   owner: Prisma.UserCreateNestedOneWithoutLibraryInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
@@ -1144,6 +1182,7 @@ export type LibraryUncheckedCreateWithoutBookingsInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
   slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
@@ -1179,6 +1218,7 @@ export type LibraryUpdateWithoutBookingsInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
@@ -1200,6 +1240,7 @@ export type LibraryUncheckedUpdateWithoutBookingsInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
@@ -1219,6 +1260,7 @@ export type LibraryCreateWithoutAttendanceInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   bookings?: Prisma.BookingCreateNestedManyWithoutLibraryInput
   owner: Prisma.UserCreateNestedOneWithoutLibraryInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutLibraryInput
@@ -1240,6 +1282,7 @@ export type LibraryUncheckedCreateWithoutAttendanceInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutLibraryInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutLibraryInput
   slotTypes?: Prisma.SlotTypeUncheckedCreateNestedManyWithoutLibraryInput
@@ -1275,6 +1318,7 @@ export type LibraryUpdateWithoutAttendanceInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
@@ -1296,6 +1340,7 @@ export type LibraryUncheckedUpdateWithoutAttendanceInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
   slotTypes?: Prisma.SlotTypeUncheckedUpdateManyWithoutLibraryNestedInput
@@ -1315,6 +1360,7 @@ export type LibraryCreateManyOwnerInput = {
   totalSeats: number
   address?: string
   trialDuration?: number
+  token?: string | null
 }
 
 export type LibraryUpdateWithoutOwnerInput = {
@@ -1330,6 +1376,7 @@ export type LibraryUpdateWithoutOwnerInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutLibraryNestedInput
@@ -1350,6 +1397,7 @@ export type LibraryUncheckedUpdateWithoutOwnerInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutLibraryNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutLibraryNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutLibraryNestedInput
@@ -1370,6 +1418,7 @@ export type LibraryUncheckedUpdateManyWithoutOwnerInput = {
   totalSeats?: Prisma.IntFieldUpdateOperationsInput | number
   address?: Prisma.StringFieldUpdateOperationsInput | string
   trialDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1453,6 +1502,7 @@ export type LibrarySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   totalSeats?: boolean
   address?: boolean
   trialDuration?: boolean
+  token?: boolean
   Attendance?: boolean | Prisma.Library$AttendanceArgs<ExtArgs>
   bookings?: boolean | Prisma.Library$bookingsArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1476,6 +1526,7 @@ export type LibrarySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   totalSeats?: boolean
   address?: boolean
   trialDuration?: boolean
+  token?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["library"]>
 
@@ -1493,6 +1544,7 @@ export type LibrarySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   totalSeats?: boolean
   address?: boolean
   trialDuration?: boolean
+  token?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["library"]>
 
@@ -1510,9 +1562,10 @@ export type LibrarySelectScalar = {
   totalSeats?: boolean
   address?: boolean
   trialDuration?: boolean
+  token?: boolean
 }
 
-export type LibraryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "location" | "ownerId" | "createdAt" | "basePrice" | "contactNumber" | "facilities" | "images" | "rating" | "totalSeats" | "address" | "trialDuration", ExtArgs["result"]["library"]>
+export type LibraryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "location" | "ownerId" | "createdAt" | "basePrice" | "contactNumber" | "facilities" | "images" | "rating" | "totalSeats" | "address" | "trialDuration" | "token", ExtArgs["result"]["library"]>
 export type LibraryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Attendance?: boolean | Prisma.Library$AttendanceArgs<ExtArgs>
   bookings?: boolean | Prisma.Library$bookingsArgs<ExtArgs>
@@ -1553,6 +1606,7 @@ export type $LibraryPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     totalSeats: number
     address: string
     trialDuration: number
+    token: string | null
   }, ExtArgs["result"]["library"]>
   composites: {}
 }
@@ -1995,6 +2049,7 @@ export interface LibraryFieldRefs {
   readonly totalSeats: Prisma.FieldRef<"Library", 'Int'>
   readonly address: Prisma.FieldRef<"Library", 'String'>
   readonly trialDuration: Prisma.FieldRef<"Library", 'Int'>
+  readonly token: Prisma.FieldRef<"Library", 'String'>
 }
     
 

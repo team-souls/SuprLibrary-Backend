@@ -43,6 +43,7 @@ model Library {
   reviews       Review[]
   slotTypes     SlotType[]
   trialBookings TrialBooking[]
+  token       String?          @default(cuid())
 }
 
 model Review {
@@ -123,7 +124,7 @@ model Booking {
 }
 
 model Attendance {
-  id              String        @id
+  id              String        @id @default(cuid())
   userId          String
   libraryId       String
   slotTimingId    String
@@ -138,6 +139,7 @@ model Attendance {
   SlotTiming      SlotTiming    @relation(fields: [slotTimingId], references: [id])
   TrialBooking    TrialBooking? @relation(fields: [trialBookingId], references: [id])
   User            User          @relation(fields: [userId], references: [id])
+  date            DateTime      @default(now())
 }
 
 enum Role {

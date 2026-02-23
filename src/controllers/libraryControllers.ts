@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
 
 import { prisma } from "../config/db.js";
 import { uploadToCloudinary } from "../upload/cloudinary.js";
@@ -7,7 +8,8 @@ import { Logger } from "../utils/logger.js";
 const logger = Logger.getInstance();
 
 export const createLibraryWithSlots = async (req: Request, res: Response) => {
-  console.log("create library function called by user");
+
+  console.log("create library function called");
 
   try {
     const {
@@ -20,43 +22,47 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
       slotTypes,
       facilities,
       trialDuration,
-    } = req.body;
+    } = req.body as any;
 
     const files = req.files as Express.Multer.File[];
-    console.log(files);
-    console.log("Received data:", req.body);
 
+    // Find owner
     const owner = await prisma.user.findUnique({
       where: { email },
     });
 
     if (!owner) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({
+        message: "User not found",
+      });
     }
 
     if (owner.role !== "ADMIN") {
       return res.status(400).json({
-        message: "User is not an ADMIN",
+        message: "User is not ADMIN",
       });
     }
 
-    // 🔥 Upload images
+    // Upload Images
     let uploadedImageUrls: string[] = [];
 
     if (files && files.length > 0) {
       for (const file of files) {
-        const base64 = `data:${file.mimetype};base64,${file.buffer.toString(
-          "base64",
-        )}`;
+
+        const base64 = `data:${file.mimetype};base64,${file.buffer.toString("base64")}`;
 
         const uploadRes = await uploadToCloudinary(base64, "libraries");
+
         uploadedImageUrls.push(uploadRes.secure_url);
       }
     }
 
     const result = await prisma.$transaction(async (tx) => {
+
+      // 1️⃣ Create Library
       const library = await tx.library.create({
         data: {
+
           name,
           totalSeats: Number(totalSeats),
           basePrice: Number(basePrice),
@@ -65,25 +71,36 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
           ownerId: owner.id,
           facilities: facilities || [],
           images: uploadedImageUrls,
+          trialDuration: Number(trialDuration),
+
+          token: null // initially empty
         },
       });
 
-      // SlotTypes
+
+      // 2️⃣ Create SlotTypes & Timings
+
       for (const slot of slotTypes) {
+
         const createdSlotType = await tx.slotType.create({
+
           data: {
             typeName: slot.typeName,
             duration: Number(slot.duration),
             price: Number(slot.price),
             libraryId: library.id,
           },
+
         });
 
         for (const timing of slot.timings) {
-          const [startHour, startMinute] = timing.startTime
-            .split(":")
-            .map(Number);
-          const [endHour, endMinute] = timing.endTime.split(":").map(Number);
+
+          const [startHour, startMinute] =
+            timing.startTime.split(":").map(Number);
+
+          const [endHour, endMinute] =
+            timing.endTime.split(":").map(Number);
+
 
           const startDate = new Date();
           startDate.setHours(startHour, startMinute, 0, 0);
@@ -91,33 +108,85 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
           const endDate = new Date();
           endDate.setHours(endHour, endMinute, 0, 0);
 
+
           if (endDate <= startDate) {
-            throw new Error("End time must be greater than start time");
+            throw new Error("EndTime must be greater");
           }
 
           await tx.slotTiming.create({
+
             data: {
+
               slotTypeId: createdSlotType.id,
               startTime: startDate,
               endTime: endDate,
+
             },
+
           });
+
         }
+
       }
 
-      return library;
+
+      // 3️⃣ Generate QR Token
+
+      const token = jwt.sign(
+        {
+          libraryId: library.id,
+          ownerId: owner.id,
+        },
+        process.env.QR_SECRET!
+      );
+
+
+      // 4️⃣ Save Token
+
+      await tx.library.update({
+
+        where: {
+          id: library.id,
+        },
+
+        data: {
+          token: token,
+        },
+
+      });
+
+
+      return {
+        ...library,
+        token,
+      };
+
     });
 
+
     return res.status(201).json({
-      message: "Library created successfully",
+
+      message: "Library Created + Token Generated",
+
       library: result,
+
     });
+
+
   } catch (error) {
+
     console.error(error);
+
     return res.status(500).json({
+
       message: "Failed to create library",
+
+      error,
+
     });
+
   }
+
 };
 
 export const getAllLibraries = async (req: Request, res: Response) => {
