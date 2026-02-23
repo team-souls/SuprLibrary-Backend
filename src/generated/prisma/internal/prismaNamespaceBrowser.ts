@@ -54,10 +54,12 @@ export const ModelName = {
   User: 'User',
   Library: 'Library',
   Review: 'Review',
-  Booking: 'Booking',
   TrialBooking: 'TrialBooking',
   SlotType: 'SlotType',
-  SlotTiming: 'SlotTiming'
+  SlotTiming: 'SlotTiming',
+  Booking: 'Booking',
+  Attendance: 'Attendance',
+  Payment: 'Payment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -78,12 +80,12 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  googleId: 'googleId',
   email: 'email',
   name: 'name',
   avatar: 'avatar',
-  role: 'role',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  googleId: 'googleId',
+  role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -92,17 +94,17 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const LibraryScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  location: 'location',
   ownerId: 'ownerId',
-  rating: 'rating',
-  totalSeats: 'totalSeats',
+  createdAt: 'createdAt',
   basePrice: 'basePrice',
   contactNumber: 'contactNumber',
-  trialDuration: 'trialDuration',
   facilities: 'facilities',
   images: 'images',
-  location: 'location',
+  rating: 'rating',
+  totalSeats: 'totalSeats',
   address: 'address',
-  createdAt: 'createdAt'
+  trialDuration: 'trialDuration'
 } as const
 
 export type LibraryScalarFieldEnum = (typeof LibraryScalarFieldEnum)[keyof typeof LibraryScalarFieldEnum]
@@ -118,22 +120,6 @@ export const ReviewScalarFieldEnum = {
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
-
-
-export const BookingScalarFieldEnum = {
-  id: 'id',
-  libraryId: 'libraryId',
-  slotTimingId: 'slotTimingId',
-  slotTypeId: 'slotTypeId',
-  libraryName: 'libraryName',
-  amount: 'amount',
-  userId: 'userId',
-  status: 'status',
-  paymentId: 'paymentId',
-  createdAt: 'createdAt'
-} as const
-
-export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
 
 
 export const TrialBookingScalarFieldEnum = {
@@ -173,6 +159,57 @@ export const SlotTimingScalarFieldEnum = {
 } as const
 
 export type SlotTimingScalarFieldEnum = (typeof SlotTimingScalarFieldEnum)[keyof typeof SlotTimingScalarFieldEnum]
+
+
+export const BookingScalarFieldEnum = {
+  id: 'id',
+  libraryId: 'libraryId',
+  slotTimingId: 'slotTimingId',
+  slotTypeId: 'slotTypeId',
+  libraryName: 'libraryName',
+  amount: 'amount',
+  userId: 'userId',
+  paymentId: 'paymentId',
+  createdAt: 'createdAt',
+  status: 'status',
+  endDate: 'endDate',
+  startDate: 'startDate'
+} as const
+
+export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
+
+
+export const AttendanceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  libraryId: 'libraryId',
+  slotTimingId: 'slotTimingId',
+  bookingId: 'bookingId',
+  trialBookingId: 'trialBookingId',
+  checkInTime: 'checkInTime',
+  checkOutTime: 'checkOutTime',
+  durationMinutes: 'durationMinutes',
+  createdAt: 'createdAt'
+} as const
+
+export type AttendanceScalarFieldEnum = (typeof AttendanceScalarFieldEnum)[keyof typeof AttendanceScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  razorpayOrderId: 'razorpayOrderId',
+  razorpayPaymentId: 'razorpayPaymentId',
+  razorpaySignature: 'razorpaySignature',
+  amount: 'amount',
+  currency: 'currency',
+  status: 'status',
+  userId: 'userId',
+  slotTimingId: 'slotTimingId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
 export const SortOrder = {

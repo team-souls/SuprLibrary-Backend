@@ -33,3 +33,12 @@ export const TrialBookingStatus = {
 } as const
 
 export type TrialBookingStatus = (typeof TrialBookingStatus)[keyof typeof TrialBookingStatus]
+
+
+export const PaymentStatus = {
+  CREATED: 'CREATED',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]

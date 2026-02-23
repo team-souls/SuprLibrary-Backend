@@ -214,6 +214,7 @@ export type TrialBookingWhereInput = {
   status?: Prisma.EnumTrialBookingStatusNullableFilter<"TrialBooking"> | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.DateTimeNullableFilter<"TrialBooking"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TrialBooking"> | Date | string
+  Attendance?: Prisma.AttendanceListRelationFilter
   library?: Prisma.XOR<Prisma.LibraryScalarRelationFilter, Prisma.LibraryWhereInput>
   slotTiming?: Prisma.XOR<Prisma.SlotTimingScalarRelationFilter, Prisma.SlotTimingWhereInput>
   slotType?: Prisma.XOR<Prisma.SlotTypeScalarRelationFilter, Prisma.SlotTypeWhereInput>
@@ -230,6 +231,7 @@ export type TrialBookingOrderByWithRelationInput = {
   status?: Prisma.SortOrderInput | Prisma.SortOrder
   trialEndDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  Attendance?: Prisma.AttendanceOrderByRelationAggregateInput
   library?: Prisma.LibraryOrderByWithRelationInput
   slotTiming?: Prisma.SlotTimingOrderByWithRelationInput
   slotType?: Prisma.SlotTypeOrderByWithRelationInput
@@ -249,6 +251,7 @@ export type TrialBookingWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumTrialBookingStatusNullableFilter<"TrialBooking"> | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.DateTimeNullableFilter<"TrialBooking"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TrialBooking"> | Date | string
+  Attendance?: Prisma.AttendanceListRelationFilter
   library?: Prisma.XOR<Prisma.LibraryScalarRelationFilter, Prisma.LibraryWhereInput>
   slotTiming?: Prisma.XOR<Prisma.SlotTimingScalarRelationFilter, Prisma.SlotTimingWhereInput>
   slotType?: Prisma.XOR<Prisma.SlotTypeScalarRelationFilter, Prisma.SlotTypeWhereInput>
@@ -291,6 +294,7 @@ export type TrialBookingCreateInput = {
   status?: $Enums.TrialBookingStatus | null
   trialEndDate?: Date | string | null
   createdAt?: Date | string
+  Attendance?: Prisma.AttendanceCreateNestedManyWithoutTrialBookingInput
   library: Prisma.LibraryCreateNestedOneWithoutTrialBookingsInput
   slotTiming: Prisma.SlotTimingCreateNestedOneWithoutTrialBookingsInput
   slotType: Prisma.SlotTypeCreateNestedOneWithoutTrialBookingsInput
@@ -307,6 +311,7 @@ export type TrialBookingUncheckedCreateInput = {
   status?: $Enums.TrialBookingStatus | null
   trialEndDate?: Date | string | null
   createdAt?: Date | string
+  Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTrialBookingInput
 }
 
 export type TrialBookingUpdateInput = {
@@ -315,6 +320,7 @@ export type TrialBookingUpdateInput = {
   status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Attendance?: Prisma.AttendanceUpdateManyWithoutTrialBookingNestedInput
   library?: Prisma.LibraryUpdateOneRequiredWithoutTrialBookingsNestedInput
   slotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutTrialBookingsNestedInput
   slotType?: Prisma.SlotTypeUpdateOneRequiredWithoutTrialBookingsNestedInput
@@ -331,6 +337,7 @@ export type TrialBookingUncheckedUpdateInput = {
   status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutTrialBookingNestedInput
 }
 
 export type TrialBookingCreateManyInput = {
@@ -409,6 +416,11 @@ export type TrialBookingMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   trialEndDate?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type TrialBookingNullableScalarRelationFilter = {
+  is?: Prisma.TrialBookingWhereInput | null
+  isNot?: Prisma.TrialBookingWhereInput | null
 }
 
 export type TrialBookingCreateNestedManyWithoutUserInput = {
@@ -587,12 +599,29 @@ export type TrialBookingUncheckedUpdateManyWithoutSlotTimingNestedInput = {
   deleteMany?: Prisma.TrialBookingScalarWhereInput | Prisma.TrialBookingScalarWhereInput[]
 }
 
+export type TrialBookingCreateNestedOneWithoutAttendanceInput = {
+  create?: Prisma.XOR<Prisma.TrialBookingCreateWithoutAttendanceInput, Prisma.TrialBookingUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.TrialBookingCreateOrConnectWithoutAttendanceInput
+  connect?: Prisma.TrialBookingWhereUniqueInput
+}
+
+export type TrialBookingUpdateOneWithoutAttendanceNestedInput = {
+  create?: Prisma.XOR<Prisma.TrialBookingCreateWithoutAttendanceInput, Prisma.TrialBookingUncheckedCreateWithoutAttendanceInput>
+  connectOrCreate?: Prisma.TrialBookingCreateOrConnectWithoutAttendanceInput
+  upsert?: Prisma.TrialBookingUpsertWithoutAttendanceInput
+  disconnect?: Prisma.TrialBookingWhereInput | boolean
+  delete?: Prisma.TrialBookingWhereInput | boolean
+  connect?: Prisma.TrialBookingWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrialBookingUpdateToOneWithWhereWithoutAttendanceInput, Prisma.TrialBookingUpdateWithoutAttendanceInput>, Prisma.TrialBookingUncheckedUpdateWithoutAttendanceInput>
+}
+
 export type TrialBookingCreateWithoutUserInput = {
   id?: string
   libraryName: string
   status?: $Enums.TrialBookingStatus | null
   trialEndDate?: Date | string | null
   createdAt?: Date | string
+  Attendance?: Prisma.AttendanceCreateNestedManyWithoutTrialBookingInput
   library: Prisma.LibraryCreateNestedOneWithoutTrialBookingsInput
   slotTiming: Prisma.SlotTimingCreateNestedOneWithoutTrialBookingsInput
   slotType: Prisma.SlotTypeCreateNestedOneWithoutTrialBookingsInput
@@ -607,6 +636,7 @@ export type TrialBookingUncheckedCreateWithoutUserInput = {
   status?: $Enums.TrialBookingStatus | null
   trialEndDate?: Date | string | null
   createdAt?: Date | string
+  Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTrialBookingInput
 }
 
 export type TrialBookingCreateOrConnectWithoutUserInput = {
@@ -656,6 +686,7 @@ export type TrialBookingCreateWithoutLibraryInput = {
   status?: $Enums.TrialBookingStatus | null
   trialEndDate?: Date | string | null
   createdAt?: Date | string
+  Attendance?: Prisma.AttendanceCreateNestedManyWithoutTrialBookingInput
   slotTiming: Prisma.SlotTimingCreateNestedOneWithoutTrialBookingsInput
   slotType: Prisma.SlotTypeCreateNestedOneWithoutTrialBookingsInput
   user: Prisma.UserCreateNestedOneWithoutTrialBookingsInput
@@ -670,6 +701,7 @@ export type TrialBookingUncheckedCreateWithoutLibraryInput = {
   status?: $Enums.TrialBookingStatus | null
   trialEndDate?: Date | string | null
   createdAt?: Date | string
+  Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTrialBookingInput
 }
 
 export type TrialBookingCreateOrConnectWithoutLibraryInput = {
@@ -704,6 +736,7 @@ export type TrialBookingCreateWithoutSlotTypeInput = {
   status?: $Enums.TrialBookingStatus | null
   trialEndDate?: Date | string | null
   createdAt?: Date | string
+  Attendance?: Prisma.AttendanceCreateNestedManyWithoutTrialBookingInput
   library: Prisma.LibraryCreateNestedOneWithoutTrialBookingsInput
   slotTiming: Prisma.SlotTimingCreateNestedOneWithoutTrialBookingsInput
   user: Prisma.UserCreateNestedOneWithoutTrialBookingsInput
@@ -718,6 +751,7 @@ export type TrialBookingUncheckedCreateWithoutSlotTypeInput = {
   status?: $Enums.TrialBookingStatus | null
   trialEndDate?: Date | string | null
   createdAt?: Date | string
+  Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTrialBookingInput
 }
 
 export type TrialBookingCreateOrConnectWithoutSlotTypeInput = {
@@ -752,6 +786,7 @@ export type TrialBookingCreateWithoutSlotTimingInput = {
   status?: $Enums.TrialBookingStatus | null
   trialEndDate?: Date | string | null
   createdAt?: Date | string
+  Attendance?: Prisma.AttendanceCreateNestedManyWithoutTrialBookingInput
   library: Prisma.LibraryCreateNestedOneWithoutTrialBookingsInput
   slotType: Prisma.SlotTypeCreateNestedOneWithoutTrialBookingsInput
   user: Prisma.UserCreateNestedOneWithoutTrialBookingsInput
@@ -766,6 +801,7 @@ export type TrialBookingUncheckedCreateWithoutSlotTimingInput = {
   status?: $Enums.TrialBookingStatus | null
   trialEndDate?: Date | string | null
   createdAt?: Date | string
+  Attendance?: Prisma.AttendanceUncheckedCreateNestedManyWithoutTrialBookingInput
 }
 
 export type TrialBookingCreateOrConnectWithoutSlotTimingInput = {
@@ -794,6 +830,70 @@ export type TrialBookingUpdateManyWithWhereWithoutSlotTimingInput = {
   data: Prisma.XOR<Prisma.TrialBookingUpdateManyMutationInput, Prisma.TrialBookingUncheckedUpdateManyWithoutSlotTimingInput>
 }
 
+export type TrialBookingCreateWithoutAttendanceInput = {
+  id?: string
+  libraryName: string
+  status?: $Enums.TrialBookingStatus | null
+  trialEndDate?: Date | string | null
+  createdAt?: Date | string
+  library: Prisma.LibraryCreateNestedOneWithoutTrialBookingsInput
+  slotTiming: Prisma.SlotTimingCreateNestedOneWithoutTrialBookingsInput
+  slotType: Prisma.SlotTypeCreateNestedOneWithoutTrialBookingsInput
+  user: Prisma.UserCreateNestedOneWithoutTrialBookingsInput
+}
+
+export type TrialBookingUncheckedCreateWithoutAttendanceInput = {
+  id?: string
+  libraryId: string
+  slotTimingId: string
+  slotTypeId: string
+  libraryName: string
+  userId: string
+  status?: $Enums.TrialBookingStatus | null
+  trialEndDate?: Date | string | null
+  createdAt?: Date | string
+}
+
+export type TrialBookingCreateOrConnectWithoutAttendanceInput = {
+  where: Prisma.TrialBookingWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrialBookingCreateWithoutAttendanceInput, Prisma.TrialBookingUncheckedCreateWithoutAttendanceInput>
+}
+
+export type TrialBookingUpsertWithoutAttendanceInput = {
+  update: Prisma.XOR<Prisma.TrialBookingUpdateWithoutAttendanceInput, Prisma.TrialBookingUncheckedUpdateWithoutAttendanceInput>
+  create: Prisma.XOR<Prisma.TrialBookingCreateWithoutAttendanceInput, Prisma.TrialBookingUncheckedCreateWithoutAttendanceInput>
+  where?: Prisma.TrialBookingWhereInput
+}
+
+export type TrialBookingUpdateToOneWithWhereWithoutAttendanceInput = {
+  where?: Prisma.TrialBookingWhereInput
+  data: Prisma.XOR<Prisma.TrialBookingUpdateWithoutAttendanceInput, Prisma.TrialBookingUncheckedUpdateWithoutAttendanceInput>
+}
+
+export type TrialBookingUpdateWithoutAttendanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  libraryName?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  library?: Prisma.LibraryUpdateOneRequiredWithoutTrialBookingsNestedInput
+  slotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutTrialBookingsNestedInput
+  slotType?: Prisma.SlotTypeUpdateOneRequiredWithoutTrialBookingsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutTrialBookingsNestedInput
+}
+
+export type TrialBookingUncheckedUpdateWithoutAttendanceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  libraryId?: Prisma.StringFieldUpdateOperationsInput | string
+  slotTimingId?: Prisma.StringFieldUpdateOperationsInput | string
+  slotTypeId?: Prisma.StringFieldUpdateOperationsInput | string
+  libraryName?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
+  trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type TrialBookingCreateManyUserInput = {
   id?: string
   libraryId: string
@@ -811,6 +911,7 @@ export type TrialBookingUpdateWithoutUserInput = {
   status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Attendance?: Prisma.AttendanceUpdateManyWithoutTrialBookingNestedInput
   library?: Prisma.LibraryUpdateOneRequiredWithoutTrialBookingsNestedInput
   slotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutTrialBookingsNestedInput
   slotType?: Prisma.SlotTypeUpdateOneRequiredWithoutTrialBookingsNestedInput
@@ -825,6 +926,7 @@ export type TrialBookingUncheckedUpdateWithoutUserInput = {
   status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutTrialBookingNestedInput
 }
 
 export type TrialBookingUncheckedUpdateManyWithoutUserInput = {
@@ -855,6 +957,7 @@ export type TrialBookingUpdateWithoutLibraryInput = {
   status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Attendance?: Prisma.AttendanceUpdateManyWithoutTrialBookingNestedInput
   slotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutTrialBookingsNestedInput
   slotType?: Prisma.SlotTypeUpdateOneRequiredWithoutTrialBookingsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutTrialBookingsNestedInput
@@ -869,6 +972,7 @@ export type TrialBookingUncheckedUpdateWithoutLibraryInput = {
   status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutTrialBookingNestedInput
 }
 
 export type TrialBookingUncheckedUpdateManyWithoutLibraryInput = {
@@ -899,6 +1003,7 @@ export type TrialBookingUpdateWithoutSlotTypeInput = {
   status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Attendance?: Prisma.AttendanceUpdateManyWithoutTrialBookingNestedInput
   library?: Prisma.LibraryUpdateOneRequiredWithoutTrialBookingsNestedInput
   slotTiming?: Prisma.SlotTimingUpdateOneRequiredWithoutTrialBookingsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutTrialBookingsNestedInput
@@ -913,6 +1018,7 @@ export type TrialBookingUncheckedUpdateWithoutSlotTypeInput = {
   status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutTrialBookingNestedInput
 }
 
 export type TrialBookingUncheckedUpdateManyWithoutSlotTypeInput = {
@@ -943,6 +1049,7 @@ export type TrialBookingUpdateWithoutSlotTimingInput = {
   status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Attendance?: Prisma.AttendanceUpdateManyWithoutTrialBookingNestedInput
   library?: Prisma.LibraryUpdateOneRequiredWithoutTrialBookingsNestedInput
   slotType?: Prisma.SlotTypeUpdateOneRequiredWithoutTrialBookingsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutTrialBookingsNestedInput
@@ -957,6 +1064,7 @@ export type TrialBookingUncheckedUpdateWithoutSlotTimingInput = {
   status?: Prisma.NullableEnumTrialBookingStatusFieldUpdateOperationsInput | $Enums.TrialBookingStatus | null
   trialEndDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Attendance?: Prisma.AttendanceUncheckedUpdateManyWithoutTrialBookingNestedInput
 }
 
 export type TrialBookingUncheckedUpdateManyWithoutSlotTimingInput = {
@@ -971,6 +1079,35 @@ export type TrialBookingUncheckedUpdateManyWithoutSlotTimingInput = {
 }
 
 
+/**
+ * Count Type TrialBookingCountOutputType
+ */
+
+export type TrialBookingCountOutputType = {
+  Attendance: number
+}
+
+export type TrialBookingCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Attendance?: boolean | TrialBookingCountOutputTypeCountAttendanceArgs
+}
+
+/**
+ * TrialBookingCountOutputType without action
+ */
+export type TrialBookingCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TrialBookingCountOutputType
+   */
+  select?: Prisma.TrialBookingCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TrialBookingCountOutputType without action
+ */
+export type TrialBookingCountOutputTypeCountAttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AttendanceWhereInput
+}
+
 
 export type TrialBookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -982,10 +1119,12 @@ export type TrialBookingSelect<ExtArgs extends runtime.Types.Extensions.Internal
   status?: boolean
   trialEndDate?: boolean
   createdAt?: boolean
+  Attendance?: boolean | Prisma.TrialBooking$AttendanceArgs<ExtArgs>
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
   slotTiming?: boolean | Prisma.SlotTimingDefaultArgs<ExtArgs>
   slotType?: boolean | Prisma.SlotTypeDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.TrialBookingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["trialBooking"]>
 
 export type TrialBookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1034,10 +1173,12 @@ export type TrialBookingSelectScalar = {
 
 export type TrialBookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "libraryId" | "slotTimingId" | "slotTypeId" | "libraryName" | "userId" | "status" | "trialEndDate" | "createdAt", ExtArgs["result"]["trialBooking"]>
 export type TrialBookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Attendance?: boolean | Prisma.TrialBooking$AttendanceArgs<ExtArgs>
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
   slotTiming?: boolean | Prisma.SlotTimingDefaultArgs<ExtArgs>
   slotType?: boolean | Prisma.SlotTypeDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  _count?: boolean | Prisma.TrialBookingCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TrialBookingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   library?: boolean | Prisma.LibraryDefaultArgs<ExtArgs>
@@ -1055,6 +1196,7 @@ export type TrialBookingIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type $TrialBookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TrialBooking"
   objects: {
+    Attendance: Prisma.$AttendancePayload<ExtArgs>[]
     library: Prisma.$LibraryPayload<ExtArgs>
     slotTiming: Prisma.$SlotTimingPayload<ExtArgs>
     slotType: Prisma.$SlotTypePayload<ExtArgs>
@@ -1464,6 +1606,7 @@ readonly fields: TrialBookingFieldRefs;
  */
 export interface Prisma__TrialBookingClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  Attendance<T extends Prisma.TrialBooking$AttendanceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TrialBooking$AttendanceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AttendancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   library<T extends Prisma.LibraryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LibraryDefaultArgs<ExtArgs>>): Prisma.Prisma__LibraryClient<runtime.Types.Result.GetResult<Prisma.$LibraryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   slotTiming<T extends Prisma.SlotTimingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SlotTimingDefaultArgs<ExtArgs>>): Prisma.Prisma__SlotTimingClient<runtime.Types.Result.GetResult<Prisma.$SlotTimingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   slotType<T extends Prisma.SlotTypeDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SlotTypeDefaultArgs<ExtArgs>>): Prisma.Prisma__SlotTypeClient<runtime.Types.Result.GetResult<Prisma.$SlotTypePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -1899,6 +2042,30 @@ export type TrialBookingDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many TrialBookings to delete.
    */
   limit?: number
+}
+
+/**
+ * TrialBooking.Attendance
+ */
+export type TrialBooking$AttendanceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Attendance
+   */
+  select?: Prisma.AttendanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Attendance
+   */
+  omit?: Prisma.AttendanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AttendanceInclude<ExtArgs> | null
+  where?: Prisma.AttendanceWhereInput
+  orderBy?: Prisma.AttendanceOrderByWithRelationInput | Prisma.AttendanceOrderByWithRelationInput[]
+  cursor?: Prisma.AttendanceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AttendanceScalarFieldEnum | Prisma.AttendanceScalarFieldEnum[]
 }
 
 /**

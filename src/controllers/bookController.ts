@@ -5,90 +5,165 @@ import { razorpay } from "../utils/razorpay.js";
 
 export const createOrderController = async (req: Request, res: Response) => {
   try {
-    const liabraryId = req.body.libraryId as string;
-    const slotId = await prisma.library.findUnique({
-      where: { id: liabraryId },
-      select: { slotTypes: { select: { id: true } } },
+    const { slotTimingId } = req.body;
+    const userId = req.user.userId;
+
+    console.log("Creating order for SlotTiming ID:", slotTimingId, "User ID:", userId);
+    const slotTiming = await prisma.slotTiming.findUnique({
+      where: { id: slotTimingId },
+      include: {
+        slotType: {
+          include: {
+            library: true,
+          },
+        },
+      },
     });
 
-    if (!slotId) {
-      return res.status(404).json({ message: "Library not found" });
+    if (!slotTiming) {
+      return res.status(404).json({ message: "Slot not found" });
     }
 
+    // if (slotTiming.activeStudents <= 0) {
+    //   return res.status(400).json({ message: "No seats available" });
+    // }
+
+    const amount = slotTiming.slotType.price;
+    console.log("Calculated amount:", amount);
     const order = await razorpay.orders.create({
-      amount: Number() * 100, // convert to paise
+      amount: amount * 100,
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
     });
 
-    res.status(200).json({
+    const payment = await prisma.payment.create({
+      data: {
+        razorpayOrderId: order.id,
+        amount,
+        userId,
+        slotTimingId,
+      },
+    });
+
+    const booking = await prisma.booking.create({
+      data: {
+        libraryId: slotTiming.slotType.libraryId,
+        slotTimingId,
+        slotTypeId: slotTiming.slotTypeId,
+        userId,
+        paymentId: payment.id,
+        libraryName: slotTiming.slotType.library.name,
+        amount,
+        status: "PENDING",
+      },
+    });
+    console.log("Booking created with ID:", booking.id);
+    return res.status(200).json({
       success: true,
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
+      j:"noe daa"
     });
+
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Order creation failed",
-      error,
-    });
+    console.error(error);
+    res.status(500).json({ message: "Order creation failed" });
   }
 };
 
-export const verifyPaymentAndBookController = async (
-  req: Request,
-  res: Response,
-) => {
+
+
+export const verifyPaymentAndBookController = async (req: any, res: Response) => {
   try {
     const {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
-      libraryId,
-      slotTimingId,
-      slotTypeId,
-      libraryName,
-      amount,
-      userId,
     } = req.body;
 
-    // 🔐 Verify Signature
-    const generatedSignature = crypto
+    if (
+      !razorpay_order_id ||
+      !razorpay_payment_id ||
+      !razorpay_signature
+    ) {
+      return res.status(400).json({ message: "Missing fields" });
+    }
+
+    const body = razorpay_order_id + "|" + razorpay_payment_id;
+
+    const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
-      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+      .update(body)
       .digest("hex");
 
-    if (generatedSignature !== razorpay_signature) {
+    if (expectedSignature !== razorpay_signature) {
+      await prisma.payment.update({
+        where: { razorpayOrderId: razorpay_order_id },
+        data: { status: "FAILED" },
+      });
+
       return res.status(400).json({
         success: false,
-        message: "Invalid payment signature",
+        message: "Invalid signature",
       });
     }
 
-    const booking = await prisma.booking.create({
-      data: {
-        libraryId,
-        slotTimingId,
-        slotTypeId,
-        libraryName,
-        amount: Number(amount),
-        userId,
-        status: "SUCCESS",
-        paymentId: razorpay_payment_id,
-      },
+    const payment = await prisma.payment.findUnique({
+      where: { razorpayOrderId: razorpay_order_id },
     });
 
-    res.status(200).json({
+    if (!payment) {
+      return res.status(404).json({ message: "Payment not found" });
+    }
+
+    // 🔒 Prevent double verification
+    if (payment.status === "SUCCESS") {
+      return res.json({ message: "Already verified" });
+    }
+
+    // 🔥 TRANSACTION
+    await prisma.$transaction([
+      // Update Payment
+      prisma.payment.update({
+        where: { id: payment.id },
+        data: {
+          razorpayPaymentId: razorpay_payment_id,
+          razorpaySignature: razorpay_signature,
+          status: "SUCCESS",
+        },
+      }),
+
+      // Update Booking
+      prisma.booking.update({
+        where: { paymentId: payment.id },
+        data: {
+          status: "SUCCESS",
+        },
+      }),
+
+      // Increase active students
+      // prisma.slotTiming.update({
+      //   where: { id: payment.slotTimingId },
+      //   data: {
+      //     activeStudents: {
+      //       increment: 1,
+      //     },
+      //   },
+      // }),
+
+
+    ]);
+
+    return res.json({
       success: true,
-      message: "Booking successful",
-      booking,
+      message: "Payment verified & booking confirmed",
     });
   } catch (error) {
-    res.status(500).json({
+    console.error("Verify Error:", error);
+    return res.status(500).json({
       success: false,
-      message: "Payment verification failed",
-      error,
+      message: "Verification failed",
     });
   }
 };
@@ -151,7 +226,6 @@ export const trialController = async (req: Request, res: Response) => {
   }
 };
 
-// fetch user trial bookings (user dashboard)
 export const getUserTrialBookingsController = async (
   req: Request,
   res: Response,
@@ -252,5 +326,75 @@ export const getTrialBookingDetailsController = async (
     res.json({ booking });
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch booking details", error });
+  }
+};
+
+
+
+export const getBookingPreview = async (req: Request, res: Response) => {
+  try {
+    const { slotTimingId } = req.params;
+    console.log("Preview Request for SlotTiming ID:", slotTimingId);
+    if (!slotTimingId) {
+      return res.status(400).json({
+        success: false,
+        message: "slotTimingId is required",
+      });
+    }
+
+    console.log("code run")
+    const slotTiming = await prisma.slotTiming.findUnique({
+      where: { id: slotTimingId },
+      include: {
+        slotType: {
+          include: {
+            library: true,
+          },
+        },
+      },
+    });
+    console.log(slotTiming)
+    if (!slotTiming) {
+      return res.status(404).json({
+        success: false,
+        message: "Slot timing not found",
+      });
+    }
+      console.log("sdsdsdsa")
+    const library = slotTiming.slotType.library;
+    const slotType = slotTiming.slotType;
+
+ 
+    if (slotTiming.activeStudents >= library.totalSeats) {
+      return res.status(400).json({
+        success: false,
+        message: "Slot is full",
+      });
+    }
+
+    // 3️⃣ Calculate final amount
+    const basePrice = slotType.price;
+    const tax = 0; // Add GST logic later if needed
+    const finalAmount = basePrice + tax;
+
+  console.log( library.name)
+    return res.status(200).json({ 
+      success: true,
+      data: {
+        libraryName: library.name,
+        slotName: slotType.typeName,
+        startTime: slotTiming.startTime,
+        endTime: slotTiming.endTime,
+        amount: finalAmount,
+        availableSeats:
+          library.totalSeats - slotTiming.activeStudents,
+      },
+    });
+  } catch (error) {
+    console.error("Preview Error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 };

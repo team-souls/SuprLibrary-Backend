@@ -1,22 +1,36 @@
 import express from "express";
-import {  createOrderController, getLibraryTrialBookingsController, getTrialBookingDetailsController, getUserTrialBookingsController, trialController, verifyPaymentAndBookController } from "../controllers/bookController";
+import {
+  createOrderController,
+  getLibraryTrialBookingsController,
+  getTrialBookingDetailsController,
+  getUserTrialBookingsController,
+  trialController,
+  verifyPaymentAndBookController,
+  getBookingPreview,
+} from "../controllers/bookController";
 import {
   submitReview,
   getReviewsByLibrary,
 } from "../controllers/reviewController";
-
+import { authMiddleware } from "../middlewares/jwtMiddleware.js";
 const bookingsRouter = express.Router();
 
-bookingsRouter.post("/create-order", createOrderController);
+bookingsRouter.post("/create-order", authMiddleware,createOrderController);
 
 bookingsRouter.post("/verify-payment", verifyPaymentAndBookController);
 bookingsRouter.post("/trial", trialController);
 bookingsRouter.get("/trial/user/:userId", getUserTrialBookingsController);
-bookingsRouter.get("/trial/library/:libraryId", getLibraryTrialBookingsController);
-bookingsRouter.get("/trial/details/:trialBookingId", getTrialBookingDetailsController);
+bookingsRouter.get(
+  "/trial/library/:libraryId",
+  getLibraryTrialBookingsController,
+);
+bookingsRouter.get(
+  "/trial/details/:trialBookingId",
+  getTrialBookingDetailsController,
+);
 
 bookingsRouter.post("/review", submitReview);
 bookingsRouter.get("/reviews/library/:libraryId", getReviewsByLibrary);
 // bookingsRouter.get("/reviews/owner/:ownerId", getReviewsByOwner);
-
+bookingsRouter.get("/preview/:slotTimingId", getBookingPreview);
 export default bookingsRouter;

@@ -55,11 +55,6 @@ export type Library = Prisma.LibraryModel
  */
 export type Review = Prisma.ReviewModel
 /**
- * Model Booking
- * 
- */
-export type Booking = Prisma.BookingModel
-/**
  * Model TrialBooking
  * 
  */
@@ -74,3 +69,18 @@ export type SlotType = Prisma.SlotTypeModel
  * 
  */
 export type SlotTiming = Prisma.SlotTimingModel
+/**
+ * Model Booking
+ * 
+ */
+export type Booking = Prisma.BookingModel
+/**
+ * Model Attendance
+ * 
+ */
+export type Attendance = Prisma.AttendanceModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
