@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { prisma } from "../config/db.js";
+import { prisma } from "../../config/db.js";
 
-export const submitReview = async (req: Request, res: Response) => {
+export const UsersubmitReview = async (req: Request, res: Response) => {
   try {
     const { ratings, description, userId, libraryId } = req.body;
     if (!ratings || !description || !userId || !libraryId) {
@@ -24,7 +24,7 @@ export const submitReview = async (req: Request, res: Response) => {
   }
 };
 
-export const getReviewsByLibrary = async (req: Request, res: Response) => {
+export const fetchUserReviewsByLibrary = async (req: Request, res: Response) => {
   try {
     const { libraryId } = req.params;
 
@@ -58,16 +58,3 @@ export const getReviewsByLibrary = async (req: Request, res: Response) => {
     });
   }
 };
-
-// export const getReviewsByOwner = async (req: Request, res: Response) => {
-//   try {
-//     const { user } = req.params as any;
-//     const reviews = await prisma.review.findMany({
-//       where: { ownerId: ownerId as string },
-//       orderBy: { createdAt: "desc" },
-//     });
-//     res.json({ reviews });
-//   } catch (error) {
-//     res.status(500).json({ message: "Failed to fetch reviews", error });
-//   }
-// };

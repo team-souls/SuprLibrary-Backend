@@ -38,7 +38,7 @@ export const imageUploader =  async function(req: Request, res: Response){
     console.error(error);
     res.status(500).json({
       message: "Upload failed",
-      error: error.message,
+      error: toerror.message,
     });
   }
 

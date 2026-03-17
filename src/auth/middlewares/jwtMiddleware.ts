@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { prisma } from "../config/db.js";
+import { prisma } from "../../config/db.js";
 
 
 

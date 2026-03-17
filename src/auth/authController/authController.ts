@@ -1,9 +1,9 @@
-import { client } from "../config/google.js";
+import { client } from "../../config/google.js";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import dotenv from "dotenv";
-import { prisma } from "../config/db.js";
-import { Logger } from "../utils/logger.js";
+import { prisma } from "../../config/db.js";
+import { Logger } from "../../utils/logger.js";
 dotenv.config();
 
 const logger = Logger.getInstance();

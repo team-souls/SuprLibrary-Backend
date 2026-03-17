@@ -1,55 +1,7 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { prisma } from "../config/db";
+import { prisma } from "../../config/db";
 import { error } from "node:console";
-
-// export const generateQrToken = async (req: Request, res: Response) => {
-//   try {
-//     const { ownerId, libraryId } = req.body;
-
-//     if (!libraryId || !ownerId ) {
-//       return res.status(400).json({
-//         message: "libraryId and ownerId are required",
-//       });
-//     }
-
-//     // Generate a static QR token (no expiry, no userId)
-//     const token = jwt.sign(
-//       {
-//         libraryId,
-//         ownerId,
-//       },
-//       process.env.QR_SECRET!
-//     );
-
-//     const qrTokenExists = await prisma.library.findUnique({
-//       where: { id: libraryId },
-//       select: { token: true },
-//     });
-
-//     if (qrTokenExists?.token) {
-//       return res.status(400).json({
-//         message: "QR token already exists for this library",
-//         }
-//       );
-//     }
-
-//     const updateqrToken = await prisma.library.update({
-//       where: { id: libraryId },
-//       data: { token: token },
-//     });
-    
-//     return res.status(200).json({
-//       message: "Static QR token generated successfully",
-//       qrToken: token,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({
-//       message: "Internal server error",
-//     });
-//   }
-// };
 
 export const scanAttendance = async (req: Request, res: Response) => {
   const { token, userId } = req.body;
@@ -71,7 +23,7 @@ export const scanAttendance = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "No booking exists for this user and library",  trialBooking });
     }
     console.log("Trial Booking: test code ", trialBooking);
-    const slotTimingId = booking.slotTimingId?.toString() || trialBooking.slotTimingId?.toString();
+    const slotTimingId = booking?.slotTimingId?.toString() || trialBooking?.slotTimingId?.toString();
     console.log("Slot Timing ID: code test", slotTimingId);
     if (!slotTimingId) {
       return res.status(400).json({ message: "No slot timing found for this booking" });
