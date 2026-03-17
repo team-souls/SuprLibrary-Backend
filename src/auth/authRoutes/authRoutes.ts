@@ -1,5 +1,5 @@
 import express from 'express';
-import { googleAuth } from '../controllers/authController';
+import { googleAuth } from '../authController/authController';
 
 
 const authRouter = express.Router();

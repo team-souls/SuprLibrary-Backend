@@ -1,7 +1,7 @@
 import multer from "multer";
 
 const storage = multer.memoryStorage(); 
-// memoryStorage because we send buffer directly to Cloudinary
+
 
 export const upload = multer({
   storage,

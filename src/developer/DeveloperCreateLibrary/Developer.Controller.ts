@@ -1,14 +1,15 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { prisma } from "../../config/db.js";
+import { uploadToCloudinary } from "../../upload/cloudinary.js";
+import QRCode from "qrcode";
+import dotenv from "dotenv";
+dotenv.config();
 
-import { prisma } from "../config/db.js";
-import { uploadToCloudinary } from "../upload/cloudinary.js";
-import { Logger } from "../utils/logger.js";
-
-const logger = Logger.getInstance();
-
-export const createLibraryWithSlots = async (req: Request, res: Response) => {
-
+export const DevelopercreateLibraryWithSlots = async (
+  req: Request,
+  res: Response,
+) => {
   console.log("create library function called");
 
   try {
@@ -48,7 +49,6 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
 
     if (files && files.length > 0) {
       for (const file of files) {
-
         const base64 = `data:${file.mimetype};base64,${file.buffer.toString("base64")}`;
 
         const uploadRes = await uploadToCloudinary(base64, "libraries");
@@ -58,49 +58,48 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
     }
 
     const result = await prisma.$transaction(async (tx) => {
-
       // 1️⃣ Create Library
       const library = await tx.library.create({
         data: {
-
           name,
-          totalSeats: Number(totalSeats),
-          basePrice: Number(basePrice),
           location,
+          basePrice: Number(basePrice),
           contactNumber,
-          ownerId: owner.id,
-          facilities: facilities || [],
+          totalSeats: Number(totalSeats),
+          facilities: Array.isArray(facilities)
+            ? facilities
+            : JSON.parse(facilities || "[]"),
           images: uploadedImageUrls,
-          trialDuration: Number(trialDuration),
+          address: " ",
+          trialDuration: Number(trialDuration) || 0,
 
-          token: null // initially empty
+          owner: {
+            connect: {
+              id: owner.id, // existing user ID
+            },
+          },
         },
       });
 
-
       // 2️⃣ Create SlotTypes & Timings
+      console.log(slotTypes);
 
       for (const slot of slotTypes) {
-
         const createdSlotType = await tx.slotType.create({
-
           data: {
             typeName: slot.typeName,
             duration: Number(slot.duration),
-            price: Number(slot.price),
+            price: Number(slot.price), 
             libraryId: library.id,
           },
-
         });
 
         for (const timing of slot.timings) {
+          const [startHour, startMinute] = timing.startTime
+            .split(":")
+            .map(Number);
 
-          const [startHour, startMinute] =
-            timing.startTime.split(":").map(Number);
-
-          const [endHour, endMinute] =
-            timing.endTime.split(":").map(Number);
-
+          const [endHour, endMinute] = timing.endTime.split(":").map(Number);
 
           const startDate = new Date();
           startDate.setHours(startHour, startMinute, 0, 0);
@@ -108,27 +107,19 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
           const endDate = new Date();
           endDate.setHours(endHour, endMinute, 0, 0);
 
-
           if (endDate <= startDate) {
             throw new Error("EndTime must be greater");
           }
 
           await tx.slotTiming.create({
-
             data: {
-
               slotTypeId: createdSlotType.id,
               startTime: startDate,
               endTime: endDate,
-
             },
-
           });
-
         }
-
       }
-
 
       // 3️⃣ Generate QR Token
 
@@ -137,14 +128,12 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
           libraryId: library.id,
           ownerId: owner.id,
         },
-        process.env.QR_SECRET!
+        process.env.QR_SECRET!,
       );
-
 
       // 4️⃣ Save Token
 
       await tx.library.update({
-
         where: {
           id: library.id,
         },
@@ -152,60 +141,34 @@ export const createLibraryWithSlots = async (req: Request, res: Response) => {
         data: {
           token: token,
         },
-
       });
-
 
       return {
         ...library,
         token,
       };
-
     });
 
-
     return res.status(201).json({
-
       message: "Library Created + Token Generated",
 
       library: result,
-
     });
-
-
   } catch (error) {
-
     console.error(error);
 
     return res.status(500).json({
-
       message: "Failed to create library",
 
       error,
-
-    });
-
-  }
-
-};
-
-export const getAllLibraries = async (req: Request, res: Response) => {
-  try {
-    console.log("fetch all  libraries is called ");
-    const libraries = await prisma.library.findMany({
-      include: {},
-    });
-    console.log(libraries); 
-    return res.status(200).json(libraries);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      message: "Failed to fetch libraries",
     });
   }
 };
 
-export const getLibraryByOwnerEmail = async (req: Request, res: Response) => {
+export const DeveloperLibraryByOwnerEmail = async (
+  req: Request,
+  res: Response,
+) => {
   try {
     const { email } = req.params;
 
@@ -242,92 +205,11 @@ export const getLibraryByOwnerEmail = async (req: Request, res: Response) => {
     });
   }
 };
-export const getSingleLibrary = async (req: Request, res: Response) => {
-  try {
-    const { libraryId } = req.params;
 
-    if (!libraryId) {
-      return res.status(400).json({
-        message: "Library ID is required",
-      });
-    }
-
-    const library = await prisma.library.findUnique({
-      where: { id: libraryId as string },
-    });
-    if (!library) {
-      return res.status(404).json({
-        message: "Library not found",
-      });
-    }
-
-    return res.status(200).json(library);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      message: "Failed to fetch library",
-    });
-  }
-};
-export const getSingleLibrarySlots = async (req: Request, res: Response) => {
-  try {
-    const { libraryId } = req.params;
-
-    if (!libraryId) {
-      return res.status(400).json({
-        message: "Library ID is required",
-      });
-    }
-
-    const slots = await prisma.slotType.findMany({
-      where: { libraryId: libraryId as string },
-    });
-    if (!slots || slots.length === 0) {
-      return res.status(404).json({
-        message: "Library slots not found",
-      });
-    }
-
-    return res.status(200).json(slots);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      message: "Failed to fetch library slots",
-    });
-  }
-};
-export const getLibrarySlotsTiming = async (req: Request, res: Response) => {
-  try {
-    const { slot } = req.params;
-
-    if (!slot) {
-      return res.status(400).json({
-        message: "Library ID is required",
-      });
-    }
-
-    const slots = await prisma.slotTiming.findMany({
-      where: {
-        slotTypeId: slot as string,
-      },
-    });
-
-    if (!slots || slots.length === 0) {
-      return res.status(404).json({
-        message: "Library slots not found",
-      });
-    }
-
-    return res.status(200).json(slots);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      message: "Failed to fetch library slots",
-    });
-  }
-};
-
-export const updateLibraryWithSlots = async (req: Request, res: Response) => {
+export const DeveloperUpdateLibraryWithSlots = async (
+  req: Request,
+  res: Response,
+) => {
   console.log("update library function called");
 
   try {
@@ -467,7 +349,10 @@ export const updateLibraryWithSlots = async (req: Request, res: Response) => {
   }
 };
 
-export const getLibraryIdByOwnerId = async (req: Request, res: Response) => {
+export const DeveloperLibraryIdByOwnerId = async (
+  req: Request,
+  res: Response,
+) => {
   try {
     const { ownerId } = req.params;
 
@@ -501,6 +386,153 @@ export const getLibraryIdByOwnerId = async (req: Request, res: Response) => {
     console.error(error);
     return res.status(500).json({
       message: "Failed to fetch library id",
+    });
+  }
+};
+
+export const generateLibraryQRToken = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+
+    // 1️⃣ Find owner
+    console.log(email);
+    const owner = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!owner) {
+      return res.status(404).json({
+        message: "Owner not found",
+      });
+    }
+
+    // 2️⃣ Find library
+    const library = await prisma.library.findFirst({
+      where: {
+        ownerId: owner.id,
+      },
+    });
+
+    if (!library) {
+      return res.status(404).json({
+        message: "Library not found",
+      });
+    }
+
+    // 3️⃣ Generate token
+    const token = jwt.sign(
+      {
+        libraryId: library.id,
+        ownerId: owner.id,
+      },
+      process.env.QR_SECRET!,
+    );
+
+    // 4️⃣ Save token
+    await prisma.library.update({
+      where: {
+        id: library.id,
+      },
+      data: {
+        token: token,
+      },
+    });
+
+    // 5️⃣ Generate QR data
+    const qrPayload = JSON.stringify({
+      token: token,
+    });
+
+    const qrImage = await QRCode.toDataURL(qrPayload);
+    console.log(qrImage);
+    return res.status(200).json({
+      message: "QR generated successfully",
+      libraryId: library.id,
+      token,
+      qr: qrImage,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      message: "Failed to generate QR",
+    });
+  }
+};
+
+export const verifyLibraryQR = async (req: Request, res: Response) => {
+  try {
+    console.log("Request Body:", req.body);
+
+    const { qrData } = req.body;
+
+    if (!qrData) {
+      return res.status(400).json({
+        success: false,
+        message: "QR data required",
+      });
+    }
+
+    const parsedQR = JSON.parse(qrData);
+
+    const { token } = parsedQR;
+
+    if (!token) {
+      return res.status(400).json({
+        success: false,
+        message: "Token missing",
+      });
+    }
+
+    let decoded: any;
+
+    try {
+      decoded = jwt.verify(token, process.env.QR_SECRET!);
+      console.log("Decoded Token:", decoded);
+    } catch (err) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid QR token",
+      });
+    }
+
+    const { libraryId, ownerId } = decoded;
+
+    console.log(`Library ID: ${libraryId}`);
+
+    const library = await prisma.library.findUnique({
+      where: { id: libraryId },
+    });
+
+    if (!library) {
+      return res.status(404).json({
+        success: false,
+        message: "Library not found",
+      });
+    }
+
+    if (library.token !== token) {
+      return res.status(401).json({
+        success: false,
+        message: "QR token mismatch",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "QR Verified",
+      library: {
+        id: library.id,
+        name: library.name,
+        location: library.location,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "QR verification failed",
     });
   }
 };

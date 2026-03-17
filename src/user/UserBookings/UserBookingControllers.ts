@@ -1,74 +1,63 @@
 import { Request, Response } from "express";
 import crypto from "crypto";
-import { prisma } from "../config/db.js";
-import { razorpay } from "../utils/razorpay.js";
+import { prisma } from "../../config/db.js";
+import { razorpay } from "../../utils/razorpay.js";
 
-export const createOrderController = async (req: Request, res: Response) => {
+export const createOrderController = async (req: any, res: Response) => {
   try {
     const { slotTimingId } = req.body;
     const userId = req.user.userId;
 
-    console.log("Creating order for SlotTiming ID:", slotTimingId, "User ID:", userId);
     const slotTiming = await prisma.slotTiming.findUnique({
       where: { id: slotTimingId },
       include: {
         slotType: {
-          include: {
-            library: true,
-          },
+          include: { library: true },
         },
       },
     });
 
     if (!slotTiming) {
-      return res.status(404).json({ message: "Slot not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Slot not found",
+      });
     }
 
-    // if (slotTiming.activeStudents <= 0) {
-    //   return res.status(400).json({ message: "No seats available" });
-    // }
+    const price = slotTiming.slotType.price;
+    const amount = Math.round(price * 100);
 
-    const amount = slotTiming.slotType.price;
-    console.log("Calculated amount:", amount);
     const order = await razorpay.orders.create({
-      amount: amount * 100,
+      amount,
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
+      payment_capture: 1,
     });
 
     const payment = await prisma.payment.create({
       data: {
         razorpayOrderId: order.id,
-        amount,
+        amount: amount,
         userId,
         slotTimingId,
+        status: "CREATED",
       },
     });
 
-    const booking = await prisma.booking.create({
-      data: {
-        libraryId: slotTiming.slotType.libraryId,
-        slotTimingId,
-        slotTypeId: slotTiming.slotTypeId,
-        userId,
-        paymentId: payment.id,
-        libraryName: slotTiming.slotType.library.name,
-        amount,
-        status: "PENDING",
-      },
-    });
-    console.log("Booking created with ID:", booking.id);
-    return res.status(200).json({
+    res.json({
       success: true,
       orderId: order.id,
-      amount: order.amount,
-      currency: order.currency,
-      j:"noe daa"
+      amount,
+      paymentId: payment.id,
     });
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Order creation failed" });
+
+    res.status(500).json({
+      success: false,
+      message: "Order creation failed",
+    });
   }
 };
 
@@ -82,14 +71,6 @@ export const verifyPaymentAndBookController = async (req: any, res: Response) =>
       razorpay_signature,
     } = req.body;
 
-    if (
-      !razorpay_order_id ||
-      !razorpay_payment_id ||
-      !razorpay_signature
-    ) {
-      return res.status(400).json({ message: "Missing fields" });
-    }
-
     const body = razorpay_order_id + "|" + razorpay_payment_id;
 
     const expectedSignature = crypto
@@ -98,171 +79,94 @@ export const verifyPaymentAndBookController = async (req: any, res: Response) =>
       .digest("hex");
 
     if (expectedSignature !== razorpay_signature) {
-      await prisma.payment.update({
-        where: { razorpayOrderId: razorpay_order_id },
-        data: { status: "FAILED" },
-      });
-
       return res.status(400).json({
         success: false,
-        message: "Invalid signature",
+        message: "Invalid payment signature",
       });
     }
 
     const payment = await prisma.payment.findUnique({
       where: { razorpayOrderId: razorpay_order_id },
+      include: {
+        slotTiming: {
+          include: {
+            slotType: {
+              include: { library: true },
+            },
+          },
+        },
+        user: true,
+      },
     });
 
     if (!payment) {
-      return res.status(404).json({ message: "Payment not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Payment not found",
+      });
     }
 
-    // 🔒 Prevent double verification
-    if (payment.status === "SUCCESS") {
-      return res.json({ message: "Already verified" });
-    }
+    const slotTiming = payment.slotTiming;
+    console.log(` the slot paymment method is ${slotTiming}`)
+    // booking start & end time
+    const startDate = new Date(slotTiming.startTime);
+    const endDate = new Date(slotTiming.endTime);
 
-    // 🔥 TRANSACTION
-    await prisma.$transaction([
-      // Update Payment
-      prisma.payment.update({
+    const booking = await prisma.$transaction(async (tx) => {
+
+      await tx.payment.update({
         where: { id: payment.id },
         data: {
           razorpayPaymentId: razorpay_payment_id,
           razorpaySignature: razorpay_signature,
           status: "SUCCESS",
         },
-      }),
+      });
 
-      // Update Booking
-      prisma.booking.update({
-        where: { paymentId: payment.id },
+      const newBooking = await tx.booking.create({
         data: {
+          libraryId: slotTiming.slotType.libraryId,
+          slotTimingId: slotTiming.id,
+          slotTypeId: slotTiming.slotTypeId,
+          userId: payment.userId,
+          paymentId: payment.id,
+          libraryName: slotTiming.slotType.library.name,
+          amount: payment.amount,
+          startDate,
+          endDate,
           status: "SUCCESS",
         },
-      }),
+      });
 
-      // Increase active students
-      // prisma.slotTiming.update({
-      //   where: { id: payment.slotTimingId },
-      //   data: {
-      //     activeStudents: {
-      //       increment: 1,
-      //     },
-      //   },
-      // }),
+      await tx.slotTiming.update({
+        where: { id: slotTiming.id },
+        data: {
+          activeStudents: {
+            increment: 1,
+          },
+        },
+      });
 
-
-    ]);
-
-    return res.json({
-      success: true,
-      message: "Payment verified & booking confirmed",
+      return newBooking;
     });
+
+    res.json({
+      success: true,
+      message: "Payment verified and booking created",
+      booking,
+    });
+
   } catch (error) {
-    console.error("Verify Error:", error);
-    return res.status(500).json({
+    console.error(error);
+
+    res.status(500).json({
       success: false,
       message: "Verification failed",
     });
   }
 };
 
-export const trialController = async (req: Request, res: Response) => {
-  try {
-    const { libraryId, slotTimingId, slotTypeId, libraryName, userId } =
-      req.body;
 
-    if (!libraryId || !slotTimingId || !slotTypeId || !libraryName || !userId) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    const library = await prisma.library.findUnique({
-      where: { id: libraryId },
-      select: {
-        trialDuration: true,
-        slotTypes: {
-          include: {
-            slotTimings: true,
-          },
-        },
-      },
-    });
-
-    if (!library) {
-      return res.status(404).json({ message: "Library not found" });
-    }
-
-    if (!library.slotTypes || library.slotTypes.length === 0) {
-      throw new Error("No slot types available for this library");
-    }
-
-    if (library.slotTypes.includes(slotTypeId)) {
-      throw new Error("Invalid slot type selected");
-    }
-
-    if (!library.slotTypes.some((st) => st.slotTimings.some((stt) => stt.id === slotTimingId))) {
-      throw new Error("Invalid slot timing selected");
-    }
-    
-
-    const booking = await prisma.trialBooking.create({
-      data: {
-        libraryId,
-        slotTimingId,
-        slotTypeId,
-        libraryName,
-        trialEndDate: new Date(
-          Date.now() +
-            (library!.trialDuration as number) * 24 * 60 * 60 * 1000,
-        ),
-        userId,
-        status: "ACTIVE",
-      },
-    });
-    return res.json({ message: "Trial booking created", booking });
-  } catch (error) {
-    res.status(500).json({ message: "Trial booking failed", error:error instanceof Error ? error.message : error });
-  }
-};
-
-export const getUserTrialBookingsController = async (
-  req: Request,
-  res: Response,
-) => {
-  try {
-    const { userId } = req.params as any;
-    console.log(userId);
-
-    const bookings = await prisma.trialBooking.findMany({
-      where: { userId: userId as string },
-      orderBy: { createdAt: "desc" },
-    });
-    console.log(bookings);
-    res.json({ bookings });
-  } catch (error) {
-    res.status(500).json({ message: "Failed to fetch trial bookings", error });
-  }
-};
-
-// fetch library trial bookings (library owner dashboard)
-export const getLibraryTrialBookingsController = async (
-  req: Request,
-  res: Response,
-) => {
-  try {
-    const { libraryId } = req.params as any;
-    const bookings = await prisma.trialBooking.findMany({
-      where: { libraryId: libraryId as string, status: "ACTIVE" },
-      orderBy: { createdAt: "desc" },
-    });
-    res.json({ bookings });
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to fetch library trial bookings", error });
-  }
-};
 
 // fetch user bookings (user dashboard)
 export const getUserBookingsController = async (
@@ -395,6 +299,61 @@ export const getBookingPreview = async (req: Request, res: Response) => {
     return res.status(500).json({
       success: false,
       message: "Internal server error",
+    });
+  }
+};
+
+
+
+
+export const getActiveBookingByUser = async (userId: string) => {
+  const activeBooking = await prisma.booking.findFirst({
+    where: {
+      userId: userId,
+      status: "SUCCESS",
+      startDate: {
+        lte: new Date(),
+      },
+      endDate: {
+        gte: new Date(),
+      },
+    },
+    include: {
+      library: true,
+      slotTiming: true,
+      slotType: true,
+      payment: true,
+    },
+  });
+
+  return activeBooking;
+};
+
+
+
+export const getUserActiveBooking = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+
+    const booking = await getActiveBookingByUser(userId);
+    console.log(booking)
+    if (!booking) {
+      return res.status(404).json({
+        success: false,
+        message: "No active booking found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: booking,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
     });
   }
 };
